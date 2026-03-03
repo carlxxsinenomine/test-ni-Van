@@ -1,17 +1,88 @@
-let flashcardsData = {};
+let flashcardsData = {
+  "identification": [
+    {"id": 1, "front": "What term refers to raw facts without context?", "back": "Data"},
+    {"id": 2, "front": "What term refers to processed data that reveals meaning?", "back": "Information"},
+    {"id": 3, "front": "What is data about data called?", "back": "Metadata"},
+    {"id": 4, "front": "What system manages database structure and controls access to data?", "back": "DBMS"},
+    {"id": 5, "front": "What term describes duplication of data?", "back": "Data redundancy"},
+    {"id": 6, "front": "What term describes lack of uniformity across data?", "back": "Data inconsistency"},
+    {"id": 7, "front": "What term describes difficulty accessing scattered data across files?", "back": "Data isolation"},
+    {"id": 8, "front": "What transaction property means \"all or nothing\"?", "back": "Atomicity"},
+    {"id": 9, "front": "What type of independence allows file structure changes without affecting data access?", "back": "Structural independence"},
+    {"id": 10, "front": "What type of database supports only one user at a time?", "back": "Single-user database"},
+    {"id": 11, "front": "What type of database distributes data across multiple sites?", "back": "Distributed database"},
+    {"id": 12, "front": "What database supports daily business operations?", "back": "Operational database"},
+    {"id": 13, "front": "What database is used for tactical or strategic decision-making?", "back": "Data warehouse"},
+    {"id": 14, "front": "What DBMS component stores metadata definitions?", "back": "Data dictionary"},
+    {"id": 15, "front": "What nonprocedural query language is the de facto standard for relational databases?", "back": "SQL"},
+    {"id": 16, "front": "What operational-level system captures production data?", "back": "TPS (Transaction Processing Systems)"},
+    {"id": 17, "front": "What tactical-level system summarizes operational data?", "back": "MIS (Management Information Systems)"},
+    {"id": 18, "front": "What strategic-level system supports non-routine decisions?", "back": "DSS"},
+    {"id": 19, "front": "What database design phase identifies entities and relationships?", "back": "Logical design"},
+    {"id": 20, "front": "What term refers to anything about which data is collected?", "back": "Entity"},
+    {"id": 21, "front": "What term describes how entities are associated?", "back": "Relationship"},
+    {"id": 22, "front": "What rule restricts allowable data values?", "back": "Constraint"},
+    {"id": 23, "front": "Which data model was proposed in 1970 by E. F. Codd?", "back": "Relational model"},
+    {"id": 24, "front": "Which conceptual model was introduced by Chen in 1976?", "back": "ER model"},
+    {"id": 25, "front": "What type of entity depends on another entity for existence?", "back": "Weak entity"},
+    {"id": 26, "front": "What key uniquely identifies each entity instance?", "back": "Primary key"},
+    {"id": 27, "front": "What key references a primary key in another table?", "back": "Foreign key"},
+    {"id": 28, "front": "What term defines the minimum and maximum number of related entity occurrences?", "back": "Cardinality"},
+    {"id": 29, "front": "What relationship occurs when an entity relates to itself?", "back": "Recursive relationship"},
+    {"id": 30, "front": "What entity type is used to implement M:N relationships?", "back": "Associative entity"}
+  ],
+  "multipleChoice": [
+    {"id": 1, "front": "Which file system component represents a logically connected set of fields forming a single complete entry?", "choices": ["A) Field", "B) Record", "C) File", "D) Column"], "answer": "B) Record"},
+    {"id": 2, "front": "Which file system component is defined as a group of characters with specific meaning?", "choices": ["A) Record", "B) File", "C) Field", "D) Schema"], "answer": "C) Field"},
+    {"id": 3, "front": "Which file system component is a collection of related records?", "choices": ["A) File", "B) Field", "C) Column", "D) Tuple"], "answer": "A) File"},
+    {"id": 4, "front": "Which dependency occurs when data access changes due to modifications in storage characteristics?", "choices": ["A) Structural dependence", "B) Data dependence", "C) Logical independence", "D) Physical independence"], "answer": "B) Data dependence"},
+    {"id": 5, "front": "Which database type runs on a personal computer and supports only one user?", "choices": ["A) Workgroup database", "B) Enterprise database", "C) Desktop database", "D) Centralized database"], "answer": "C) Desktop database"},
+    {"id": 6, "front": "Which database type supports multiple users simultaneously within an organization?", "choices": ["A) Multiuser database", "B) Desktop database", "C) Centralized database", "D) Semi-structured database"], "answer": "A) Multiuser database"},
+    {"id": 7, "front": "Which database location model stores data at a single site?", "choices": ["A) Enterprise database", "B) Workgroup database", "C) Centralized database", "D) Production database"], "answer": "C) Centralized database"},
+    {"id": 8, "front": "Which type of data exists in its original raw state (e.g., emails, videos)?", "choices": ["A) Structured data", "B) Semi-structured data", "C) Unstructured data", "D) Relational data"], "answer": "C) Unstructured data"},
+    {"id": 9, "front": "Which type of data includes formats such as XML or JSON?", "choices": ["A) Structured data", "B) Semi-structured data", "C) Transactional data", "D) Atomic data"], "answer": "B) Semi-structured data"},
+    {"id": 10, "front": "Which phase of database design focuses on understanding data needs and objectives?", "choices": ["A) Physical database design", "B) Information requirements phase", "C) Logical abstraction phase", "D) Implementation phase"], "answer": "B) Information requirements phase"},
+    {"id": 11, "front": "Which phase maps the logical design to actual storage devices?", "choices": ["A) Conceptual modeling", "B) Requirements analysis", "C) Physical database design", "D) Normalization phase"], "answer": "C) Physical database design"},
+    {"id": 12, "front": "Which data model uses an upside-down tree structure?", "choices": ["A) Network model", "B) Hierarchical model", "C) Object-oriented model", "D) Multidimensional model"], "answer": "B) Hierarchical model"},
+    {"id": 13, "front": "Which data model allows records to have multiple parents?", "choices": ["A) Network model", "B) Hierarchical model", "C) Multidimensional model", "D) Conceptual model"], "answer": "A) Network model"},
+    {"id": 14, "front": "Which model combines data and behavior into self-contained objects?", "choices": ["A) Multidimensional model", "B) Network model", "C) Object-oriented model", "D) Conceptual model"], "answer": "C) Object-oriented model"},
+    {"id": 15, "front": "Which modeling language is commonly used in object-oriented data modeling?", "choices": ["A) SQL", "B) XML", "C) UML", "D) ERD"], "answer": "C) UML"},
+    {"id": 16, "front": "Which data model is optimized for complex analytical queries in data warehouses?", "choices": ["A) Network model", "B) Multidimensional model", "C) Hierarchical model", "D) File model"], "answer": "B) Multidimensional model"},
+    {"id": 17, "front": "Which type of database is designed for large-scale, distributed environments?", "choices": ["A) Production database", "B) NoSQL database", "C) Centralized database", "D) Desktop database"], "answer": "B) NoSQL database"},
+    {"id": 18, "front": "Which term refers to a user-specific view of data defined by external schemas?", "choices": ["A) Conceptual view", "B) Physical view", "C) External model", "D) Internal model"], "answer": "C) External model"},
+    {"id": 19, "front": "Which abstraction level represents the global organization-wide view of data?", "choices": ["A) Internal model", "B) Physical model", "C) Conceptual model", "D) User model"], "answer": "C) Conceptual model"},
+    {"id": 20, "front": "Which abstraction level maps the conceptual design to DBMS structures?", "choices": ["A) Internal model", "B) External model", "C) Enterprise model", "D) Logical model"], "answer": "A) Internal model"},
+    {"id": 21, "front": "Which type of entity is independent and always has a unique identifier?", "choices": ["A) Weak type", "B) Strong type", "C) Associative type", "D) Composite type"], "answer": "B) Strong type"},
+    {"id": 22, "front": "Which attribute type must always have a value?", "choices": ["A) Optional attribute", "B) Derived attribute", "C) Required attribute", "D) Multivalued attribute"], "answer": "C) Required attribute"},
+    {"id": 23, "front": "Which attribute type may be left empty?", "choices": ["A) Composite attribute", "B) Optional attribute", "C) Simple attribute", "D) Identifier"], "answer": "B) Optional attribute"},
+    {"id": 24, "front": "Which attribute type can be subdivided into smaller components?", "choices": ["A) Simple attribute", "B) Derived attribute", "C) Composite attribute", "D) Multivalued attribute"], "answer": "C) Composite attribute"},
+    {"id": 25, "front": "Which attribute type cannot be subdivided?", "choices": ["A) Composite attribute", "B) Simple attribute", "C) Multivalued attribute", "D) Derived attribute"], "answer": "B) Simple attribute"},
+    {"id": 26, "front": "Which key is unique and minimal but not chosen as the primary key?", "choices": ["A) Composite key", "B) Candidate key", "C) Alternate key", "D) Foreign key"], "answer": "C) Alternate key"},
+    {"id": 27, "front": "Which key consists of more than one attribute?", "choices": ["A) Candidate key", "B) Composite key", "C) Identifier", "D) Alternate key"], "answer": "B) Composite key"},
+    {"id": 28, "front": "Which participation requires an entity occurrence to have a corresponding related entity?", "choices": ["A) Optional participation", "B) Partial participation", "C) Mandatory participation", "D) Unary participation"], "answer": "C) Mandatory participation"},
+    {"id": 29, "front": "Which relationship degree involves three entities?", "choices": ["A) Unary", "B) Binary", "C) Ternary", "D) Recursive"], "answer": "C) Ternary"},
+    {"id": 30, "front": "Which entity type acts as a bridge to connect entities in many-to-many relationships and may contain additional attributes?", "choices": ["A) Strong entity", "B) Composite entity", "C) Bridge entity", "D) Entity instance"], "answer": "C) Bridge entity"}
+  ],
+  "essay": [
+    {"id": 1, "front": "Explain how poor data management practices in traditional file-processing environments negatively affect organizational decision-making. In your answer, discuss the chain reaction from data storage issues to managerial consequences.", "back": "Key Points: Explanation of duplication and update problems leading to unreliable information; Loss of a 'single version of truth' and conflicting reports; Increased programming complexity and maintenance burden; Impact on reporting accuracy and business decisions"},
+    {"id": 2, "front": "Discuss how a well-designed data environment improves both operational efficiency and strategic effectiveness within an organization.", "back": "Key Points: Reduced duplication and improved consistency; Faster access to accurate information; Improved reporting quality; Long-term cost-effectiveness and scalability considerations"},
+    {"id": 3, "front": "Analyze how abstraction in database architecture supports both usability and system flexibility. Explain how separating user views from storage mechanisms benefits organizations.", "back": "Key Points: Concept of layered abstraction; Separation between user perspective and storage representation; Improved security and simplicity; Reduced impact of structural changes on applications"},
+    {"id": 4, "front": "Evaluate the role of business policies in shaping database structure. How do organizational rules influence the way data entities and associations are modeled?", "back": "Key Points: Policies define structure and constraints; Translation of organizational language into formal structure; Influence on participation rules and ownership; Importance for communication between technical and non-technical stakeholders"},
+    {"id": 5, "front": "Compare early data modeling approaches with more modern modeling philosophies in terms of flexibility, complexity, and real-world representation.", "back": "Key Points: Tree-like versus graph-based versus table-based thinking; Limitations of rigid structures; Increased flexibility over time; Abstraction improvements and user simplicity"},
+    {"id": 6, "front": "Explain why integrity enforcement is especially critical in transaction-heavy environments. Discuss the risks if enforcement mechanisms fail.", "back": "Key Points: Importance of consistency in high-volume updates; Risk of partial updates or interrupted processes; Preservation of trust in stored information; Long-term impact on operational reliability"},
+    {"id": 7, "front": "Discuss the importance of modeling skills in the database development lifecycle. Why is modeling considered foundational rather than optional?", "back": "Key Points: Modeling as the blueprint stage; Iterative and progressive refinement; Facilitates stakeholder communication; Prevents structural errors before implementation"},
+    {"id": 8, "front": "Examine how database systems support multi-user environments while maintaining system reliability and performance.", "back": "Key Points: Need for controlled concurrent access; Protection of shared resources; Performance considerations; Organizational productivity benefits"},
+    {"id": 9, "front": "Discuss how analytical data environments differ in purpose and structure from operational data environments. Focus on intent and workload characteristics rather than naming systems.", "back": "Key Points: Day-to-day processing vs. long-term analysis; Query complexity differences; Performance optimization goals; Decision-support implications"},
+    {"id": 10, "front": "Analyze how improper structural planning during system development can lead to long-term performance and maintenance problems.", "back": "Key Points: Poor structure leading to inefficiency; Increased maintenance complexity; Higher risk of errors; Impact on scalability and system slowdowns"}
+  ]
+};
+
 let currentSection = 'identification';
 let currentIndex = 0;
 let isFlipped = false;
 let shuffledCards = [];
 
-// Load JSON data
-fetch('flashcards.json')
-    .then(response => response.json())
-    .then(data => {
-        flashcardsData = data;
-        initializeApp();
-    })
-    .catch(error => console.error('Error loading flashcards:', error));
+document.addEventListener('DOMContentLoaded', initializeApp);
 
 function initializeApp() {
     setupEventListeners();
