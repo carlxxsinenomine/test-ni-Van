@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Flashcards</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Database Flashcards</h1>
+            <p class="subtitle">Master your database concepts</p>
+        </header>
+
+        <div class="nav-buttons">
+            <button class="nav-btn active" data-section="identification">Identification</button>
+            <button class="nav-btn" data-section="multipleChoice">Multiple Choice</button>
+            <button class="nav-btn" data-section="essay">Essay</button>
+        </div>
+
+        <div class="main-content">
+            <div class="card-container">
+                <div class="card" id="flashcard">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="card-content">
+                                <p id="front-text"></p>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-content">
+                                <p id="back-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="choices-container" id="choices-container"></div>
+            </div>
+
+            <div class="controls">
+                <button id="prev-btn" class="control-btn">← Previous</button>
+                <div class="progress">
+                    <span id="current-card">1</span> / <span id="total-cards">30</span>
+                </div>
+                <button id="next-btn" class="control-btn">Next →</button>
+            </div>
+
+            <div class="bottom-controls">
+                <button id="shuffle-btn" class="control-btn secondary">🔀 Shuffle</button>
+                <button id="reset-btn" class="control-btn secondary">↻ Reset</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>Click the card to reveal the answer</p>
+        </footer>
+    </div>
+
+    <script src="flashcards.json"></script>
+    <script src="script.js"></script>
+</body>
+</html>
