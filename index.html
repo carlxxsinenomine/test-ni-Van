@@ -9,7 +9,25 @@
 <body>
     <div class="container">
         <header>
-            <h1>Database Flashcards</h1>
+            <div class="header-top">
+                <h1>Database Flashcards</h1>
+                <button id="theme-toggle" class="theme-toggle" title="Toggle dark mode">
+                    <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
             <p class="subtitle">Master your database concepts</p>
         </header>
 
@@ -17,6 +35,21 @@
             <button class="nav-btn active" data-section="identification">Identification</button>
             <button class="nav-btn" data-section="multipleChoice">Multiple Choice</button>
             <button class="nav-btn" data-section="essay">Essay</button>
+        </div>
+
+        <div class="score-display">
+            <div class="score-item">
+                <span class="score-label">Correct:</span>
+                <span id="correct-count" class="score-value">0</span>
+            </div>
+            <div class="score-item">
+                <span class="score-label">Total:</span>
+                <span id="total-count" class="score-value">0</span>
+            </div>
+            <div class="score-item">
+                <span class="score-label">Score:</span>
+                <span id="score-percentage" class="score-value">0%</span>
+            </div>
         </div>
 
         <div class="main-content">
@@ -37,24 +70,49 @@
                 </div>
 
                 <div class="choices-container" id="choices-container"></div>
+                <div class="feedback-container" id="feedback-container"></div>
             </div>
 
             <div class="controls">
-                <button id="prev-btn" class="control-btn">← Previous</button>
+                <button id="prev-btn" class="control-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    Previous
+                </button>
                 <div class="progress">
                     <span id="current-card">1</span> / <span id="total-cards">30</span>
                 </div>
-                <button id="next-btn" class="control-btn">Next →</button>
+                <button id="next-btn" class="control-btn">
+                    Next
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
             </div>
 
             <div class="bottom-controls">
-                <button id="shuffle-btn" class="control-btn secondary">🔀 Shuffle</button>
-                <button id="reset-btn" class="control-btn secondary">↻ Reset</button>
+                <button id="shuffle-btn" class="control-btn secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="23 17 23 23 17 23"></polyline>
+                        <polyline points="1 7 1 1 7 1"></polyline>
+                        <path d="M3.51 6.63A9 9 0 0 0 21.59 5M3 16.87a9 9 0 0 0 15.93-5.51"></path>
+                    </svg>
+                    Shuffle
+                </button>
+                <button id="reset-btn" class="control-btn secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 4v6h6M23 20v-6h-6"></path>
+                        <path d="M20.49 9A9 9 0 5 0 5.64 20.49A9 9 0 0 0 20.49 9z"></path>
+                    </svg>
+                    Reset
+                </button>
             </div>
         </div>
 
         <footer>
-            <p>Click the card to reveal the answer</p>
+            <p id="footer-text">Click the card to reveal the answer</p>
+            <p id="footer-hint" class="footer-hint" style="display:none;">Did you get it right?</p>
         </footer>
     </div>
 

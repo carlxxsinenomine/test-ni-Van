@@ -81,6 +81,13 @@ let currentSection = 'identification';
 let currentIndex = 0;
 let isFlipped = false;
 let shuffledCards = [];
+let scores = {
+    identification: { correct: 0, total: 0 },
+    multipleChoice: { correct: 0, total: 0 },
+    essay: { correct: 0, total: 0 }
+};
+let answered = {};
+let identificationAnswered = {};
 
 document.addEventListener('DOMContentLoaded', initializeApp);
 
@@ -90,6 +97,9 @@ function initializeApp() {
 }
 
 function setupEventListeners() {
+    // Theme toggle
+    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
     // Section navigation
     document.querySelectorAll('.nav-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -119,6 +129,9 @@ function setupEventListeners() {
             flipCard();
         }
     });
+
+    // Load theme preference
+    loadThemePreference();
 }
 
 function loadSection(section) {
@@ -126,12 +139,19 @@ function loadSection(section) {
     currentIndex = 0;
     isFlipped = false;
     shuffledCards = [...flashcardsData[section]];
+    answered = {};
+    identificationAnswered = {};
+    scores[section].correct = 0;
+    scores[section].total = shuffledCards.length;
+    document.getElementById('footer-text').textContent = 'Click the card to reveal the answer';
+    document.getElementById('footer-hint').style.display = 'none';
     updateCard();
 }
 
 function updateCard() {
     const card = shuffledCards[currentIndex];
     const isMC = currentSection === 'multipleChoice';
+    const isID = currentSection === 'identification';
 
     // Update card content
     document.getElementById('front-text').textContent = card.front;
@@ -149,30 +169,136 @@ function updateCard() {
     document.getElementById('prev-btn').disabled = currentIndex === 0;
     document.getElementById('next-btn').disabled = currentIndex === shuffledCards.length - 1;
 
-    // Default choices container display
+    // Update score display
+    updateScoreDisplay();
+
+    // Clear containers
     document.getElementById('choices-container').innerHTML = '';
+    document.getElementById('feedback-container').innerHTML = '';
+    document.getElementById('footer-hint').style.display = 'none';
 
     // Show choices for multiple choice
     if (isMC) {
         displayChoices(card);
+    }
+    
+    // Show feedback hint for identification if flipped
+    if (isID && isFlipped && identificationAnswered[card.id] === undefined) {
+        showIdentificationFeedback(card);
     }
 }
 
 function displayChoices(card) {
     const container = document.getElementById('choices-container');
     container.innerHTML = '';
+    const cardId = card.id;
 
     card.choices.forEach((choice, idx) => {
         const btn = document.createElement('button');
         btn.className = 'choice-btn';
         btn.textContent = choice;
-        btn.addEventListener('click', () => {
-            // Remove all selections
-            document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
-            // Add selection to clicked button
-            btn.classList.add('selected');
-        });
+        
+        // Check if this card has been answered
+        const isAnswered = answered[cardId] !== undefined;
+        
+        if (isAnswered) {
+            // Show result for answered questions
+            const isCorrect = answered[cardId];
+            if (isCorrect) {
+                btn.classList.add('correct');
+            } else if (choice === card.answer) {
+                // Show correct answer even if user was wrong
+                btn.classList.add('correct');
+            } else if (choice.startsWith(answered[cardId])) {
+                // Highlight the user's wrong answer
+                btn.classList.add('incorrect');
+            }
+            btn.disabled = true;
+        } else {
+            // Allow clicking if not answered yet
+            btn.addEventListener('click', () => {
+                const isCorrect = choice === card.answer;
+                
+                // Mark as answered
+                answered[cardId] = isCorrect ? true : choice.charAt(0);
+                
+                // Update score
+                if (isCorrect) {
+                    scores[currentSection].correct++;
+                }
+                
+                // Update all buttons to show result
+                document.querySelectorAll('.choice-btn').forEach(b => {
+                    b.disabled = true;
+                    b.classList.remove('selected');
+                    
+                    if (isCorrect && b === btn) {
+                        b.classList.add('correct');
+                    } else if (!isCorrect && b === btn) {
+                        b.classList.add('incorrect');
+                    } else if (b.textContent === card.answer) {
+                        b.classList.add('correct');
+                    }
+                });
+                
+                // Update score display
+                updateScoreDisplay();
+                
+                // Update footer text
+                document.getElementById('footer-text').textContent = 
+                    isCorrect ? '✓ Correct!' : '✗ Incorrect. The correct answer is ' + card.answer;
+            });
+        }
+        
         container.appendChild(btn);
+    });
+}
+
+function updateScoreDisplay() {
+    const score = scores[currentSection];
+    document.getElementById('correct-count').textContent = score.correct;
+    document.getElementById('total-count').textContent = score.total;
+    const percentage = score.total > 0 ? Math.round((score.correct / score.total) * 100) : 0;
+    document.getElementById('score-percentage').textContent = percentage + '%';
+}
+
+function showIdentificationFeedback(card) {
+    const container = document.getElementById('feedback-container');
+    const hint = document.getElementById('footer-hint');
+    
+    container.innerHTML = '';
+    hint.style.display = currentSection === 'identification' && isFlipped ? 'block' : 'none';
+    
+    const yesBtn = document.createElement('button');
+    yesBtn.className = 'feedback-btn correct-btn';
+    yesBtn.textContent = '✓ Yes, I got it right';
+    yesBtn.addEventListener('click', () => {
+        identificationAnswered[card.id] = true;
+        scores[currentSection].correct++;
+        updateScoreDisplay();
+        disableFeedbackButtons();
+        hint.textContent = '✓ Great job! Moving on...';
+    });
+    
+    const noBtn = document.createElement('button');
+    noBtn.className = 'feedback-btn incorrect-btn';
+    noBtn.textContent = '✗ No, I got it wrong';
+    noBtn.addEventListener('click', () => {
+        identificationAnswered[card.id] = false;
+        updateScoreDisplay();
+        disableFeedbackButtons();
+        hint.textContent = '✗ Keep practicing!';
+    });
+    
+    container.appendChild(yesBtn);
+    container.appendChild(noBtn);
+}
+
+function disableFeedbackButtons() {
+    document.querySelectorAll('.feedback-btn').forEach(btn => {
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+        btn.style.cursor = 'not-allowed';
     });
 }
 
@@ -180,6 +306,17 @@ function flipCard() {
     const card = document.getElementById('flashcard');
     card.classList.toggle('flipped');
     isFlipped = !isFlipped;
+    
+    // Show feedback for identification cards when flipped to back
+    if (currentSection === 'identification') {
+        const currentCard = shuffledCards[currentIndex];
+        if (isFlipped && identificationAnswered[currentCard.id] === undefined) {
+            showIdentificationFeedback(currentCard);
+        } else {
+            document.getElementById('feedback-container').innerHTML = '';
+            document.getElementById('footer-hint').style.display = 'none';
+        }
+    }
 }
 
 function previousCard() {
@@ -208,6 +345,31 @@ function shuffleCards() {
 function resetCards() {
     currentIndex = 0;
     isFlipped = false;
+    answered = {};
+    identificationAnswered = {};
+    scores[currentSection].correct = 0;
+    scores[currentSection].total = shuffledCards.length;
+    document.getElementById('footer-text').textContent = 'Click the card to reveal the answer';
+    document.getElementById('footer-hint').style.display = 'none';
+    document.getElementById('feedback-container').innerHTML = '';
     shuffledCards = [...flashcardsData[currentSection]];
     updateCard();
+}
+
+function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
+    
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme-preference', newTheme);
+}
+
+function loadThemePreference() {
+    const html = document.documentElement;
+    const preference = localStorage.getItem('theme-preference');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    const theme = preference || (systemDark ? 'dark' : 'light');
+    html.setAttribute('data-theme', theme);
 }
