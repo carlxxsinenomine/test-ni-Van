@@ -410,26 +410,86 @@ function saveStats() {
 
 function getCardStats(section, cardId) {
     cardStats[section] = cardStats[section] || {};
-    cardStats[section][cardId] = cardStats[section][cardId] || { correct: 0, wrong: 0 };
+    cardStats[section][cardId] = cardStats[section][cardId] || {
+        correct: 0,
+        wrong: 0,
+        streak: 0  // consecutive correct answers in a row
+    };
     return cardStats[section][cardId];
 }
 
 function updateCardStats(section, cardId, isCorrect) {
     const stats = getCardStats(section, cardId);
-    if (isCorrect) stats.correct += 1;
-    else stats.wrong += 1;
+    if (isCorrect) {
+        stats.correct += 1;
+        stats.streak  = (stats.streak || 0) + 1;  // build streak
+    } else {
+        stats.wrong  += 1;
+        stats.streak  = 0;                         // any wrong resets streak
+    }
     saveStats();
 }
 
+/*
+ * Improved spaced-repetition weight algorithm
+ * ─────────────────────────────────────────────
+ * Weight determines how likely a card is to be picked next.
+ * Higher weight  →  appears more often.
+ * Lower weight   →  appears less often.
+ *
+ * Rules:
+ *  1. Unseen cards  →  neutral weight (1.0).
+ *  2. Each wrong answer adds +2.0 to weight (strong boost).
+ *  3. Accuracy (correct / total) progressively lowers weight.
+ *  4. Streak multiplier dominates once the user is on a roll:
+ *       streak 0  →  ×1.0   (just got it wrong — full weight)
+ *       streak 1  →  ×0.55  (got it once — slight relief)
+ *       streak 2  →  ×0.25  (getting it — moderate cool-down)
+ *       streak 3  →  ×0.08  (comfortable — strong cool-down)
+ *       streak 4+ →  ×0.03  (mastered — nearly invisible)
+ *  5. Current card is excluded (weight = 0) to prevent repeats.
+ *  6. Floor of 0.05 keeps every card reachable.
+ */
 function getWeightedRandomCardIndex() {
-    const weights = shuffledCards.map(card => {
-        const stats = getCardStats(currentSection, card.id);
-        const correct = stats.correct || 0;
-        const wrong   = stats.wrong   || 0;
-        return Math.max(0.2, 1 + wrong - (correct * 0.5));
+    const weights = shuffledCards.map((card, idx) => {
+        // Never pick the card that was just shown
+        if (idx === currentIndex) return 0;
+
+        const stats    = getCardStats(currentSection, card.id);
+        const correct  = stats.correct || 0;
+        const wrong    = stats.wrong   || 0;
+        const streak   = stats.streak  || 0;
+        const total    = correct + wrong;
+
+        // Card has never been seen — neutral
+        if (total === 0) return 1.0;
+
+        const accuracy = correct / total;
+
+        // Base: start at 1, each wrong answer inflates weight
+        let weight = 1.0 + (wrong * 2.0);
+
+        // Accuracy drag: pulls weight down as ratio improves
+        weight *= (1 - accuracy * 0.65);
+
+        // Streak multiplier — the longer the correct run, the less we show it
+        const streakMultiplier =
+            streak >= 4 ? 0.03 :
+            streak === 3 ? 0.08 :
+            streak === 2 ? 0.25 :
+            streak === 1 ? 0.55 :
+            1.0; // streak 0 = last answer was wrong
+
+        weight *= streakMultiplier;
+
+        return Math.max(0.05, weight);
     });
 
     const totalWeight = weights.reduce((sum, w) => sum + w, 0);
+
+    // Edge case: all weights are 0 (single-card deck) — pick any
+    if (totalWeight === 0) return Math.floor(Math.random() * shuffledCards.length);
+
     const random = Math.random() * totalWeight;
     let cumulative = 0;
     for (let i = 0; i < weights.length; i++) {
