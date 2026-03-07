@@ -1,0 +1,336 @@
+{
+  "identification": [
+    {
+      "id": 1,
+      "question": "What does ERD stand for and what does it represent?",
+      "answer": "Entity-Relationship Diagram; it represents a conceptual database"
+    },
+    {
+      "id": 2,
+      "question": "What is a collection of entities that share common properties or characteristics called?",
+      "answer": "Entity type"
+    },
+    {
+      "id": 3,
+      "question": "What term refers to the actual population of data instances at a specific moment?",
+      "answer": "Entity set"
+    },
+    {
+      "id": 4,
+      "question": "What is a single occurrence of an entity type called?",
+      "answer": "Entity instance"
+    },
+    {
+      "id": 5,
+      "question": "What type of entity is existent-independent and always has a unique identifier?",
+      "answer": "Strong entity type"
+    },
+    {
+      "id": 6,
+      "question": "What type of entity is existent-dependent and cannot exist without a relationship with another entity?",
+      "answer": "Weak entity type"
+    },
+    {
+      "id": 7,
+      "question": "What is the entity type that a weak entity depends on called?",
+      "answer": "Identifying owner"
+    },
+    {
+      "id": 8,
+      "question": "What term refers to the set of possible values an attribute can hold?",
+      "answer": "Attribute domain"
+    },
+    {
+      "id": 9,
+      "question": "What type of attribute uniquely identifies each entity instance?",
+      "answer": "Identifier (Primary Key)"
+    },
+    {
+      "id": 10,
+      "question": "What type of identifier is a primary key composed of more than one attribute?",
+      "answer": "Composite identifier"
+    },
+    {
+      "id": 11,
+      "question": "What type of attribute can be subdivided into smaller components?",
+      "answer": "Composite attribute"
+    },
+    {
+      "id": 12,
+      "question": "What type of attribute cannot be subdivided?",
+      "answer": "Simple attribute"
+    },
+    {
+      "id": 13,
+      "question": "What type of attribute can hold more than one value for a single entity instance?",
+      "answer": "Multivalued attribute"
+    },
+    {
+      "id": 14,
+      "question": "What type of attribute has its value computed from other attributes?",
+      "answer": "Derived attribute"
+    },
+    {
+      "id": 15,
+      "question": "What normal form is violated when multivalued attributes or M:N relationships are implemented directly in a relational table?",
+      "answer": "First Normal Form (1NF)"
+    },
+    {
+      "id": 16,
+      "question": "What type of key is a simple or composite key that is unique and minimal?",
+      "answer": "Candidate key"
+    },
+    {
+      "id": 17,
+      "question": "What type of key consists of all candidate keys not chosen as the primary key?",
+      "answer": "Alternate key"
+    },
+    {
+      "id": 18,
+      "question": "What type of key references the primary key in another table and can be null?",
+      "answer": "Foreign key"
+    },
+    {
+      "id": 19,
+      "question": "What term describes the minimum and maximum number of entity occurrences associated with one occurrence of a related entity?",
+      "answer": "Cardinality"
+    },
+    {
+      "id": 20,
+      "question": "What term describes the relationship classification (1:1, 1:M, M:N)?",
+      "answer": "Connectivity"
+    },
+    {
+      "id": 21,
+      "question": "What type of participation requires that one entity occurrence must have a corresponding entity occurrence?",
+      "answer": "Mandatory participation"
+    },
+    {
+      "id": 22,
+      "question": "What type of participation allows an entity occurrence to exist without a corresponding entity occurrence?",
+      "answer": "Optional participation"
+    },
+    {
+      "id": 23,
+      "question": "What relationship degree involves only one entity associated with itself?",
+      "answer": "Unary relationship"
+    },
+    {
+      "id": 24,
+      "question": "What relationship degree involves two entities being associated?",
+      "answer": "Binary relationship"
+    },
+    {
+      "id": 25,
+      "question": "What relationship degree involves three entities being associated?",
+      "answer": "Ternary relationship"
+    },
+    {
+      "id": 26,
+      "question": "What type of relationship occurs when an entity has a relationship with itself?",
+      "answer": "Recursive relationship"
+    },
+    {
+      "id": 27,
+      "question": "What type of entity is used to implement M:N relationships and is also known as a bridge entity?",
+      "answer": "Associative entity"
+    },
+    {
+      "id": 28,
+      "question": "In Chen notation, how is an attribute represented?",
+      "answer": "An oval connected to a rectangle (entity)"
+    },
+    {
+      "id": 29,
+      "question": "What must be true about the data types of a foreign key and the primary key it references?",
+      "answer": "They must be of the same data type"
+    },
+    {
+      "id": 30,
+      "question": "What is the first step in developing an ER diagram?",
+      "answer": "Create a detailed narrative of the organization's description of operations"
+    }
+  ],
+  "multipleChoice": [
+    {
+      "id": 1,
+      "question": "Which of the following correctly describes an entity type in a relational environment?",
+      "choices": ["A) A single row in a table", "B) A single entity occurrence", "C) A table, not a single row", "D) A foreign key reference"],
+      "answer": "C) A table, not a single row"
+    },
+    {
+      "id": 2,
+      "question": "Which of the following is true about a strong entity type?",
+      "choices": ["A) It depends on another entity for its existence", "B) Its primary key is derived from a parent entity", "C) It is existent-independent and always has a unique identifier", "D) It cannot exist without a foreign key"],
+      "answer": "C) It is existent-independent and always has a unique identifier"
+    },
+    {
+      "id": 3,
+      "question": "Which of the following is an example of a weak entity?",
+      "choices": ["A) EMPLOYEE", "B) PRODUCT", "C) ORDER_ITEM", "D) CUSTOMER"],
+      "answer": "C) ORDER_ITEM"
+    },
+    {
+      "id": 4,
+      "question": "What does the identifying owner of a weak entity provide?",
+      "choices": ["A) The foreign key for the weak entity", "B) The primary key from which the weak entity's key is derived", "C) The optional participation rule", "D) The domain of the weak entity's attributes"],
+      "answer": "B) The primary key from which the weak entity's key is derived"
+    },
+    {
+      "id": 5,
+      "question": "Which attribute type must always contain a value?",
+      "choices": ["A) Optional attribute", "B) Derived attribute", "C) Required attribute", "D) Multivalued attribute"],
+      "answer": "C) Required attribute"
+    },
+    {
+      "id": 6,
+      "question": "Which of the following is an example of a composite attribute?",
+      "choices": ["A) AGE", "B) SEX", "C) ADDRESS (Street, City, Zip Code)", "D) SERIAL_NUMBER"],
+      "answer": "C) ADDRESS (Street, City, Zip Code)"
+    },
+    {
+      "id": 7,
+      "question": "Which of the following is an example of a simple attribute?",
+      "choices": ["A) ADDRESS", "B) FULL_NAME (First, Last)", "C) DEGREE", "D) MARITAL_STATUS"],
+      "answer": "D) MARITAL_STATUS"
+    },
+    {
+      "id": 8,
+      "question": "Which of the following is an example of a single-valued attribute?",
+      "choices": ["A) DEGREE", "B) PHONE_NUMBER (multiple)", "C) SERIAL_NUMBER", "D) ADDRESS"],
+      "answer": "C) SERIAL_NUMBER"
+    },
+    {
+      "id": 9,
+      "question": "Why should multivalued attributes NOT be implemented directly in relational tables?",
+      "choices": ["A) They increase the number of foreign keys", "B) Relational tables require atomic attributes and M:N relationships violate 1NF", "C) They conflict with the candidate key", "D) They prevent the use of derived attributes"],
+      "answer": "B) Relational tables require atomic attributes and M:N relationships violate 1NF"
+    },
+    {
+      "id": 10,
+      "question": "When handling a multivalued attribute in relational design, what happens to the original entity's primary key?",
+      "choices": ["A) It becomes a candidate key in the new table", "B) It is deleted and replaced", "C) It becomes a foreign key in the new table", "D) It becomes an alternate key"],
+      "answer": "C) It becomes a foreign key in the new table"
+    },
+    {
+      "id": 11,
+      "question": "Which of the following best describes a derived attribute?",
+      "choices": ["A) An attribute that must always have a value", "B) An attribute whose value is computed from other attributes", "C) An attribute that can hold multiple values", "D) An attribute that cannot be subdivided"],
+      "answer": "B) An attribute whose value is computed from other attributes"
+    },
+    {
+      "id": 12,
+      "question": "Which key type includes ALL candidate keys that were NOT selected as the primary key?",
+      "choices": ["A) Foreign key", "B) Composite key", "C) Alternate key", "D) Surrogate key"],
+      "answer": "C) Alternate key"
+    },
+    {
+      "id": 13,
+      "question": "Which statement about foreign keys and primary keys is correct?",
+      "choices": ["A) Foreign keys and primary keys must have different data types", "B) A foreign key can never be null", "C) Foreign keys and primary keys must be of the same data type", "D) A foreign key must always be unique"],
+      "answer": "C) Foreign keys and primary keys must be of the same data type"
+    },
+    {
+      "id": 14,
+      "question": "What is the purpose of a foreign key in a relational table?",
+      "choices": ["A) To uniquely identify each record in its own table", "B) To reference the primary key of another table and preserve referential integrity", "C) To serve as an alternate identifier when no primary key exists", "D) To store derived attribute values"],
+      "answer": "B) To reference the primary key of another table and preserve referential integrity"
+    },
+    {
+      "id": 15,
+      "question": "What does cardinality express in a relationship?",
+      "choices": ["A) The type of entity involved in a relationship", "B) The minimum and maximum number of entity occurrences associated with one occurrence of a related entity", "C) Whether participation is optional or mandatory", "D) The number of attributes in an entity"],
+      "answer": "B) The minimum and maximum number of entity occurrences associated with one occurrence of a related entity"
+    },
+    {
+      "id": 16,
+      "question": "Which Crow's Foot symbol represents a cardinality of (0,N)?",
+      "choices": ["A) One and only one", "B) Zero or one", "C) Zero or many", "D) One or many"],
+      "answer": "C) Zero or many"
+    },
+    {
+      "id": 17,
+      "question": "Which Crow's Foot symbol represents a cardinality of (1,N)?",
+      "choices": ["A) Zero or many", "B) One or many", "C) Zero or one", "D) One and only one"],
+      "answer": "B) One or many"
+    },
+    {
+      "id": 18,
+      "question": "Which Crow's Foot symbol represents a cardinality of (1,1)?",
+      "choices": ["A) Zero or many", "B) One or many", "C) One and only one", "D) Zero or one"],
+      "answer": "C) One and only one"
+    },
+    {
+      "id": 19,
+      "question": "Which type of participation means an entity occurrence does NOT require a corresponding entity occurrence?",
+      "choices": ["A) Mandatory participation", "B) Optional participation", "C) Recursive participation", "D) Associative participation"],
+      "answer": "B) Optional participation"
+    },
+    {
+      "id": 20,
+      "question": "Which relationship degree involves an association maintained within a single entity?",
+      "choices": ["A) Binary", "B) Ternary", "C) Unary", "D) Recursive"],
+      "answer": "C) Unary"
+    },
+    {
+      "id": 21,
+      "question": "Which of the following is an example of a ternary relationship?",
+      "choices": ["A) EMPLOYEE manages EMPLOYEE", "B) STUDENT enrolls in CLASS", "C) VENDOR supplies PART to WAREHOUSE", "D) EMPLOYEE is assigned to PARKING SPACE"],
+      "answer": "C) VENDOR supplies PART to WAREHOUSE"
+    },
+    {
+      "id": 22,
+      "question": "What does a recursive relationship describe?",
+      "choices": ["A) A relationship between three entities", "B) A relationship between two different entity types", "C) A relationship where an entity is associated with itself", "D) A mandatory participation relationship"],
+      "answer": "C) A relationship where an entity is associated with itself"
+    },
+    {
+      "id": 23,
+      "question": "What is the primary purpose of an associative entity?",
+      "choices": ["A) To represent a weak entity that depends on a strong entity", "B) To implement M:N relationships between entities", "C) To store derived attribute values", "D) To replace the primary key of an entity"],
+      "answer": "B) To implement M:N relationships between entities"
+    },
+    {
+      "id": 24,
+      "question": "What does an associative entity contain as its base components?",
+      "choices": ["A) Derived attributes from related entities", "B) Alternate keys from each connected entity", "C) Primary keys of each entity it connects", "D) Foreign keys that reference only one entity"],
+      "answer": "C) Primary keys of each entity it connects"
+    },
+    {
+      "id": 25,
+      "question": "Which of the following correctly describes the relationship between entity type and entity set?",
+      "choices": ["A) Entity type is the actual data; entity set is the schema", "B) Entity type is the definition/schema; entity set is the actual collection of data instances", "C) Entity type and entity set are the same concept", "D) Entity set refers to a single occurrence; entity type refers to multiple occurrences"],
+      "answer": "B) Entity type is the definition/schema; entity set is the actual collection of data instances"
+    },
+    {
+      "id": 26,
+      "question": "In Crow's Foot notation, how are attributes represented?",
+      "choices": ["A) As ovals connected to rectangles", "B) As diamonds between entities", "C) Written in an attribute box below the entity rectangle", "D) As dashed lines between entities"],
+      "answer": "C) Written in an attribute box below the entity rectangle"
+    },
+    {
+      "id": 27,
+      "question": "Which of the following is a correct example of handling a STUDENT entity with a multivalued DEGREE attribute in relational design?",
+      "choices": ["A) STUDENT (StudentID, Name, Degree1, Degree2)", "B) STUDENT (StudentID, Name) and STUDENT_DEGREE (StudentID, Degree)", "C) DEGREE (DegreeID, StudentID) with no STUDENT table", "D) STUDENT (StudentID, Name, Degree) with a composite key"],
+      "answer": "B) STUDENT (StudentID, Name) and STUDENT_DEGREE (StudentID, Degree)"
+    },
+    {
+      "id": 28,
+      "question": "Which of the following is the correct order of steps when developing an ER diagram?",
+      "choices": ["A) Develop ERD → Identify entities → Write business rules → Revise ERD", "B) Identify attributes → Write narrative → Develop ERD → Identify entities", "C) Write narrative → Identify business rules → Identify entities → Develop ERD → Identify attributes → Revise ERD", "D) Identify primary keys → Develop ERD → Write narrative → Identify relationships"],
+      "answer": "C) Write narrative → Identify business rules → Identify entities → Develop ERD → Identify attributes → Revise ERD"
+    },
+    {
+      "id": 29,
+      "question": "Which of the following best describes a candidate key?",
+      "choices": ["A) A key that references another table's primary key", "B) A key composed of more than one attribute", "C) A simple or composite key that is unique and minimal", "D) A key that stores computed values"],
+      "answer": "C) A simple or composite key that is unique and minimal"
+    },
+    {
+      "id": 30,
+      "question": "Why is a derived attribute generally not physically stored in the database?",
+      "choices": ["A) It violates the First Normal Form", "B) It can be calculated from other attributes, avoiding redundancy and update anomalies", "C) It conflicts with the primary key", "D) It is always a multivalued attribute"],
+      "answer": "B) It can be calculated from other attributes, avoiding redundancy and update anomalies"
+    }
+  ]
+}

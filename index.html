@@ -10,7 +10,7 @@
     <div class="container">
         <header>
             <div class="header-top">
-                <h1>Database Flashcards</h1>
+                <div><h1>Database Flashcards</h1><span id="lecture-badge" class="lecture-badge">No lecture loaded</span></div>
                 <button id="theme-toggle" class="theme-toggle" title="Toggle dark mode">
                     <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -31,10 +31,18 @@
             <p class="subtitle">Master your database concepts</p>
         </header>
 
-        <div class="nav-buttons">
-            <button class="nav-btn active" data-section="identification">Identification</button>
-            <button class="nav-btn" data-section="multipleChoice">Multiple Choice</button>
-            <button class="nav-btn" data-section="essay">Essay</button>
+        <div class="top-bar">
+            <div class="nav-buttons">
+                <button class="nav-btn active" data-section="identification">Identification</button>
+                <button class="nav-btn" data-section="multipleChoice">Multiple Choice</button>
+            </div>
+            <button id="change-lecture-btn" class="change-lecture-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+                Change Lecture
+            </button>
         </div>
 
         <div class="score-display">
@@ -111,6 +119,32 @@
             <p id="footer-text">Click the card to reveal the answer</p>
             <p id="footer-hint" class="footer-hint" style="display:none;">Did you get it right?</p>
         </footer>
+    </div>
+
+    <!-- Lecture Selector Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <h2 class="modal-title">Choose a Lecture</h2>
+            <p class="modal-subtitle" id="modal-subtitle">Select which lecture to load</p>
+            <div class="lecture-options">
+                <button class="lecture-btn" data-file="lecture1.json">
+                    <span class="lecture-num">01</span>
+                    <span class="lecture-label">Lecture 1</span>
+                    <span class="lecture-desc">Databases &amp; File Systems</span>
+                </button>
+                <button class="lecture-btn" data-file="lecture2.json">
+                    <span class="lecture-num">02</span>
+                    <span class="lecture-label">Lecture 2</span>
+                    <span class="lecture-desc">Data Modeling &amp; Data Models</span>
+                </button>
+                <button class="lecture-btn" data-file="lecture3.json">
+                    <span class="lecture-num">03</span>
+                    <span class="lecture-label">Lecture 3</span>
+                    <span class="lecture-desc">ER Model &amp; Attributes</span>
+                </button>
+            </div>
+            <button class="modal-cancel" id="modal-cancel">Cancel</button>
+        </div>
     </div>
 
     <script src="script.js"></script>

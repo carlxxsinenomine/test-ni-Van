@@ -1,0 +1,336 @@
+{
+  "identification": [
+    {
+      "id": 1,
+      "question": "What is the first step in designing a database?",
+      "answer": "Data modeling"
+    },
+    {
+      "id": 2,
+      "question": "What term describes a relatively simple representation of complex real-world data structures?",
+      "answer": "Data model"
+    },
+    {
+      "id": 3,
+      "question": "What term describes data modeling as being refined continuously over time?",
+      "answer": "Iterative and progressive"
+    },
+    {
+      "id": 4,
+      "question": "What is anything about which data is collected and stored called?",
+      "answer": "Entity"
+    },
+    {
+      "id": 5,
+      "question": "What term refers to a characteristic or property of an entity?",
+      "answer": "Attribute"
+    },
+    {
+      "id": 6,
+      "question": "What term describes how two or more entities are associated?",
+      "answer": "Relationship"
+    },
+    {
+      "id": 7,
+      "question": "What term refers to a rule that restricts allowable data values?",
+      "answer": "Constraint"
+    },
+    {
+      "id": 8,
+      "question": "What is a clear, precise statement describing a policy or constraint within an organization called?",
+      "answer": "Business rule"
+    },
+    {
+      "id": 9,
+      "question": "In translating business rules, nouns correspond to what data model component?",
+      "answer": "Entities"
+    },
+    {
+      "id": 10,
+      "question": "In translating business rules, verbs correspond to what data model component?",
+      "answer": "Relationships"
+    },
+    {
+      "id": 11,
+      "question": "What data model developed in the 1960s uses an upside-down tree structure?",
+      "answer": "Hierarchical model"
+    },
+    {
+      "id": 12,
+      "question": "What data model allows records to have multiple parents?",
+      "answer": "Network model"
+    },
+    {
+      "id": 13,
+      "question": "Who proposed the relational model and in what year?",
+      "answer": "E. F. Codd, 1970"
+    },
+    {
+      "id": 14,
+      "question": "What are rows called in a relational table?",
+      "answer": "Tuples"
+    },
+    {
+      "id": 15,
+      "question": "What standard was introduced by Chen in 1976 for conceptual data modeling?",
+      "answer": "Entity-Relationship (ER) model"
+    },
+    {
+      "id": 16,
+      "question": "What notation uses diamonds to represent relationships in an ER diagram?",
+      "answer": "Chen notation"
+    },
+    {
+      "id": 17,
+      "question": "What notation is commonly used to represent cardinality and participation in ER diagrams?",
+      "answer": "Crow's Foot notation"
+    },
+    {
+      "id": 18,
+      "question": "What data model combines data and behavior into self-contained objects?",
+      "answer": "Object-Oriented (OO) data model"
+    },
+    {
+      "id": 19,
+      "question": "What language is used for modeling in the object-oriented data model?",
+      "answer": "UML (Unified Modeling Language)"
+    },
+    {
+      "id": 20,
+      "question": "What OO concept allows an object to inherit methods and attributes from a parent class?",
+      "answer": "Inheritance"
+    },
+    {
+      "id": 21,
+      "question": "What data model is used as the foundation of OLAP systems in data warehouses?",
+      "answer": "Multidimensional data model"
+    },
+    {
+      "id": 22,
+      "question": "What type of database technology is designed for large-scale, distributed environments and handles both structured and unstructured data?",
+      "answer": "NoSQL"
+    },
+    {
+      "id": 23,
+      "question": "What abstraction level represents a user-specific view of data defined by external schemas?",
+      "answer": "External model"
+    },
+    {
+      "id": 24,
+      "question": "What abstraction level represents a global, organization-wide view independent of hardware and DBMS?",
+      "answer": "Conceptual model"
+    },
+    {
+      "id": 25,
+      "question": "What abstraction level is DBMS-specific and maps the conceptual model to database structures?",
+      "answer": "Internal model"
+    },
+    {
+      "id": 26,
+      "question": "What is the lowest level of data abstraction that describes actual physical data storage?",
+      "answer": "Physical model"
+    },
+    {
+      "id": 27,
+      "question": "What database design phase focuses on understanding what data is needed and why?",
+      "answer": "Information Requirements Phase"
+    },
+    {
+      "id": 28,
+      "question": "What database design phase creates a structured, DBMS-independent data model?",
+      "answer": "Logical Database Design"
+    },
+    {
+      "id": 29,
+      "question": "What database design phase maps the logical design to actual storage devices?",
+      "answer": "Physical Database Design"
+    },
+    {
+      "id": 30,
+      "question": "What is a single occurrence of an entity, represented as a row in a table, called?",
+      "answer": "Entity instance"
+    }
+  ],
+  "multipleChoice": [
+    {
+      "id": 1,
+      "question": "Which role focuses on how the database structure will be used to store and manage end-user data?",
+      "choices": ["A) Data modeler", "B) Database designer", "C) Database architect", "D) Systems analyst"],
+      "answer": "B) Database designer"
+    },
+    {
+      "id": 2,
+      "question": "Which of the following best describes the purpose of a data model?",
+      "choices": ["A) To store actual data", "B) To retrieve data from the database", "C) To represent complex real-world data structures in a simplified way", "D) To implement the physical database"],
+      "answer": "C) To represent complex real-world data structures in a simplified way"
+    },
+    {
+      "id": 3,
+      "question": "Which phase of database design produces standardized names, relationship types, and reduces redundancy?",
+      "choices": ["A) Information Requirements Phase", "B) Physical Database Design", "C) Logical Database Design", "D) Implementation Phase"],
+      "answer": "C) Logical Database Design"
+    },
+    {
+      "id": 4,
+      "question": "Which relationship type is illustrated by 'EMPLOYEE manages STORE'?",
+      "choices": ["A) One-to-Many (1:M)", "B) Many-to-Many (M:N)", "C) One-to-One (1:1)", "D) Recursive"],
+      "answer": "C) One-to-One (1:1)"
+    },
+    {
+      "id": 5,
+      "question": "Which relationship type is illustrated by 'EMPLOYEE learns SKILL'?",
+      "choices": ["A) One-to-One (1:1)", "B) One-to-Many (1:M)", "C) Many-to-Many (M:N)", "D) Hierarchical"],
+      "answer": "C) Many-to-Many (M:N)"
+    },
+    {
+      "id": 6,
+      "question": "Which relationship type is illustrated by 'PAINTER paints PAINTING'?",
+      "choices": ["A) One-to-One (1:1)", "B) One-to-Many (1:M)", "C) Many-to-Many (M:N)", "D) Network"],
+      "answer": "B) One-to-Many (1:M)"
+    },
+    {
+      "id": 7,
+      "question": "Which of the following is NOT a reason why business rules matter in data modeling?",
+      "choices": ["A) They define entities and relationships", "B) They serve as a communication bridge between users and designers", "C) They store actual data in the database", "D) They help designers understand business processes"],
+      "answer": "C) They store actual data in the database"
+    },
+    {
+      "id": 8,
+      "question": "What is the correct translation of verbs in business rules to data model components?",
+      "choices": ["A) Entities", "B) Attributes", "C) Constraints", "D) Relationships"],
+      "answer": "D) Relationships"
+    },
+    {
+      "id": 9,
+      "question": "Which early data model supports only 1:M relationships and uses a tree-like structure?",
+      "choices": ["A) Relational model", "B) Network model", "C) Hierarchical model", "D) Object-oriented model"],
+      "answer": "C) Hierarchical model"
+    },
+    {
+      "id": 10,
+      "question": "Which data model was developed as an extension of the hierarchical model to support M:N relationships?",
+      "choices": ["A) Relational model", "B) Network model", "C) ER model", "D) Multidimensional model"],
+      "answer": "B) Network model"
+    },
+    {
+      "id": 11,
+      "question": "In a relational table, what do columns represent?",
+      "choices": ["A) Tuples", "B) Records", "C) Attributes", "D) Entities"],
+      "answer": "C) Attributes"
+    },
+    {
+      "id": 12,
+      "question": "Which system manages relational databases and executes SQL queries?",
+      "choices": ["A) OODBMS", "B) OLAP", "C) RDBMS", "D) NoSQL"],
+      "answer": "C) RDBMS"
+    },
+    {
+      "id": 13,
+      "question": "Which of the following is NOT a component of an SQL-based relational database system?",
+      "choices": ["A) End-user interface", "B) Database tables", "C) SQL engine", "D) Class hierarchy"],
+      "answer": "D) Class hierarchy"
+    },
+    {
+      "id": 14,
+      "question": "Which model is described as a widely accepted standard for conceptual data modeling using graphical ERDs?",
+      "choices": ["A) Relational model", "B) Hierarchical model", "C) Entity-Relationship model", "D) Object-oriented model"],
+      "answer": "C) Entity-Relationship model"
+    },
+    {
+      "id": 15,
+      "question": "In the ER model, how are relationships visually represented in Chen notation?",
+      "choices": ["A) Rectangles", "B) Ovals", "C) Diamonds", "D) Foreign keys"],
+      "answer": "C) Diamonds"
+    },
+    {
+      "id": 16,
+      "question": "Which feature distinguishes the Object-Oriented model from other data models?",
+      "choices": ["A) Uses tables with rows and columns", "B) Combines data and behavior into objects", "C) Supports only 1:M relationships", "D) Uses diamonds to represent relationships"],
+      "answer": "B) Combines data and behavior into objects"
+    },
+    {
+      "id": 17,
+      "question": "Which OO concept groups objects that share similar characteristics?",
+      "choices": ["A) Inheritance", "B) Encapsulation", "C) Class", "D) Method"],
+      "answer": "C) Class"
+    },
+    {
+      "id": 18,
+      "question": "Which data model is optimized for complex analytical queries and supports OLAP?",
+      "choices": ["A) Hierarchical model", "B) Network model", "C) Relational model", "D) Multidimensional model"],
+      "answer": "D) Multidimensional model"
+    },
+    {
+      "id": 19,
+      "question": "Which characteristic is associated with Big Data models?",
+      "choices": ["A) Volume, velocity, and variety", "B) Rows, columns, and tuples", "C) Entities, attributes, and relationships", "D) Inheritance, classes, and methods"],
+      "answer": "A) Volume, velocity, and variety"
+    },
+    {
+      "id": 20,
+      "question": "Which level of data abstraction ensures security, simplicity, and application-specific views?",
+      "choices": ["A) Internal model", "B) Physical model", "C) Conceptual model", "D) External model"],
+      "answer": "D) External model"
+    },
+    {
+      "id": 21,
+      "question": "Which level of data abstraction integrates all external views into one global view?",
+      "choices": ["A) External model", "B) Conceptual model", "C) Internal model", "D) Physical model"],
+      "answer": "B) Conceptual model"
+    },
+    {
+      "id": 22,
+      "question": "Which level of data abstraction supports logical data independence?",
+      "choices": ["A) External model", "B) Physical model", "C) Internal model", "D) Conceptual model"],
+      "answer": "C) Internal model"
+    },
+    {
+      "id": 23,
+      "question": "What does the ER model use to represent entities?",
+      "choices": ["A) Ovals", "B) Diamonds", "C) Rectangles", "D) Foreign keys"],
+      "answer": "C) Rectangles"
+    },
+    {
+      "id": 24,
+      "question": "Why can't you retrieve data directly from a data model?",
+      "choices": ["A) Data models are stored in a different database", "B) Data models are abstractions that describe structure, not actual stored data", "C) Data models only support SQL queries", "D) Data models require OLAP to access data"],
+      "answer": "B) Data models are abstractions that describe structure, not actual stored data"
+    },
+    {
+      "id": 25,
+      "question": "Which of the following correctly compares the ER model and the Relational model?",
+      "choices": ["A) ER is low-level; Relational is high-level", "B) ER uses foreign keys; Relational uses diamonds", "C) ER is best for communication and design; Relational is best for storage and manipulation", "D) ER stores data; Relational describes structure"],
+      "answer": "C) ER is best for communication and design; Relational is best for storage and manipulation"
+    },
+    {
+      "id": 26,
+      "question": "Which of the following is a key output of the Logical Database Design phase?",
+      "choices": ["A) Mapping to physical storage devices", "B) Identifying hardware requirements", "C) Standardized names and reduced redundancy", "D) Installing the DBMS software"],
+      "answer": "C) Standardized names and reduced redundancy"
+    },
+    {
+      "id": 27,
+      "question": "What must be introduced to implement an M:N relationship in a relational database?",
+      "choices": ["A) A recursive entity", "B) A foreign key only", "C) An associative (junction) table", "D) A multidimensional cube"],
+      "answer": "C) An associative (junction) table"
+    },
+    {
+      "id": 28,
+      "question": "Which of the following is a key concept of the Object-Oriented model?",
+      "choices": ["A) Tuples and attributes", "B) Inheritance and class hierarchy", "C) Diamonds and connectivity", "D) Segments and nodes"],
+      "answer": "B) Inheritance and class hierarchy"
+    },
+    {
+      "id": 29,
+      "question": "Which data model is described as independent of both hardware and DBMS software?",
+      "choices": ["A) Physical model", "B) Internal model", "C) Conceptual model", "D) External model"],
+      "answer": "C) Conceptual model"
+    },
+    {
+      "id": 30,
+      "question": "What is the main limitation of the hierarchical data model?",
+      "choices": ["A) It cannot support 1:M relationships", "B) It cannot efficiently represent M:N relationships", "C) It requires SQL to query data", "D) It does not support parent-child structures"],
+      "answer": "B) It cannot efficiently represent M:N relationships"
+    }
+  ]
+}

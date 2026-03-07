@@ -1,0 +1,336 @@
+{
+  "identification": [
+    {
+      "id": 1,
+      "question": "What term refers to raw facts without context?",
+      "answer": "Data"
+    },
+    {
+      "id": 2,
+      "question": "What term refers to processed data that reveals meaning?",
+      "answer": "Information"
+    },
+    {
+      "id": 3,
+      "question": "What is data about data called?",
+      "answer": "Metadata"
+    },
+    {
+      "id": 4,
+      "question": "What system manages database structure and controls access to data?",
+      "answer": "DBMS"
+    },
+    {
+      "id": 5,
+      "question": "What term describes duplication of data?",
+      "answer": "Data redundancy"
+    },
+    {
+      "id": 6,
+      "question": "What term describes lack of uniformity across data?",
+      "answer": "Data inconsistency"
+    },
+    {
+      "id": 7,
+      "question": "What term describes difficulty accessing scattered data across files?",
+      "answer": "Data isolation"
+    },
+    {
+      "id": 8,
+      "question": "What transaction property means 'all or nothing'?",
+      "answer": "Atomicity"
+    },
+    {
+      "id": 9,
+      "question": "What type of independence allows file structure changes without affecting data access?",
+      "answer": "Structural independence"
+    },
+    {
+      "id": 10,
+      "question": "What type of database supports only one user at a time?",
+      "answer": "Single-user database"
+    },
+    {
+      "id": 11,
+      "question": "What type of database distributes data across multiple sites?",
+      "answer": "Distributed database"
+    },
+    {
+      "id": 12,
+      "question": "What database supports daily business operations?",
+      "answer": "Operational database"
+    },
+    {
+      "id": 13,
+      "question": "What database is used for tactical or strategic decision-making?",
+      "answer": "Data warehouse"
+    },
+    {
+      "id": 14,
+      "question": "What DBMS component stores metadata definitions?",
+      "answer": "Data dictionary"
+    },
+    {
+      "id": 15,
+      "question": "What nonprocedural query language is the de facto standard for relational databases?",
+      "answer": "SQL"
+    },
+    {
+      "id": 16,
+      "question": "What operational-level system captures production data?",
+      "answer": "TPS (Transaction Processing Systems)"
+    },
+    {
+      "id": 17,
+      "question": "What tactical-level system summarizes operational data?",
+      "answer": "MIS (Management Information Systems)"
+    },
+    {
+      "id": 18,
+      "question": "What strategic-level system supports non-routine decisions?",
+      "answer": "DSS"
+    },
+    {
+      "id": 19,
+      "question": "What database design phase identifies entities and relationships?",
+      "answer": "Logical design"
+    },
+    {
+      "id": 20,
+      "question": "What term refers to anything about which data is collected?",
+      "answer": "Entity"
+    },
+    {
+      "id": 21,
+      "question": "What term describes how entities are associated?",
+      "answer": "Relationship"
+    },
+    {
+      "id": 22,
+      "question": "What rule restricts allowable data values?",
+      "answer": "Constraint"
+    },
+    {
+      "id": 23,
+      "question": "Which data model was proposed in 1970 by E. F. Codd?",
+      "answer": "Relational model"
+    },
+    {
+      "id": 24,
+      "question": "Which conceptual model was introduced by Chen in 1976?",
+      "answer": "ER model"
+    },
+    {
+      "id": 25,
+      "question": "What type of entity depends on another entity for existence?",
+      "answer": "Weak entity"
+    },
+    {
+      "id": 26,
+      "question": "What key uniquely identifies each entity instance?",
+      "answer": "Primary key"
+    },
+    {
+      "id": 27,
+      "question": "What key references a primary key in another table?",
+      "answer": "Foreign key"
+    },
+    {
+      "id": 28,
+      "question": "What term defines the minimum and maximum number of related entity occurrences?",
+      "answer": "Cardinality"
+    },
+    {
+      "id": 29,
+      "question": "What relationship occurs when an entity relates to itself?",
+      "answer": "Recursive relationship"
+    },
+    {
+      "id": 30,
+      "question": "What entity type is used to implement M:N relationships?",
+      "answer": "Associative entity"
+    }
+  ],
+  "multipleChoice": [
+    {
+      "id": 1,
+      "question": "Which file system component represents a logically connected set of fields forming a single complete entry?",
+      "choices": ["A) Field", "B) Record", "C) File", "D) Column"],
+      "answer": "B) Record"
+    },
+    {
+      "id": 2,
+      "question": "Which file system component is defined as a group of characters with specific meaning?",
+      "choices": ["A) Record", "B) File", "C) Field", "D) Schema"],
+      "answer": "C) Field"
+    },
+    {
+      "id": 3,
+      "question": "Which file system component is a collection of related records?",
+      "choices": ["A) File", "B) Field", "C) Column", "D) Tuple"],
+      "answer": "A) File"
+    },
+    {
+      "id": 4,
+      "question": "Which dependency occurs when data access changes due to modifications in storage characteristics?",
+      "choices": ["A) Structural dependence", "B) Data dependence", "C) Logical independence", "D) Physical independence"],
+      "answer": "B) Data dependence"
+    },
+    {
+      "id": 5,
+      "question": "Which database type runs on a personal computer and supports only one user?",
+      "choices": ["A) Workgroup database", "B) Enterprise database", "C) Desktop database", "D) Centralized database"],
+      "answer": "C) Desktop database"
+    },
+    {
+      "id": 6,
+      "question": "Which database type supports multiple users simultaneously within an organization?",
+      "choices": ["A) Multiuser database", "B) Desktop database", "C) Centralized database", "D) Semi-structured database"],
+      "answer": "A) Multiuser database"
+    },
+    {
+      "id": 7,
+      "question": "Which database location model stores data at a single site?",
+      "choices": ["A) Enterprise database", "B) Workgroup database", "C) Centralized database", "D) Production database"],
+      "answer": "C) Centralized database"
+    },
+    {
+      "id": 8,
+      "question": "Which type of data exists in its original raw state (e.g., emails, videos)?",
+      "choices": ["A) Structured data", "B) Semi-structured data", "C) Unstructured data", "D) Relational data"],
+      "answer": "C) Unstructured data"
+    },
+    {
+      "id": 9,
+      "question": "Which type of data includes formats such as XML or JSON?",
+      "choices": ["A) Structured data", "B) Semi-structured data", "C) Transactional data", "D) Atomic data"],
+      "answer": "B) Semi-structured data"
+    },
+    {
+      "id": 10,
+      "question": "Which phase of database design focuses on understanding data needs and objectives?",
+      "choices": ["A) Physical database design", "B) Information requirements phase", "C) Logical abstraction phase", "D) Implementation phase"],
+      "answer": "B) Information requirements phase"
+    },
+    {
+      "id": 11,
+      "question": "Which phase maps the logical design to actual storage devices?",
+      "choices": ["A) Conceptual modeling", "B) Requirements analysis", "C) Physical database design", "D) Normalization phase"],
+      "answer": "C) Physical database design"
+    },
+    {
+      "id": 12,
+      "question": "Which data model uses an upside-down tree structure?",
+      "choices": ["A) Network model", "B) Hierarchical model", "C) Object-oriented model", "D) Multidimensional model"],
+      "answer": "B) Hierarchical model"
+    },
+    {
+      "id": 13,
+      "question": "Which data model allows records to have multiple parents?",
+      "choices": ["A) Network model", "B) Hierarchical model", "C) Multidimensional model", "D) Conceptual model"],
+      "answer": "A) Network model"
+    },
+    {
+      "id": 14,
+      "question": "Which model combines data and behavior into self-contained objects?",
+      "choices": ["A) Multidimensional model", "B) Network model", "C) Object-oriented model", "D) Conceptual model"],
+      "answer": "C) Object-oriented model"
+    },
+    {
+      "id": 15,
+      "question": "Which modeling language is commonly used in object-oriented data modeling?",
+      "choices": ["A) SQL", "B) XML", "C) UML", "D) ERD"],
+      "answer": "C) UML"
+    },
+    {
+      "id": 16,
+      "question": "Which data model is optimized for complex analytical queries in data warehouses?",
+      "choices": ["A) Network model", "B) Multidimensional model", "C) Hierarchical model", "D) File model"],
+      "answer": "B) Multidimensional model"
+    },
+    {
+      "id": 17,
+      "question": "Which type of database is designed for large-scale, distributed environments?",
+      "choices": ["A) Production database", "B) NoSQL database", "C) Centralized database", "D) Desktop database"],
+      "answer": "B) NoSQL database"
+    },
+    {
+      "id": 18,
+      "question": "Which term refers to a user-specific view of data defined by external schemas?",
+      "choices": ["A) Conceptual view", "B) Physical view", "C) External model", "D) Internal model"],
+      "answer": "C) External model"
+    },
+    {
+      "id": 19,
+      "question": "Which abstraction level represents the global organization-wide view of data?",
+      "choices": ["A) Internal model", "B) Physical model", "C) Conceptual model", "D) User model"],
+      "answer": "C) Conceptual model"
+    },
+    {
+      "id": 20,
+      "question": "Which abstraction level maps the conceptual design to DBMS structures?",
+      "choices": ["A) Internal model", "B) External model", "C) Enterprise model", "D) Logical model"],
+      "answer": "A) Internal model"
+    },
+    {
+      "id": 21,
+      "question": "Which type of entity is independent and always has a unique identifier?",
+      "choices": ["A) Weak type", "B) Strong type", "C) Associative type", "D) Composite type"],
+      "answer": "B) Strong type"
+    },
+    {
+      "id": 22,
+      "question": "Which attribute type must always have a value?",
+      "choices": ["A) Optional attribute", "B) Derived attribute", "C) Required attribute", "D) Multivalued attribute"],
+      "answer": "C) Required attribute"
+    },
+    {
+      "id": 23,
+      "question": "Which attribute type may be left empty?",
+      "choices": ["A) Composite attribute", "B) Optional attribute", "C) Simple attribute", "D) Identifier"],
+      "answer": "B) Optional attribute"
+    },
+    {
+      "id": 24,
+      "question": "Which attribute type can be subdivided into smaller components?",
+      "choices": ["A) Simple attribute", "B) Derived attribute", "C) Composite attribute", "D) Multivalued attribute"],
+      "answer": "C) Composite attribute"
+    },
+    {
+      "id": 25,
+      "question": "Which attribute type cannot be subdivided?",
+      "choices": ["A) Composite attribute", "B) Simple attribute", "C) Multivalued attribute", "D) Derived attribute"],
+      "answer": "B) Simple attribute"
+    },
+    {
+      "id": 26,
+      "question": "Which key is unique and minimal but not chosen as the primary key?",
+      "choices": ["A) Composite key", "B) Candidate key", "C) Alternate key", "D) Foreign key"],
+      "answer": "C) Alternate key"
+    },
+    {
+      "id": 27,
+      "question": "Which key consists of more than one attribute?",
+      "choices": ["A) Candidate key", "B) Composite key", "C) Identifier", "D) Alternate key"],
+      "answer": "B) Composite key"
+    },
+    {
+      "id": 28,
+      "question": "Which participation requires an entity occurrence to have a corresponding related entity?",
+      "choices": ["A) Optional participation", "B) Partial participation", "C) Mandatory participation", "D) Unary participation"],
+      "answer": "C) Mandatory participation"
+    },
+    {
+      "id": 29,
+      "question": "Which relationship degree involves three entities?",
+      "choices": ["A) Unary", "B) Binary", "C) Ternary", "D) Recursive"],
+      "answer": "C) Ternary"
+    },
+    {
+      "id": 30,
+      "question": "Which entity type acts as a bridge to connect entities in many-to-many relationships and may contain additional attributes?",
+      "choices": ["A) Strong entity", "B) Composite entity", "C) Bridge entity", "D) Entity instance"],
+      "answer": "C) Bridge entity"
+    }
+  ]
+}
