@@ -172,13 +172,27 @@ function updateCard() {
     const isMC = currentSection === 'multipleChoice';
     const isID = currentSection === 'identification';
 
+    // Prevent a quick "flipped" flash when changing cards by temporarily disabling the flip transition.
+    const flashcardEl = document.getElementById('flashcard');
+    const cardInnerEl = flashcardEl.querySelector('.card-inner');
+    if (cardInnerEl) {
+        cardInnerEl.style.transition = 'none';
+    }
+
+    // Reset flip state
+    flashcardEl.classList.remove('flipped');
+    isFlipped = false;
+
     // Update card content
     document.getElementById('front-text').textContent = card.front;
     document.getElementById('back-text').textContent = isMC ? `Answer: ${card.answer}` : card.back;
 
-    // Reset flip
-    document.getElementById('flashcard').classList.remove('flipped');
-    isFlipped = false;
+    // Restore transition after DOM update
+    if (cardInnerEl) {
+        requestAnimationFrame(() => {
+            cardInnerEl.style.transition = '';
+        });
+    }
 
     // Update button states
     // Only allow moving forward (random selection). "Previous" is disabled to avoid history tracking.
