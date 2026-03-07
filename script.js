@@ -78,9 +78,17 @@ let flashcardsData = {
 };
 
 let currentSection = 'identification';
-let currentIndex = 0;
+let currentIndex = 0; // Index into shuffledCards for the currently displayed card
 let isFlipped = false;
 let shuffledCards = [];
+
+// History stack for navigation (allows revisiting previously shown cards)
+let cardHistory = [];
+let historyPosition = -1;
+
+// Track per-card performance so we can weight the selection probabilities
+let cardStats = {};
+
 let scores = {
     identification: { correct: 0, total: 0 },
     multipleChoice: { correct: 0, total: 0 },
@@ -92,6 +100,7 @@ let identificationAnswered = {};
 document.addEventListener('DOMContentLoaded', initializeApp);
 
 function initializeApp() {
+    loadStats();
     setupEventListeners();
     loadSection('identification');
 }
@@ -136,19 +145,41 @@ function setupEventListeners() {
 
 function loadSection(section) {
     currentSection = section;
-    currentIndex = 0;
     isFlipped = false;
     shuffledCards = [...flashcardsData[section]];
     answered = {};
     identificationAnswered = {};
     scores[section].correct = 0;
     scores[section].total = shuffledCards.length;
+
+    // Reset navigation history and pick a card based on performance weights.
+    cardHistory = [];
+    historyPosition = -1;
+
     document.getElementById('footer-text').textContent = 'Click the card to reveal the answer';
     document.getElementById('footer-hint').style.display = 'none';
-    updateCard();
+
+    if (shuffledCards.length > 0) {
+        selectNextCard();
+    } else {
+        updateCard();
+    }
 }
 
 function updateCard() {
+    if (shuffledCards.length === 0) {
+        document.getElementById('front-text').textContent = 'No cards available.';
+        document.getElementById('back-text').textContent = '';
+        document.getElementById('choices-container').innerHTML = '';
+        document.getElementById('feedback-container').innerHTML = '';
+        document.getElementById('footer-hint').style.display = 'none';
+        document.getElementById('current-card').textContent = '0';
+        document.getElementById('total-cards').textContent = '0';
+        document.getElementById('prev-btn').disabled = true;
+        document.getElementById('next-btn').disabled = true;
+        return;
+    }
+
     const card = shuffledCards[currentIndex];
     const isMC = currentSection === 'multipleChoice';
     const isID = currentSection === 'identification';
@@ -161,13 +192,13 @@ function updateCard() {
     document.getElementById('flashcard').classList.remove('flipped');
     isFlipped = false;
 
-    // Update progress
-    document.getElementById('current-card').textContent = currentIndex + 1;
+    // Update progress (show where you are in the session history)
+    document.getElementById('current-card').textContent = historyPosition + 1;
     document.getElementById('total-cards').textContent = shuffledCards.length;
 
     // Update button states
-    document.getElementById('prev-btn').disabled = currentIndex === 0;
-    document.getElementById('next-btn').disabled = currentIndex === shuffledCards.length - 1;
+    document.getElementById('prev-btn').disabled = historyPosition <= 0;
+    document.getElementById('next-btn').disabled = shuffledCards.length === 0;
 
     // Update score display
     updateScoreDisplay();
@@ -221,6 +252,9 @@ function displayChoices(card) {
                 
                 // Mark as answered
                 answered[cardId] = isCorrect ? true : choice.charAt(0);
+
+                // Update stats (used for weighted selection)
+                updateCardStats(currentSection, cardId, isCorrect);
                 
                 // Update score
                 if (isCorrect) {
@@ -274,6 +308,7 @@ function showIdentificationFeedback(card) {
     yesBtn.textContent = '✓ Yes, I got it right';
     yesBtn.addEventListener('click', () => {
         identificationAnswered[card.id] = true;
+        updateCardStats(currentSection, card.id, true);
         scores[currentSection].correct++;
         updateScoreDisplay();
         disableFeedbackButtons();
@@ -285,6 +320,7 @@ function showIdentificationFeedback(card) {
     noBtn.textContent = '✗ No, I got it wrong';
     noBtn.addEventListener('click', () => {
         identificationAnswered[card.id] = false;
+        updateCardStats(currentSection, card.id, false);
         updateScoreDisplay();
         disableFeedbackButtons();
         hint.textContent = '✗ Keep practicing!';
@@ -320,30 +356,37 @@ function flipCard() {
 }
 
 function previousCard() {
-    if (currentIndex > 0) {
-        currentIndex--;
+    if (historyPosition > 0) {
+        historyPosition--;
+        currentIndex = cardHistory[historyPosition];
         updateCard();
     }
 }
 
 function nextCard() {
-    if (currentIndex < shuffledCards.length - 1) {
-        currentIndex++;
+    if (historyPosition < cardHistory.length - 1) {
+        historyPosition++;
+        currentIndex = cardHistory[historyPosition];
         updateCard();
+    } else {
+        selectNextCard();
     }
 }
 
 function shuffleCards() {
+    // Shuffle the deck order, but preserve performance-based weighting when picking the next card.
+    shuffledCards = [...flashcardsData[currentSection]];
     for (let i = shuffledCards.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]];
     }
-    currentIndex = 0;
-    updateCard();
+
+    cardHistory = [];
+    historyPosition = -1;
+    selectNextCard();
 }
 
 function resetCards() {
-    currentIndex = 0;
     isFlipped = false;
     answered = {};
     identificationAnswered = {};
@@ -352,8 +395,12 @@ function resetCards() {
     document.getElementById('footer-text').textContent = 'Click the card to reveal the answer';
     document.getElementById('footer-hint').style.display = 'none';
     document.getElementById('feedback-container').innerHTML = '';
+
     shuffledCards = [...flashcardsData[currentSection]];
-    updateCard();
+
+    cardHistory = [];
+    historyPosition = -1;
+    selectNextCard();
 }
 
 function toggleTheme() {
@@ -372,4 +419,83 @@ function loadThemePreference() {
     
     const theme = preference || (systemDark ? 'dark' : 'light');
     html.setAttribute('data-theme', theme);
+}
+
+function loadStats() {
+    const stored = localStorage.getItem('flashcardStats');
+    if (stored) {
+        try {
+            cardStats = JSON.parse(stored);
+        } catch (e) {
+            cardStats = {};
+        }
+    }
+}
+
+function saveStats() {
+    localStorage.setItem('flashcardStats', JSON.stringify(cardStats));
+}
+
+function getCardStats(section, cardId) {
+    cardStats[section] = cardStats[section] || {};
+    cardStats[section][cardId] = cardStats[section][cardId] || { correct: 0, wrong: 0 };
+    return cardStats[section][cardId];
+}
+
+function updateCardStats(section, cardId, isCorrect) {
+    const stats = getCardStats(section, cardId);
+    if (isCorrect) {
+        stats.correct += 1;
+    } else {
+        stats.wrong += 1;
+    }
+    saveStats();
+}
+
+function getWeightedRandomCardIndex() {
+    // Higher weight for cards the user has missed more often.
+    // Lower weight for cards the user answers correctly most of the time.
+    const weights = shuffledCards.map(card => {
+        const stats = getCardStats(currentSection, card.id);
+        const correct = stats.correct || 0;
+        const wrong = stats.wrong || 0;
+        // Base weight ensures every card can appear at least sometimes.
+        // Increase weight for wrong answers, decrease for correct answers.
+        const weight = Math.max(0.2, 1 + wrong - (correct * 0.5));
+        return weight;
+    });
+
+    const totalWeight = weights.reduce((sum, w) => sum + w, 0);
+    const random = Math.random() * totalWeight;
+    let cumulative = 0;
+
+    for (let i = 0; i < weights.length; i++) {
+        cumulative += weights[i];
+        if (random < cumulative) {
+            return i;
+        }
+    }
+
+    return weights.length - 1;
+}
+
+function addCardToHistory(cardIndex) {
+    // If we went back in history and then choose a new card, drop forward history.
+    if (historyPosition < cardHistory.length - 1) {
+        cardHistory = cardHistory.slice(0, historyPosition + 1);
+    }
+
+    cardHistory.push(cardIndex);
+    historyPosition = cardHistory.length - 1;
+    currentIndex = cardIndex;
+    updateCard();
+}
+
+function getCurrentCardIndexFromHistory() {
+    return cardHistory[historyPosition];
+}
+
+function selectNextCard() {
+    const nextIndex = getWeightedRandomCardIndex();
+    addCardToHistory(nextIndex);
 }
