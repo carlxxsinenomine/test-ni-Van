@@ -82,10 +82,6 @@ let currentIndex = 0; // Index into shuffledCards for the currently displayed ca
 let isFlipped = false;
 let shuffledCards = [];
 
-// History stack for navigation (allows revisiting previously shown cards)
-let cardHistory = [];
-let historyPosition = -1;
-
 // Track per-card performance so we can weight the selection probabilities
 let cardStats = {};
 
@@ -94,8 +90,6 @@ let scores = {
     multipleChoice: { correct: 0, total: 0 },
     essay: { correct: 0, total: 0 }
 };
-let answered = {};
-let identificationAnswered = {};
 
 document.addEventListener('DOMContentLoaded', initializeApp);
 
@@ -147,20 +141,16 @@ function loadSection(section) {
     currentSection = section;
     isFlipped = false;
     shuffledCards = [...flashcardsData[section]];
-    answered = {};
-    identificationAnswered = {};
     scores[section].correct = 0;
     scores[section].total = shuffledCards.length;
-
-    // Reset navigation history and pick a card based on performance weights.
-    cardHistory = [];
-    historyPosition = -1;
 
     document.getElementById('footer-text').textContent = 'Click the card to reveal the answer';
     document.getElementById('footer-hint').style.display = 'none';
 
     if (shuffledCards.length > 0) {
-        selectNextCard();
+        // Select the first card to show (weighted by performance)
+        currentIndex = getWeightedRandomCardIndex();
+        updateCard();
     } else {
         updateCard();
     }
@@ -173,8 +163,6 @@ function updateCard() {
         document.getElementById('choices-container').innerHTML = '';
         document.getElementById('feedback-container').innerHTML = '';
         document.getElementById('footer-hint').style.display = 'none';
-        document.getElementById('current-card').textContent = '0';
-        document.getElementById('total-cards').textContent = '0';
         document.getElementById('prev-btn').disabled = true;
         document.getElementById('next-btn').disabled = true;
         return;
@@ -192,12 +180,9 @@ function updateCard() {
     document.getElementById('flashcard').classList.remove('flipped');
     isFlipped = false;
 
-    // Update progress (show where you are in the session history)
-    document.getElementById('current-card').textContent = historyPosition + 1;
-    document.getElementById('total-cards').textContent = shuffledCards.length;
-
     // Update button states
-    document.getElementById('prev-btn').disabled = historyPosition <= 0;
+    // Only allow moving forward (random selection). "Previous" is disabled to avoid history tracking.
+    document.getElementById('prev-btn').disabled = true;
     document.getElementById('next-btn').disabled = shuffledCards.length === 0;
 
     // Update score display
@@ -214,7 +199,7 @@ function updateCard() {
     }
     
     // Show feedback hint for identification if flipped
-    if (isID && isFlipped && identificationAnswered[card.id] === undefined) {
+    if (isID && isFlipped) {
         showIdentificationFeedback(card);
     }
 }
@@ -223,67 +208,50 @@ function displayChoices(card) {
     const container = document.getElementById('choices-container');
     container.innerHTML = '';
     const cardId = card.id;
+    let answeredThisCard = false;
 
     card.choices.forEach((choice, idx) => {
         const btn = document.createElement('button');
         btn.className = 'choice-btn';
         btn.textContent = choice;
-        
-        // Check if this card has been answered
-        const isAnswered = answered[cardId] !== undefined;
-        
-        if (isAnswered) {
-            // Show result for answered questions
-            const isCorrect = answered[cardId];
-            if (isCorrect) {
-                btn.classList.add('correct');
-            } else if (choice === card.answer) {
-                // Show correct answer even if user was wrong
-                btn.classList.add('correct');
-            } else if (choice.startsWith(answered[cardId])) {
-                // Highlight the user's wrong answer
-                btn.classList.add('incorrect');
-            }
-            btn.disabled = true;
-        } else {
-            // Allow clicking if not answered yet
-            btn.addEventListener('click', () => {
-                const isCorrect = choice === card.answer;
-                
-                // Mark as answered
-                answered[cardId] = isCorrect ? true : choice.charAt(0);
 
-                // Update stats (used for weighted selection)
-                updateCardStats(currentSection, cardId, isCorrect);
-                
-                // Update score
-                if (isCorrect) {
-                    scores[currentSection].correct++;
+        // Allow clicking until user answers this card once.
+        btn.addEventListener('click', () => {
+            if (answeredThisCard) return;
+            answeredThisCard = true;
+
+            const isCorrect = choice === card.answer;
+
+            // Update stats (used for weighted selection)
+            updateCardStats(currentSection, cardId, isCorrect);
+
+            // Update score
+            if (isCorrect) {
+                scores[currentSection].correct++;
+            }
+
+            // Update all buttons to show result
+            document.querySelectorAll('.choice-btn').forEach(b => {
+                b.disabled = true;
+                b.classList.remove('selected');
+
+                if (isCorrect && b === btn) {
+                    b.classList.add('correct');
+                } else if (!isCorrect && b === btn) {
+                    b.classList.add('incorrect');
+                } else if (b.textContent === card.answer) {
+                    b.classList.add('correct');
                 }
-                
-                // Update all buttons to show result
-                document.querySelectorAll('.choice-btn').forEach(b => {
-                    b.disabled = true;
-                    b.classList.remove('selected');
-                    
-                    if (isCorrect && b === btn) {
-                        b.classList.add('correct');
-                    } else if (!isCorrect && b === btn) {
-                        b.classList.add('incorrect');
-                    } else if (b.textContent === card.answer) {
-                        b.classList.add('correct');
-                    }
-                });
-                
-                // Update score display
-                updateScoreDisplay();
-                
-                // Update footer text
-                document.getElementById('footer-text').textContent = 
-                    isCorrect ? '✓ Correct!' : '✗ Incorrect. The correct answer is ' + card.answer;
             });
-        }
-        
+
+            // Update score display
+            updateScoreDisplay();
+
+            // Update footer text
+            document.getElementById('footer-text').textContent = 
+                isCorrect ? '✓ Correct!' : '✗ Incorrect. The correct answer is ' + card.answer;
+        });
+
         container.appendChild(btn);
     });
 }
@@ -299,33 +267,31 @@ function updateScoreDisplay() {
 function showIdentificationFeedback(card) {
     const container = document.getElementById('feedback-container');
     const hint = document.getElementById('footer-hint');
-    
+
     container.innerHTML = '';
     hint.style.display = currentSection === 'identification' && isFlipped ? 'block' : 'none';
-    
+
     const yesBtn = document.createElement('button');
     yesBtn.className = 'feedback-btn correct-btn';
     yesBtn.textContent = '✓ Yes, I got it right';
     yesBtn.addEventListener('click', () => {
-        identificationAnswered[card.id] = true;
         updateCardStats(currentSection, card.id, true);
         scores[currentSection].correct++;
         updateScoreDisplay();
         disableFeedbackButtons();
         hint.textContent = '✓ Great job! Moving on...';
     });
-    
+
     const noBtn = document.createElement('button');
     noBtn.className = 'feedback-btn incorrect-btn';
     noBtn.textContent = '✗ No, I got it wrong';
     noBtn.addEventListener('click', () => {
-        identificationAnswered[card.id] = false;
         updateCardStats(currentSection, card.id, false);
         updateScoreDisplay();
         disableFeedbackButtons();
         hint.textContent = '✗ Keep practicing!';
     });
-    
+
     container.appendChild(yesBtn);
     container.appendChild(noBtn);
 }
@@ -346,7 +312,7 @@ function flipCard() {
     // Show feedback for identification cards when flipped to back
     if (currentSection === 'identification') {
         const currentCard = shuffledCards[currentIndex];
-        if (isFlipped && identificationAnswered[currentCard.id] === undefined) {
+        if (isFlipped) {
             showIdentificationFeedback(currentCard);
         } else {
             document.getElementById('feedback-container').innerHTML = '';
@@ -356,40 +322,26 @@ function flipCard() {
 }
 
 function previousCard() {
-    if (historyPosition > 0) {
-        historyPosition--;
-        currentIndex = cardHistory[historyPosition];
-        updateCard();
-    }
+    // Disabled on purpose because navigation is driven by random weighted selection.
 }
 
 function nextCard() {
-    if (historyPosition < cardHistory.length - 1) {
-        historyPosition++;
-        currentIndex = cardHistory[historyPosition];
-        updateCard();
-    } else {
-        selectNextCard();
-    }
+    selectNextCard();
 }
 
 function shuffleCards() {
-    // Shuffle the deck order, but preserve performance-based weighting when picking the next card.
+    // Shuffle the deck order; selection still uses performance weights.
     shuffledCards = [...flashcardsData[currentSection]];
     for (let i = shuffledCards.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]];
     }
 
-    cardHistory = [];
-    historyPosition = -1;
     selectNextCard();
 }
 
 function resetCards() {
     isFlipped = false;
-    answered = {};
-    identificationAnswered = {};
     scores[currentSection].correct = 0;
     scores[currentSection].total = shuffledCards.length;
     document.getElementById('footer-text').textContent = 'Click the card to reveal the answer';
@@ -397,9 +349,6 @@ function resetCards() {
     document.getElementById('feedback-container').innerHTML = '';
 
     shuffledCards = [...flashcardsData[currentSection]];
-
-    cardHistory = [];
-    historyPosition = -1;
     selectNextCard();
 }
 
@@ -479,23 +428,7 @@ function getWeightedRandomCardIndex() {
     return weights.length - 1;
 }
 
-function addCardToHistory(cardIndex) {
-    // If we went back in history and then choose a new card, drop forward history.
-    if (historyPosition < cardHistory.length - 1) {
-        cardHistory = cardHistory.slice(0, historyPosition + 1);
-    }
-
-    cardHistory.push(cardIndex);
-    historyPosition = cardHistory.length - 1;
-    currentIndex = cardIndex;
-    updateCard();
-}
-
-function getCurrentCardIndexFromHistory() {
-    return cardHistory[historyPosition];
-}
-
 function selectNextCard() {
-    const nextIndex = getWeightedRandomCardIndex();
-    addCardToHistory(nextIndex);
+    currentIndex = getWeightedRandomCardIndex();
+    updateCard();
 }
