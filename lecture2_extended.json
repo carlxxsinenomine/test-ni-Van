@@ -1,0 +1,466 @@
+{
+  "identification": [
+    {
+      "id": 1,
+      "question": "What is the first step in designing a database that refers to the process of creating a specific data model for a determined problem domain?",
+      "answer": "Data modeling"
+    },
+    {
+      "id": 2,
+      "question": "What is a relatively simple representation, usually graphical, of more complex real-world data structures?",
+      "answer": "Data model"
+    },
+    {
+      "id": 3,
+      "question": "What are the three phases of database design in order?",
+      "answer": "Information requirements phase, logical design phase, and physical design phase"
+    },
+    {
+      "id": 4,
+      "question": "What phase of database design focuses on identifying the information needs of the organization and determining which data items should be maintained?",
+      "answer": "Information requirements phase"
+    },
+    {
+      "id": 5,
+      "question": "What phase of database design focuses on data and data relationships, including specifying appropriate data items, logical groupings, and normalizing relationships?",
+      "answer": "Logical design phase (Logical database design phase)"
+    },
+    {
+      "id": 6,
+      "question": "What phase of database design focuses on the actual implementation of the database, mapping the logical design to computer storage devices?",
+      "answer": "Physical design phase (Physical database design phase)"
+    },
+    {
+      "id": 7,
+      "question": "What are the four basic building blocks of all data models?",
+      "answer": "Entities, attributes, relationships, and constraints"
+    },
+    {
+      "id": 8,
+      "question": "What is anything (a person, a place, a thing, or an event) about which data are to be collected and stored?",
+      "answer": "Entity"
+    },
+    {
+      "id": 9,
+      "question": "What is a characteristic of an entity, equivalent to a field in a file system?",
+      "answer": "Attribute"
+    },
+    {
+      "id": 10,
+      "question": "What describes an association among entities?",
+      "answer": "Relationship"
+    },
+    {
+      "id": 11,
+      "question": "What is a restriction placed on data that helps ensure data integrity, normally expressed in the form of rules?",
+      "answer": "Constraint"
+    },
+    {
+      "id": 12,
+      "question": "What shorthand notation is used to label a one-to-many relationship?",
+      "answer": "1:M (or 1..*)"
+    },
+    {
+      "id": 13,
+      "question": "What shorthand notation is used to label a many-to-many relationship?",
+      "answer": "M:N (or *..*  or M:M)"
+    },
+    {
+      "id": 14,
+      "question": "What shorthand notation is used to label a one-to-one relationship?",
+      "answer": "1:1 (or 1..1)"
+    },
+    {
+      "id": 15,
+      "question": "What is a brief, precise, and unambiguous description of a policy, procedure, or principle within a specific organization?",
+      "answer": "Business rule"
+    },
+    {
+      "id": 16,
+      "question": "In translating business rules into data model components, what part of speech translates into an entity in the model?",
+      "answer": "Noun"
+    },
+    {
+      "id": 17,
+      "question": "In translating business rules into data model components, what part of speech (active or passive) translates into a relationship among entities?",
+      "answer": "Verb"
+    },
+    {
+      "id": 18,
+      "question": "What type of data model represents data as a hierarchical tree structure with parent and child segments?",
+      "answer": "Hierarchical model"
+    },
+    {
+      "id": 19,
+      "question": "What type of data model allows a record to have more than one parent and represents a limited type of one-to-many relationship called a set type?",
+      "answer": "Network model"
+    },
+    {
+      "id": 20,
+      "question": "What type of data model represents data as relations, or tables, and is implemented through an RDBMS?",
+      "answer": "Relational model"
+    },
+    {
+      "id": 21,
+      "question": "What is the conceptual organization of the entire database as viewed by the database administrator, a concept that originated with the network model?",
+      "answer": "Schema"
+    },
+    {
+      "id": 22,
+      "question": "What defines the portion of the database 'seen' by the application programs that produce desired information from the data in the database?",
+      "answer": "Subschema"
+    },
+    {
+      "id": 23,
+      "question": "What language defines the environment in which data can be managed and is used to work with the data in the database?",
+      "answer": "Data Management Language (DML)"
+    },
+    {
+      "id": 24,
+      "question": "What language enables the database administrator to define the schema components?",
+      "answer": "Schema Data Definition Language (DDL)"
+    },
+    {
+      "id": 25,
+      "question": "What is a representation of the relational database's entities, the attributes within those entities, and the relationships between those entities?",
+      "answer": "Relational diagram"
+    },
+    {
+      "id": 26,
+      "question": "What is the most common approach to logical database specification, described as a graphical method of representing entities, attributes, and relationships?",
+      "answer": "Entity-Relationship Model (ER Model / ERM)"
+    },
+    {
+      "id": 27,
+      "question": "Who first introduced the ER data model and in what year?",
+      "answer": "Peter Chen in 1976"
+    },
+    {
+      "id": 28,
+      "question": "What uses graphical representations to model database components and is the standard output of the ER model?",
+      "answer": "Entity Relationship Diagram (ERD)"
+    },
+    {
+      "id": 29,
+      "question": "What is considered to be the industry standard language for creating data models?",
+      "answer": "Unified Modeling Language (UML)"
+    },
+    {
+      "id": 30,
+      "question": "In an ERD, what shape is used to represent an entity?",
+      "answer": "Rectangle"
+    },
+    {
+      "id": 31,
+      "question": "In the Chen notation, what shape is used to represent a relationship between entities?",
+      "answer": "Diamond"
+    },
+    {
+      "id": 32,
+      "question": "What ER notation uses a three-pronged symbol to represent the 'many' side of a relationship?",
+      "answer": "Crow's Foot notation"
+    },
+    {
+      "id": 33,
+      "question": "What data model stores both data and relationships in a single structure called an object, and can store audio, video, and images?",
+      "answer": "Object-Oriented Model"
+    },
+    {
+      "id": 34,
+      "question": "What type of database model forms the basis for data warehouses and allows viewing data in the form of cubes or a star schema?",
+      "answer": "Multidimensional database model"
+    },
+    {
+      "id": 35,
+      "question": "What does OLAP stand for, and what type of database model is it associated with?",
+      "answer": "On-Line Analytical Processing; multidimensional database model"
+    },
+    {
+      "id": 36,
+      "question": "What is an umbrella term referring to a set of database technologies specifically designed to address large structured and unstructured data stored across various locations?",
+      "answer": "NoSQL (Not Only SQL)"
+    },
+    {
+      "id": 37,
+      "question": "Name two popular examples of NoSQL databases mentioned in the lesson.",
+      "answer": "Apache Cassandra and MongoDB"
+    },
+    {
+      "id": 38,
+      "question": "What organization defined the framework for data modeling based on degrees of data abstraction, establishing three levels: external, conceptual, and internal?",
+      "answer": "American National Standards Institute (ANSI) Standards Planning and Requirements Committee (SPARC)"
+    },
+    {
+      "id": 39,
+      "question": "What level of data abstraction represents the end users' view of the data environment?",
+      "answer": "External model"
+    },
+    {
+      "id": 40,
+      "question": "What is a specific representation of an external view, expressed using ER diagrams?",
+      "answer": "External schema"
+    },
+    {
+      "id": 41,
+      "question": "What level of data abstraction integrates all external views into a single global view of the entire database as viewed by the entire organization?",
+      "answer": "Conceptual model"
+    },
+    {
+      "id": 42,
+      "question": "What is another name for the conceptual model, which serves as the basis for the high-level description of the main data objects?",
+      "answer": "Conceptual schema"
+    },
+    {
+      "id": 43,
+      "question": "What level of data abstraction maps the conceptual model to the DBMS and is the representation of the database as 'seen' by the DBMS?",
+      "answer": "Internal model"
+    },
+    {
+      "id": 44,
+      "question": "What depicts a specific representation of an internal model using the database constructs supported by the chosen database?",
+      "answer": "Internal schema"
+    },
+    {
+      "id": 45,
+      "question": "What level of data abstraction operates at the lowest level, describing the way data are saved on storage media such as disks or tapes, and is both software- and hardware-dependent?",
+      "answer": "Physical model"
+    },
+    {
+      "id": 46,
+      "question": "What term does the ER model use to label the relationship types, describing whether a relationship is 1:M, M:N, or 1:1?",
+      "answer": "Connectivity"
+    },
+    {
+      "id": 47,
+      "question": "In the relational model, what are the three parts of an SQL-based relational database application from an end-user perspective?",
+      "answer": "End-user interface, a collection of tables stored in the database, and the SQL engine"
+    },
+    {
+      "id": 48,
+      "question": "What does the term 'logical design' generally refer to in the context of the conceptual model?",
+      "answer": "The task of creating a conceptual data model that could be implemented in any DBMS"
+    },
+    {
+      "id": 49,
+      "question": "What non-relational technology is designed to handle the processing of large amounts of data and is cited as an example alongside NoSQL?",
+      "answer": "Hadoop"
+    },
+    {
+      "id": 50,
+      "question": "In the hierarchical model, what term refers to each level or unit of the hierarchy, which is equivalent to a file system's record type?",
+      "answer": "Segment"
+    }
+  ],
+  "modifiedTrueOrFalse": [
+    {
+      "id": 1,
+      "statement_I": "Data modeling is the first step in designing a database and refers to the process of creating a specific data model for a determined problem domain.",
+      "statement_II": "A data model is a complex, non-graphical representation of simple real-world data structures, primarily used as a storage tool.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I is correct. Statement II is incorrect — a data model is a relatively simple representation, usually graphical, of more complex real-world data structures, and its main function is to help understand real-world complexities, serving as a communication tool."
+    },
+    {
+      "id": 2,
+      "statement_I": "Data modeling is a linear, one-time process where a complete understanding of the problem domain is required before beginning.",
+      "statement_II": "The final data model, when done properly, serves as a 'blueprint' containing all instructions to build a database that meets all end-user requirements.",
+      "answer": "B) Only Statement II is correct.",
+      "explanation": "Statement I is incorrect — data modeling is an iterative, progressive process that starts with a simple understanding and increases in detail over time. Statement II is correct."
+    },
+    {
+      "id": 3,
+      "statement_I": "The information requirements phase of database design focuses on identifying the information needs of the organization, including objectives, data availability, and format restrictions.",
+      "statement_II": "The physical design phase focuses on data and data relationships, and its activities include specifying data items, logical groupings, and normalizing relationships.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I correctly describes the information requirements phase. Statement II incorrectly describes the logical design phase — the physical design phase focuses on actual implementation and mapping the logical design to computer storage devices."
+    },
+    {
+      "id": 4,
+      "statement_I": "The logical database design phase activities include specifying appropriate data items, specifying the level of detail, specifying logical groupings, specifying relationships, and normalizing those relationships.",
+      "statement_II": "The physical database design phase is concerned with the logical relationships in the data and produces a data model that is combined with the information requirements phase output.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I correctly describes logical design phase activities. Statement II incorrectly describes the physical design phase — it is the logical design phase, not the physical, that produces a data model combined with information requirements. The physical phase focuses on actual implementation."
+    },
+    {
+      "id": 5,
+      "statement_I": "An entity is anything (a person, place, thing, or event) about which data are to be collected and stored, and each entity occurrence is unique and distinct.",
+      "statement_II": "Attributes are the equivalent of records in file systems, as they describe associations among entities.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I is correct. Statement II is incorrect on two counts — attributes are the equivalent of fields (not records) in file systems, and it is relationships (not attributes) that describe associations among entities."
+    },
+    {
+      "id": 6,
+      "statement_I": "A one-to-many (1:M) relationship means one instance on one side is related to many instances on the other side, but each of the 'many' is related to only one on the 'one' side.",
+      "statement_II": "In a many-to-many (M:N) relationship, one entity on each side can be related to only one entity on the other side.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I correctly defines a 1:M relationship. Statement II is incorrect — in a M:N relationship, many instances on each side can be related to many instances on the other side (e.g., a student can take many classes and each class can be taken by many students)."
+    },
+    {
+      "id": 7,
+      "statement_I": "The relationship 'EMPLOYEE manages STORE,' where each store is managed by one employee and each manager manages only one store, is labeled 1:1.",
+      "statement_II": "The relationship 'PAINTER paints PAINTING,' where a painter creates many paintings but each painting is created by only one painter, is labeled M:N.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I correctly identifies the EMPLOYEE-STORE relationship as 1:1. Statement II is incorrect — the PAINTER paints PAINTING relationship is 1:M (one painter, many paintings), not M:N."
+    },
+    {
+      "id": 8,
+      "statement_I": "Relationships in data models are bidirectional, meaning they should be read and interpreted in both directions.",
+      "statement_II": "A constraint is a restriction placed on the data that helps ensure data integrity and is normally expressed in the form of rules.",
+      "answer": "C) Both Statements are correct.",
+      "explanation": "Both statements are correct. Relationships are indeed bidirectional, and a constraint is correctly defined as a restriction that ensures data integrity and is expressed as rules."
+    },
+    {
+      "id": 9,
+      "statement_I": "A business rule is a brief, precise, and unambiguous description of a policy, procedure, or principle within a specific organization, and applies only to for-profit businesses.",
+      "statement_II": "Business rules must be rendered in writing and updated to reflect any change in the organization's operational environment.",
+      "answer": "B) Only Statement II is correct.",
+      "explanation": "Statement I is partially incorrect — while the definition of a business rule is correct, they apply to any organization (business, government, religious group, research laboratory), not only for-profit businesses. Statement II is correct."
+    },
+    {
+      "id": 10,
+      "statement_I": "To identify the relationship type between two entities, you should ask: 'How many instances of B are related to one instance of A?' and 'How many instances of A are related to one instance of B?'",
+      "statement_II": "In translating business rules into data model components, a noun translates into a relationship and a verb translates into an entity.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I correctly describes the two-question method for identifying relationship types. Statement II has the translation reversed — a noun translates into an entity and a verb translates into a relationship."
+    },
+    {
+      "id": 11,
+      "statement_I": "Not all business rules can be modeled in an ERD; for example, a rule specifying that 'no pilot can fly more than 10 hours within any 24-hour period' cannot be directly modeled but can be enforced by application software.",
+      "statement_II": "Business rules are only useful for determining entities and have no role in defining relationships or constraints within a data model.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I is correct. Statement II is incorrect — business rules are used to define entities, attributes, relationships, AND constraints. They establish all components of the data model."
+    },
+    {
+      "id": 12,
+      "statement_I": "The hierarchical model represents data as a hierarchical tree structure in which a higher layer is the parent and the segment beneath it is the child, depicting 1:M relationships.",
+      "statement_II": "The hierarchical model allows a record to have more than one parent, making it more flexible than the network model for representing complex relationships.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I correctly describes the hierarchical model. Statement II is incorrect — it is the network model (not the hierarchical model) that allows a record to have more than one parent. The hierarchical model restricts each child to having only one parent."
+    },
+    {
+      "id": 13,
+      "statement_I": "The network model introduced important concepts such as schema, subschema, DML, and DDL that are still used by modern data models.",
+      "statement_II": "In the network model, the user perceives the database as a collection of records in M:N relationships, unlike the hierarchical model which uses 1:M relationships.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I is correct. Statement II is incorrect — in the network model, the user perceives the database as a collection of records in 1:M relationships, not M:N."
+    },
+    {
+      "id": 14,
+      "statement_I": "The relational model represents data as relations or tables, and tables are related to each other through the sharing of a common attribute.",
+      "statement_II": "In the relational model, all physical details are visible to the user, who must manage table structures and access methods directly without the assistance of RDBMS software.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I is correct. Statement II is incorrect — the RDBMS manages all physical details while the user sees the database as a collection of tables, hiding the complexities from the user."
+    },
+    {
+      "id": 15,
+      "statement_I": "A relational diagram is a representation of the relational database's entities, the attributes within those entities, and the relationships between those entities.",
+      "statement_II": "In a relational diagram using Microsoft Access, the infinity (∞) symbol is used to indicate the 'one' side of a 1:M relationship.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I is correct. Statement II is incorrect — in Microsoft Access, the ∞ (infinity) symbol indicates the 'many' side, not the 'one' side of a 1:M relationship."
+    },
+    {
+      "id": 16,
+      "statement_I": "The Entity-Relationship Model is the most common approach to logical database specification and is a graphical method of representing entities, attributes, and relationships.",
+      "statement_II": "Peter Chen introduced the ER data model in 1986, after the relational model had already been widely adopted.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I is correct. Statement II is incorrect — Peter Chen introduced the ER data model in 1976, not 1986."
+    },
+    {
+      "id": 17,
+      "statement_I": "In the ERD, an entity name is generally written in capital letters in the singular form (e.g., EMPLOYEE rather than EMPLOYEES) inside a rectangle.",
+      "statement_II": "In Chen notation, connectivities are represented by symbols, and the 'many' side is represented by a three-pronged crow's foot symbol.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I correctly describes entity naming conventions in ERD. Statement II is incorrect — the three-pronged crow's foot symbol belongs to Crow's Foot notation, not Chen notation. In Chen notation, connectivities are written as numbers next to each entity box, and relationships are represented by diamonds."
+    },
+    {
+      "id": 18,
+      "statement_I": "In the Crow's Foot notation, the 'one' side of a relationship is represented by a short line segment, while the 'many' side is represented by the three-pronged crow's foot symbol.",
+      "statement_II": "The Crow's Foot notation and Chen notation are used in the lesson, with Crow's Foot serving as the design standard.",
+      "answer": "C) Both Statements are correct.",
+      "explanation": "Both statements are correct. Crow's Foot notation uses a short line for '1' and a three-pronged symbol for 'M,' and the lesson indeed uses Crow's Foot as the design standard while using Chen notation to illustrate certain ER modeling concepts."
+    },
+    {
+      "id": 19,
+      "statement_I": "In the object-oriented model, both the data and relationships are present in a single structure known as an object, allowing storage of audio, video, and images.",
+      "statement_II": "Two objects in the object-oriented model are connected through links, which are used to relate one object to other objects.",
+      "answer": "C) Both Statements are correct.",
+      "explanation": "Both statements are correct. The object-oriented model stores data and relationships in a single object structure and supports multimedia data, and objects are connected through links."
+    },
+    {
+      "id": 20,
+      "statement_I": "Multidimensional databases allow data to be viewed in the form of cubes or a star schema and are designed to solve complex queries in real time.",
+      "statement_II": "OLAP stands for Off-Line Analytical Processing and is used primarily for simple, transactional queries in operational databases.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I is correct. Statement II is incorrect — OLAP stands for On-Line Analytical Processing (not off-line), and it is used for complex analytical queries, not simple transactional queries."
+    },
+    {
+      "id": 21,
+      "statement_I": "NoSQL databases are particularly suited for large datasets because they offer schema-free design, faster write speeds, and easier replication and scaling compared to relational DBMSs.",
+      "statement_II": "NoSQL databases require a strict structure to be defined from the beginning, similar to relational DBMSs, but support more data types.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I correctly identifies key advantages of NoSQL. Statement II is incorrect — NoSQL solutions offer a schema-free design with large amounts of flexibility, whereas it is relational DBMSs that require structure from the beginning."
+    },
+    {
+      "id": 22,
+      "statement_I": "The ANSI/SPARC architecture defines three levels of data abstraction: external, conceptual, and internal.",
+      "statement_II": "A database designer following degrees of data abstraction starts with a detailed, implementation-specific view and progressively moves toward a more abstract view.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I is correct. Statement II is incorrect — the process is the opposite: a designer starts with an abstract view of the overall data environment and adds details as the design comes closer to implementation."
+    },
+    {
+      "id": 23,
+      "statement_I": "The external model represents the end users' view of the data environment, with each business unit viewing its data subset as separate or external to other units.",
+      "statement_II": "A specific representation of an external view is known as an external schema, represented using ER diagrams.",
+      "answer": "C) Both Statements are correct.",
+      "explanation": "Both statements are correct. The external model represents end users' views, with each department seeing its own data subset, and a specific external view representation is called an external schema, expressed through ER diagrams."
+    },
+    {
+      "id": 24,
+      "statement_I": "The conceptual model provides a bird's-eye view of the data environment and is independent of both software and hardware.",
+      "statement_II": "Changes in the DBMS software or hardware will directly affect the database design at the conceptual level, requiring the conceptual model to be redesigned.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I is correct. Statement II is incorrect — because the conceptual model is independent of both software and hardware, changes in either will have no effect on the database design at the conceptual level."
+    },
+    {
+      "id": 25,
+      "statement_I": "The internal model maps the conceptual model to the DBMS and requires the designer to match the conceptual model's characteristics and constraints to those of the selected implementation model.",
+      "statement_II": "The physical model is the highest level of data abstraction and is completely independent of both software and hardware.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I correctly describes the internal model. Statement II is incorrect — the physical model operates at the lowest level of abstraction (not the highest), and it is both software- and hardware-dependent."
+    },
+    {
+      "id": 26,
+      "statement_I": "The relationship between PROFESSOR and CLASS is 1:M because a professor may teach many classes, but each class is taught by only one professor.",
+      "statement_II": "The relationship between STUDENT and CLASS is 1:M because a student may enroll in many classes, but each class can only be taken by one student.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I correctly identifies the 1:M relationship between PROFESSOR and CLASS. Statement II is incorrect — the STUDENT-CLASS relationship is M:N (many-to-many) because a student can enroll in many classes AND each class can be taken by many students."
+    },
+    {
+      "id": 27,
+      "statement_I": "In the Sample College example, the registration and scheduling external schemas share the entities CLASS and COURSE, showing that external views can overlap.",
+      "statement_II": "The relationship between COURSE and CLASS is M:N because many courses can generate many classes with no restriction on how many classes can reference a single course.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I is correct. Statement II is incorrect — the relationship between COURSE and CLASS is 1:M: each course may generate many classes, but each class references only a single course."
+    },
+    {
+      "id": 28,
+      "statement_I": "Data models are important because they facilitate interaction among the designer, the applications programmer, and the end user, making them a communication tool.",
+      "statement_II": "A well-developed data model can foster improved understanding of the organization for which the database design is developed.",
+      "answer": "C) Both Statements are correct.",
+      "explanation": "Both statements are correct. The lesson explicitly states that data models facilitate interaction among stakeholders (making them a communication tool) and that a well-developed data model can foster improved organizational understanding."
+    },
+    {
+      "id": 29,
+      "statement_I": "The process of identifying and documenting business rules helps standardize the company's view of data, allows the designer to understand business processes, and serves as a communication tool between users and designers.",
+      "statement_II": "All business rules derived from an organization's operations can be directly modeled using ERDs, making application-level enforcement unnecessary.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I correctly lists reasons why identifying and documenting business rules is essential to database design. Statement II is incorrect — not all business rules can be modeled (e.g., flight-hour limits for pilots), and such rules must be enforced by application software."
+    },
+    {
+      "id": 30,
+      "statement_I": "The physical model requires the definition of both physical storage devices and physical access methods, making it dependent on both the software (DBMS and OS) and the type of storage devices the hardware can handle.",
+      "statement_II": "Database designers working at the physical model level require only a basic knowledge of hardware and software since the DBMS handles most physical details automatically.",
+      "answer": "A) Only Statement I is correct.",
+      "explanation": "Statement I correctly describes the physical model. Statement II is incorrect — the precision required in the physical model's definition demands that database designers have detailed knowledge of the hardware and software used."
+    }
+  ]
+}

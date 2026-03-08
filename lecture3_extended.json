@@ -1,0 +1,298 @@
+{
+  "chapter": 3,
+  "title": "Entity Relationship Modeling",
+  "identification": [
+    {"id":1,"question":"What is the data model that is well suited for database design because it is fairly abstract and easy to discuss and explain, and is also called an ER schema?","answer":"Entity Relationship (ER) data model"},
+    {"id":2,"question":"In an ER diagram, what symbol is used to represent entities?","answer":"Rectangle"},
+    {"id":3,"question":"In an ER diagram, what are the lines connecting rectangles used to represent?","answer":"Relationships between entities"},
+    {"id":4,"question":"What term refers to the symbols at the end of each line on an ERD that specify how many entities of one kind relate to how many entities of another kind?","answer":"Relationship cardinalities"},
+    {"id":5,"question":"What is a person, place, object, event, or concept in the user environment about which the organization wishes to maintain data?","answer":"Entity"},
+    {"id":6,"question":"What is a collection of entities that share common properties or characteristics, always named in singular and written in capital letters?","answer":"Entity type"},
+    {"id":7,"question":"What is a single occurrence of an entity type, corresponding to a single row in a relational table?","answer":"Entity instance (or entity occurrence)"},
+    {"id":8,"question":"What type of entity exists independently of other entity types and always has a unique identifier?","answer":"Strong entity type"},
+    {"id":9,"question":"What type of entity is existence-dependent, cannot exist without a relationship with another entity, and has a primary key partially or totally derived from the parent entity?","answer":"Weak entity type"},
+    {"id":10,"question":"What is the term for the entity type on which a weak entity type depends, whose primary key helps form the weak entity's primary key?","answer":"Identifying owner"},
+    {"id":11,"question":"What is the relationship between a weak entity type and its identifying owner called?","answer":"Identifying relationship"},
+    {"id":12,"question":"What notation — a double underline — is used to mark an attribute that partially identifies a weak entity?","answer":"Partial identifier"},
+    {"id":13,"question":"What are the descriptive properties possessed by all members of an entity set called?","answer":"Attributes"},
+    {"id":14,"question":"What is the set of permitted or possible values for a given attribute called?","answer":"Domain"},
+    {"id":15,"question":"What type of attribute must have a value and cannot be left empty?","answer":"Required attribute"},
+    {"id":16,"question":"What type of attribute does not require a value and can be left empty?","answer":"Optional attribute"},
+    {"id":17,"question":"What type of attribute can be further subdivided to yield additional attributes, such as ADDRESS being divided into street, city, state, and zip code?","answer":"Composite attribute"},
+    {"id":18,"question":"What type of attribute cannot be subdivided, such as age, sex, or marital status?","answer":"Simple attribute"},
+    {"id":19,"question":"What type of attribute can have only a single value for a given entity instance, such as a Social Security number?","answer":"Single-valued attribute"},
+    {"id":20,"question":"What type of attribute can have many values for a given entity instance, such as a person's college degrees or a household's phone numbers?","answer":"Multivalued attribute"},
+    {"id":21,"question":"In ER diagramming, what notation is used to indicate a multivalued attribute?","answer":"Curly brackets { } around the attribute name"},
+    {"id":22,"question":"What type of attribute has values that can be calculated or derived from other stored attribute values, such as age from date of birth?","answer":"Derived attribute"},
+    {"id":23,"question":"In ER diagramming, what notation is used to indicate a derived attribute?","answer":"Square brackets [ ] around the attribute name"},
+    {"id":24,"question":"What is an attribute or group of attributes whose values can be used to uniquely identify an individual entity in an entity set?","answer":"Key"},
+    {"id":25,"question":"In the ERM, what are the one or more attributes that uniquely identify each entity instance, and are mapped to primary keys in the relational model?","answer":"Identifiers"},
+    {"id":26,"question":"What type of key is a simple or composite key that is both unique and minimal — no column can be removed without losing uniqueness?","answer":"Candidate key"},
+    {"id":27,"question":"What type of key is composed of more than one attribute to uniquely identify an entity instance?","answer":"Composite key (or composite identifier)"},
+    {"id":28,"question":"What type of key is used strictly for data retrieval purposes and is not the primary key?","answer":"Secondary key"},
+    {"id":29,"question":"What is the term for all candidate keys that were not chosen as the primary key?","answer":"Alternate keys"},
+    {"id":30,"question":"What is an attribute in a table that references the primary key in another table, or can be null?","answer":"Foreign key (FK)"},
+    {"id":31,"question":"What is an association representing an interaction among entity instances, identified by an active or passive verb name?","answer":"Relationship"},
+    {"id":32,"question":"What is a meaningful association between or among entity types, denoted by a labeled line in an ERD?","answer":"Relationship type"},
+    {"id":33,"question":"What is an association between or among entity instances where each involves exactly one entity instance from each participating entity type?","answer":"Relationship instance"},
+    {"id":34,"question":"What term describes the relationship classification such as 1:1, 1:M, or M:N?","answer":"Connectivity"},
+    {"id":35,"question":"What expresses the minimum and maximum number of entity occurrences associated with one occurrence of a related entity, indicated in the format (x,y) beside entities?","answer":"Cardinality"},
+    {"id":36,"question":"What type of relationship participation means that one entity occurrence does not require a corresponding entity occurrence, shown as a small circle (O) in Crow's Foot notation?","answer":"Optional participation"},
+    {"id":37,"question":"What type of relationship participation means that one entity occurrence requires a corresponding entity occurrence, with a minimum cardinality of at least 1?","answer":"Mandatory participation"},
+    {"id":38,"question":"What is it called when an entity can exist in the database only when associated with another related entity occurrence, indicated by a mandatory foreign key?","answer":"Existence dependence"},
+    {"id":39,"question":"What indicates the number of entities or participants associated with a relationship?","answer":"Relationship degree"},
+    {"id":40,"question":"What type of relationship exists when an association is maintained within a single entity type, also called a recursive relationship?","answer":"Unary relationship"},
+    {"id":41,"question":"What type of relationship exists when two entities are associated, and is the most common type in database design?","answer":"Binary relationship"},
+    {"id":42,"question":"What type of relationship exists when three entities are associated?","answer":"Ternary relationship"},
+    {"id":43,"question":"What is a unary relationship also called, because a relationship can exist between occurrences of the same entity set?","answer":"Recursive relationship"},
+    {"id":44,"question":"What type of entity resolves a M:N relationship between two or more entities by combining their primary keys, also known as a composite or bridge entity?","answer":"Associative entity"},
+    {"id":45,"question":"In developing an ER diagram, what kind of process is it — one based on repetition of steps rather than a single linear sequence?","answer":"Iterative process"},
+    {"id":46,"question":"What approach to ER modeling proceeds from basic business descriptions to develop a high-level ERD with only major entities and relationships?","answer":"Top-down approach"},
+    {"id":47,"question":"What approach to ER modeling proceeds from detailed discussions with users and detailed study of documents, screens, and other data sources?","answer":"Bottom-up approach"},
+    {"id":48,"question":"In Chen notation, how are attributes represented in an ER diagram?","answer":"As ovals connected to the entity rectangle with lines"},
+    {"id":49,"question":"In Crow's Foot notation, where are attributes written in an ER diagram?","answer":"In an attribute box below the entity rectangle"},
+    {"id":50,"question":"At the ER modeling level, what does 'entity' correspond to in the relational environment — a table or a single row?","answer":"A table (the entity set), not a single row"}
+  ],
+  "modifiedTrueOrFalse": [
+    {
+      "id":1,
+      "statement_I":"The Entity Relationship (ER) data model is well suited for database design because it is abstract and easy to discuss, and ER models are readily translated to relations.",
+      "statement_II":"ER models are based on entities defined as the associations between tables, and relationships defined as the tables that hold specific information.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"A) Only Statement I is correct.",
+      "explanation":"Statement I is correct. Statement II has the definitions reversed — entities are tables that hold specific information (data), and relationships are the associations or interactions between entities, not the other way around."
+    },
+    {
+      "id":2,
+      "statement_I":"In an ER diagram, entities are represented by rectangles, while relationships between entities are represented by lines connecting the related entities.",
+      "statement_II":"Cardinality symbols placed at the ends of relationship lines in an ERD express business rules about how many entities of one kind relate to how many entities of another kind.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"C) Both Statements are correct.",
+      "explanation":"Both statements are correct. Entities are shown as rectangles and relationships as connecting lines. Cardinality symbols at the ends of those lines express business rules governing how many instances of each entity may participate in the relationship."
+    },
+    {
+      "id":3,
+      "statement_I":"An entity instance is a collection of entities sharing common properties, equivalent to a full table in the relational model.",
+      "statement_II":"Entity type names in the ER model can be written in plural form and are written in lowercase letters to distinguish them from relationship names.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"D) Neither Statement is correct.",
+      "explanation":"Both statements are incorrect. An entity instance is a single occurrence (row) of an entity type — it is the entity type that corresponds to a full table. Additionally, entity type names must always be singular and are written in CAPITAL LETTERS, not lowercase."
+    },
+    {
+      "id":4,
+      "statement_I":"A strong entity type is existence-independent, meaning it can exist apart from other entity types, and its instances always have a unique identifier.",
+      "statement_II":"A table without a foreign key, or a table that contains a foreign key that can contain nulls, is considered a strong entity.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"C) Both Statements are correct.",
+      "explanation":"Both statements are correct. A strong entity type exists independently and always has a unique identifier. In implementation, a table without a foreign key, or one whose foreign key can be null, qualifies as a strong entity."
+    },
+    {
+      "id":5,
+      "statement_I":"A weak entity type meets two conditions: it is existence-dependent on another entity, and its primary key is partially or totally derived from the parent entity in the relationship.",
+      "statement_II":"The entity type on which a weak entity depends is called the partial identifier, and their special relationship is called the composite relationship.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"A) Only Statement I is correct.",
+      "explanation":"Statement I correctly describes the two conditions for a weak entity. Statement II is incorrect — the entity on which the weak entity depends is called the identifying owner (not partial identifier), and their relationship is called the identifying relationship (not composite relationship)."
+    },
+    {
+      "id":6,
+      "statement_I":"In an ERD, a partial identifier attribute of a weak entity is indicated using a double underline, and the identifying relationship is indicated using a double line.",
+      "statement_II":"Examples of strong-weak entity pairs include BOOK–BOOK COPY, PRODUCT–SERIAL PRODUCT, and COURSE–COURSE OFFERING.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"C) Both Statements are correct.",
+      "explanation":"Both statements are correct. A double underline marks the partial identifier of a weak entity, and a double line marks the identifying relationship. The textbook also cites BOOK–BOOK COPY, PRODUCT–SERIAL PRODUCT, and COURSE–COURSE OFFERING as examples of strong-weak entity pairs."
+    },
+    {
+      "id":7,
+      "statement_I":"A domain is the set of possible values for a given attribute; for example, the domain for GPA is (0,4) and the domain for gender consists of M or F.",
+      "statement_II":"Two different entities cannot share the same domain for their attributes because domains are always unique to each entity type.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"A) Only Statement I is correct.",
+      "explanation":"Statement I is correct. Statement II is incorrect — attributes may share a domain. For instance, a student address and a professor address share the same domain of all possible addresses."
+    },
+    {
+      "id":8,
+      "statement_I":"A composite attribute is one that can be further subdivided into component parts, such as ADDRESS being broken down into street, city, state, and zip code.",
+      "statement_II":"To facilitate detailed queries, it is wise to convert composite attributes into a series of simple attributes.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"C) Both Statements are correct.",
+      "explanation":"Both statements are correct. Composite attributes can be subdivided (e.g., ADDRESS into its parts). Converting composite attributes into simple ones is explicitly recommended in the textbook to facilitate more detailed database queries."
+    },
+    {
+      "id":9,
+      "statement_I":"A single-valued attribute can hold only one value per entity instance, and every single-valued attribute is necessarily also a simple attribute.",
+      "statement_II":"Multivalued attributes can have many values for a given entity instance, such as a person having several college degrees or a car having multiple colors.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"B) Only Statement II is correct.",
+      "explanation":"Statement II is correct. Statement I is incorrect — a single-valued attribute is not necessarily a simple attribute. For example, a part serial number (SE-08-02-189935) is single-valued but composite because it can be subdivided into region, plant, shift, and part number."
+    },
+    {
+      "id":10,
+      "statement_I":"In ER diagramming, multivalued attributes are indicated with square brackets [ ] and derived attributes are indicated with curly brackets { } around the attribute name.",
+      "statement_II":"A derived attribute need not be physically stored in the database; it can be computed using an algorithm, such as computing an employee's age from the current date and their date of birth.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"B) Only Statement II is correct.",
+      "explanation":"Statement II is correct. Statement I has the notations reversed — multivalued attributes are indicated with curly brackets { }, not square brackets; and derived attributes are indicated with square brackets [ ], not curly brackets."
+    },
+    {
+      "id":11,
+      "statement_I":"To handle multivalued attributes in the RDBMS, the designer must create a new entity composed of the original multivalued attribute's components and relate it to the original entity in a 1:M relationship.",
+      "statement_II":"Multivalued attributes can be directly stored in a relational table because each column/row intersection in an RDBMS can hold multiple values.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"A) Only Statement I is correct.",
+      "explanation":"Statement I is correct. Statement II is incorrect — multivalued attributes should NOT be directly implemented in an RDBMS because each column/row intersection represents a single data value. The correct approach is to create a new entity in a 1:M relationship with the original entity."
+    },
+    {
+      "id":12,
+      "statement_I":"A candidate key is a simple or composite key that is both unique (no two rows share the same value) and minimal (every column is necessary for uniqueness).",
+      "statement_II":"Alternate keys are all candidate keys that were not selected as the primary key.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"C) Both Statements are correct.",
+      "explanation":"Both statements are correct. A candidate key must be unique and minimal. Among all candidate keys, the one chosen becomes the primary key, while the remaining ones are called alternate keys."
+    },
+    {
+      "id":13,
+      "statement_I":"A foreign key is an attribute in a table that references the primary key in another table, and both the foreign key and the referenced primary key must be of the same data type.",
+      "statement_II":"A secondary key is an attribute or composite attribute used strictly for retrieval purposes, not for uniquely identifying records.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"C) Both Statements are correct.",
+      "explanation":"Both statements are correct. A foreign key references the primary key in another table and must match its data type (or be null). A secondary key is defined as an attribute used strictly for retrieval purposes."
+    },
+    {
+      "id":14,
+      "statement_I":"Relationships between entities operate in only one direction, so defining just one side of a relationship is sufficient to fully classify it as 1:1, 1:M, or M:N.",
+      "statement_II":"Relationships between entities always operate in both directions; both directions must be stated (e.g., 'A CUSTOMER may generate many INVOICEs' AND 'each INVOICE is generated by one CUSTOMER') to fully classify a relationship.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"B) Only Statement II is correct.",
+      "explanation":"Statement II is correct. Statement I is incorrect — relationships always operate bidirectionally. Knowing only one side makes it difficult to determine the relationship type; for example, knowing only 'A DIVISION is managed by one EMPLOYEE' does not reveal whether the relationship is 1:1 or 1:M."
+    },
+    {
+      "id":15,
+      "statement_I":"A relationship type is a meaningful association between entity types, while a relationship instance is an association between specific entity instances, where each involves exactly one entity from each participating type.",
+      "statement_II":"In the M:N 'Completes' relationship between EMPLOYEE and COURSE, one employee can complete many courses and one course can be completed by many employees.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"C) Both Statements are correct.",
+      "explanation":"Both statements are correct. A relationship type is the meaningful association between entity types, while a relationship instance links specific occurrences. The EMPLOYEE–COURSE 'Completes' example from the textbook is a M:N relationship."
+    },
+    {
+      "id":16,
+      "statement_I":"In the ERD cardinality format (x,y), x represents the maximum number and y represents the minimum number of associated entity occurrences.",
+      "statement_II":"Connectivity describes the relationship classification (1:1, 1:M, M:N), while cardinality expresses the minimum and maximum number of entity occurrences associated with one occurrence of a related entity.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"B) Only Statement II is correct.",
+      "explanation":"Statement II is correct. Statement I has the format reversed — x represents the minimum and y represents the maximum number of associated entity occurrences, not the other way around."
+    },
+    {
+      "id":17,
+      "statement_I":"Connectivities and cardinalities are established by concise statements known as business rules, which also define the ERM's entities, attributes, relationships, and constraints.",
+      "statement_II":"The DBMS can directly implement specific cardinality limits (e.g., a maximum of 30 students per class) at the table level without any need for application software or triggers.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"A) Only Statement I is correct.",
+      "explanation":"Statement I is correct. Statement II is incorrect — the DBMS cannot handle the implementation of specific cardinalities at the table level. That capability is provided by application software or by triggers."
+    },
+    {
+      "id":18,
+      "statement_I":"Optional participation means that one entity occurrence does not require a corresponding entity occurrence; in Crow's Foot notation, this is shown by a small circle (O) on the side of the optional entity.",
+      "statement_II":"The existence of an optional entity indicates a minimum cardinality of 0, while the existence of a mandatory entity indicates a minimum cardinality of at least 1.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"C) Both Statements are correct.",
+      "explanation":"Both statements are correct. Optional participation is indicated by a circle (O) in Crow's Foot notation, reflecting a minimum cardinality of 0. Mandatory participation is indicated by a hash mark, reflecting a minimum cardinality of at least 1."
+    },
+    {
+      "id":19,
+      "statement_I":"An entity is existence-dependent if it has an optional foreign key — one that may be null — indicating it does not need to be associated with another entity.",
+      "statement_II":"If an entity can exist apart from all of its related entities (existence-independent), it is referred to as a strong entity or regular entity.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"B) Only Statement II is correct.",
+      "explanation":"Statement II is correct. Statement I is incorrect — an entity is existence-dependent if it has a mandatory foreign key (one that cannot be null). A foreign key that may be null actually implies the entity can exist independently."
+    },
+    {
+      "id":20,
+      "statement_I":"A binary relationship exists when three entities are associated in a relationship and is the most common type; higher-order relationships should be decomposed into binary ones whenever possible.",
+      "statement_II":"A unary relationship, also called recursive, exists between occurrences of the same entity type; the primary and foreign keys are the same but represent two entities with different roles.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"B) Only Statement II is correct.",
+      "explanation":"Statement II is correct. Statement I is incorrect — a binary relationship exists when two (not three) entities are associated. A relationship involving three entities is a ternary relationship. Binary relationships are indeed the most common type."
+    },
+    {
+      "id":21,
+      "statement_I":"In a unary 1:M recursive relationship, the 'Manages' relationship among EMPLOYEE instances allows identification of which employees report to a particular manager.",
+      "statement_II":"An M:N unary relationship can be expressed as 'a COURSE may be a prerequisite to many other COURSEs, and each COURSE may have many other COURSEs as prerequisites.'",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"C) Both Statements are correct.",
+      "explanation":"Both statements are correct. The textbook uses 'Manages' as an example of a 1:M unary relationship among EMPLOYEE instances. The COURSE prerequisite relationship is cited as an M:N unary relationship example."
+    },
+    {
+      "id":22,
+      "statement_I":"A ternary relationship implies an association among three different entities, and whenever possible, higher-order relationships should be decomposed into equivalent binary relationships.",
+      "statement_II":"In the DOCTOR–PATIENT–DRUG ternary relationship example from the textbook, each prescription contains multiple drugs; a separate doctor-drug relationship is used when only one drug is prescribed.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"A) Only Statement I is correct.",
+      "explanation":"Statement I is correct. Statement II is incorrect — in the textbook's example, the business rule specifies that each prescription contains only one drug. If a doctor prescribes more than one drug, a separate prescription must be written for each drug."
+    },
+    {
+      "id":23,
+      "statement_I":"An associative (composite/bridge) entity is used to implement 1:1 relationships between two entities by combining their foreign keys into a bridging table.",
+      "statement_II":"One condition for converting a relationship to an associative entity type is that all participating relationships are 'one' (not 'many') relationships.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"D) Neither Statement is correct.",
+      "explanation":"Both statements are incorrect. An associative entity resolves M:N relationships (not 1:1) between two or more entities, and it is composed of the primary keys (not foreign keys) of the connected entities. One condition for using an associative entity is that all participating relationships are 'many' relationships, not 'one' relationships."
+    },
+    {
+      "id":24,
+      "statement_I":"In the Tiny College example, the ENROLL entity is a strong entity with its own independent primary key that is not derived from the STUDENT or CLASS tables.",
+      "statement_II":"The ENROLL table allows null entries in its key attributes (CLASS_CODE and STU_NUM) when no students have yet enrolled in a class.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"D) Neither Statement is correct.",
+      "explanation":"Both statements are incorrect. ENROLL is a weak (composite) entity whose existence depends on both STUDENT and CLASS, and its composite primary key consists entirely of the primary keys of CLASS and STUDENT. Because key attributes are derived from other PKs, null entries in the ENROLL key are not possible."
+    },
+    {
+      "id":25,
+      "statement_I":"In Crow's Foot notation, the symbol (1,N) next to an entity means 'zero or many' and indicates that the many side is optional.",
+      "statement_II":"In Crow's Foot notation, the symbol (0,N) next to an entity means 'one or many' and indicates that the many side is mandatory.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"D) Neither Statement is correct.",
+      "explanation":"Both statements are incorrect — the definitions are swapped. (0,N) means 'zero or many' (optional many side), and (1,N) means 'one or many' (mandatory many side). Neither statement correctly describes either symbol."
+    },
+    {
+      "id":26,
+      "statement_I":"The process of developing an ER diagram is iterative, involving steps such as creating a narrative, identifying business rules, identifying entities and relationships, developing the initial ERD, identifying attributes and primary keys, and revising the ERD.",
+      "statement_II":"Database designers rely solely on interviews with users to identify entities, attributes, and relationships, and do not examine business forms, reports, or other organizational documents.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"A) Only Statement I is correct.",
+      "explanation":"Statement I correctly describes the iterative ERD development process. Statement II is incorrect — the textbook explicitly states that a surprising amount of information can be gathered by examining business forms and reports, not just from interviews."
+    },
+    {
+      "id":27,
+      "statement_I":"In the Tiny College example, a M:N relationship exists between PROFESSOR and SCHOOL because one professor can administer many schools, and one school can be administered by many professors.",
+      "statement_II":"In the Tiny College example, the ENROLL composite entity is a strong entity whose primary key is independent of both the STUDENT and CLASS tables.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"D) Neither Statement is correct.",
+      "explanation":"Both statements are incorrect. The PROFESSOR–SCHOOL relationship in Tiny College is 1:1 (one professor is dean of one school; one school has one dean), not M:N. ENROLL is a weak composite entity whose primary key is derived from the PKs of both STUDENT and CLASS, not an independent key."
+    },
+    {
+      "id":28,
+      "statement_I":"In the Pine Valley Furniture Company ERD, the SKILL multivalued attribute is kept directly within the EMPLOYEE table as a repeating column group.",
+      "statement_II":"In the Pine Valley Furniture Company ERD, each salesperson can serve multiple sales territories, and each sales territory is served by exactly one salesperson.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"D) Neither Statement is correct.",
+      "explanation":"Both statements are incorrect. In Pine Valley, SKILL is modeled as a separate SKILL entity in a 1:M relationship with EMPLOYEE — it is not kept as a repeating column in EMPLOYEE. For the salesperson-territory rule, each salesperson serves exactly ONE territory, while each territory is served by one or MORE salespersons (not the other way around)."
+    },
+    {
+      "id":29,
+      "statement_I":"In Crow's Foot notation, optional participation is shown as a small hash mark across the relationship line, while mandatory participation is shown as a small circle (O).",
+      "statement_II":"In the 'PROFESSOR teaches CLASS' relationship, PROFESSOR is optional to CLASS because a professor may or may not teach a class, while CLASS is mandatory to PROFESSOR because every professor must teach at least one class.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"D) Neither Statement is correct.",
+      "explanation":"Both statements are incorrect. In Crow's Foot notation, optional participation is shown by a small CIRCLE (O), not a hash mark; a hash mark indicates mandatory participation. Furthermore, in 'PROFESSOR teaches CLASS', CLASS is optional to PROFESSOR (a professor may teach no classes) and PROFESSOR is mandatory to CLASS (every class must have a professor) — Statement II has these reversed."
+    },
+    {
+      "id":30,
+      "statement_I":"In the Tiny College example, ENROLL is a strong entity between STUDENT and CLASS with its own independent primary key separate from both STUDENT and CLASS primary keys.",
+      "statement_II":"In the Tiny College example, a BUILDING can contain many ROOMs but each ROOM is found in only one BUILDING, representing a 1:M relationship between BUILDING and ROOM.",
+      "options":{"A":"Only Statement I is correct.","B":"Only Statement II is correct.","C":"Both Statements are correct.","D":"Neither Statement is correct."},
+      "answer":"B) Only Statement II is correct.",
+      "explanation":"Statement II is correct — the BUILDING–ROOM relationship in Tiny College is 1:M (one building contains many rooms; each room is found in one building). Statement I is incorrect — ENROLL is a weak composite entity whose composite primary key is composed entirely of the primary keys of CLASS and STUDENT, not an independent key."
+    }
+  ]
+}

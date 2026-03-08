@@ -1,0 +1,556 @@
+{
+  "identification": [
+    {
+      "id": 1,
+      "question": "What are specialized structures that allow computer-based systems to store, manage, and retrieve data very quickly?",
+      "answer": "Databases"
+    },
+    {
+      "id": 2,
+      "question": "What term refers to raw, unorganized facts that require processing to become meaningful?",
+      "answer": "Data"
+    },
+    {
+      "id": 3,
+      "question": "What term refers to data that has been processed, structured, and presented in context to make it meaningful and useful?",
+      "answer": "Information"
+    },
+    {
+      "id": 4,
+      "question": "What discipline focuses on the proper generation, storage, and retrieval of data?",
+      "answer": "Data management"
+    },
+    {
+      "id": 5,
+      "question": "What is the system called where application programs are designed to manipulate data stored in permanent files?",
+      "answer": "File-based system"
+    },
+    {
+      "id": 6,
+      "question": "What is a character or group of characters that has a specific meaning and is used to define and store data?",
+      "answer": "Field"
+    },
+    {
+      "id": 7,
+      "question": "What is a logically connected set of one or more fields that describes a person, place, or thing?",
+      "answer": "Record"
+    },
+    {
+      "id": 8,
+      "question": "What is a collection of related records called?",
+      "answer": "File"
+    },
+    {
+      "id": 9,
+      "question": "What file system drawback refers to the duplication of data stored in multiple locations?",
+      "answer": "Data redundancy"
+    },
+    {
+      "id": 10,
+      "question": "What file system drawback occurs when different and conflicting versions of the same data appear in different places?",
+      "answer": "Data inconsistency"
+    },
+    {
+      "id": 11,
+      "question": "What file system drawback makes it difficult to write new programs to retrieve data scattered in various files with different formats?",
+      "answer": "Data isolation"
+    },
+    {
+      "id": 12,
+      "question": "What file system drawback means that changing a file structure requires changes in all application programs that access it?",
+      "answer": "Dependency on application programs (structural dependence)"
+    },
+    {
+      "id": 13,
+      "question": "What transaction property means 'all or nothing' — either all operations in a transaction execute or none do?",
+      "answer": "Atomicity"
+    },
+    {
+      "id": 14,
+      "question": "What condition exists when access to a file is dependent on its structure, meaning structural changes affect all programs that access it?",
+      "answer": "Structural dependence"
+    },
+    {
+      "id": 15,
+      "question": "What condition exists when it is possible to make changes in file structure without affecting the application program's ability to access the data?",
+      "answer": "Structural independence"
+    },
+    {
+      "id": 16,
+      "question": "What condition exists when all data access programs must change whenever file data storage characteristics change?",
+      "answer": "Data dependence"
+    },
+    {
+      "id": 17,
+      "question": "What condition exists when changes in data storage characteristics do not affect the application program's ability to access the data?",
+      "answer": "Data independence"
+    },
+    {
+      "id": 18,
+      "question": "What type of data anomaly occurs when a field value change must be repeated in multiple records because of data redundancy?",
+      "answer": "Update anomaly"
+    },
+    {
+      "id": 19,
+      "question": "What type of data anomaly occurs when adding a new entity requires adding dummy data due to a file structure limitation?",
+      "answer": "Insertion anomaly"
+    },
+    {
+      "id": 20,
+      "question": "What type of data anomaly occurs when deleting a record unintentionally removes data about another entity?",
+      "answer": "Deletion anomaly"
+    },
+    {
+      "id": 21,
+      "question": "What is a shared, integrated computer structure that stores both end-user data and metadata?",
+      "answer": "Database"
+    },
+    {
+      "id": 22,
+      "question": "What term refers to data about data that describes the characteristics and relationships of the data in a database?",
+      "answer": "Metadata"
+    },
+    {
+      "id": 23,
+      "question": "What type of database supports only one user at a time?",
+      "answer": "Single-user database"
+    },
+    {
+      "id": 24,
+      "question": "What type of single-user database runs on a personal computer?",
+      "answer": "Desktop database"
+    },
+    {
+      "id": 25,
+      "question": "What type of multiuser database supports a small number of users or a specific department (usually fewer than 50 users)?",
+      "answer": "Workgroup database"
+    },
+    {
+      "id": 26,
+      "question": "What type of database is used across an entire organization and supports many users (usually hundreds) across many departments?",
+      "answer": "Enterprise database"
+    },
+    {
+      "id": 27,
+      "question": "What type of database stores data at a single physical site?",
+      "answer": "Centralized database"
+    },
+    {
+      "id": 28,
+      "question": "What type of database distributes data across several different sites?",
+      "answer": "Distributed database"
+    },
+    {
+      "id": 29,
+      "question": "What type of database is designed to support a company's day-to-day operations and is also called a transactional or production database?",
+      "answer": "Operational database"
+    },
+    {
+      "id": 30,
+      "question": "What type of database focuses primarily on storing data used to generate information for tactical or strategic decision-making?",
+      "answer": "Data warehouse"
+    },
+    {
+      "id": 31,
+      "question": "What type of data exists in its original raw state in the format in which it was collected?",
+      "answer": "Unstructured data"
+    },
+    {
+      "id": 32,
+      "question": "What type of data is the result of taking unstructured data and formatting it to facilitate storage, use, and generation of information?",
+      "answer": "Structured data"
+    },
+    {
+      "id": 33,
+      "question": "What type of data has already been processed to some extent, such as a typical web page?",
+      "answer": "Semi-structured data"
+    },
+    {
+      "id": 34,
+      "question": "What are the five major components of a database system?",
+      "answer": "Hardware, software, people, procedures, and data"
+    },
+    {
+      "id": 35,
+      "question": "What database system component refers to all physical devices such as computers, storage devices, and network devices?",
+      "answer": "Hardware"
+    },
+    {
+      "id": 36,
+      "question": "What database system component includes the operating system, DBMS software, and application programs and utilities?",
+      "answer": "Software"
+    },
+    {
+      "id": 37,
+      "question": "What database system component includes instructions and rules that govern the design and use of the database system?",
+      "answer": "Procedures"
+    },
+    {
+      "id": 38,
+      "question": "What is the complete set of steps that information systems professionals follow in an organization to specify, develop, maintain, and replace information systems?",
+      "answer": "Systems Development Life Cycle (SDLC)"
+    },
+    {
+      "id": 39,
+      "question": "What is a collection of programs that enables users to create and maintain databases and control all access to them?",
+      "answer": "Database Management System (DBMS)"
+    },
+    {
+      "id": 40,
+      "question": "What DBMS function stores metadata definitions of data elements and their relationships, enabling data abstraction?",
+      "answer": "Data dictionary management"
+    },
+    {
+      "id": 41,
+      "question": "What DBMS function creates and manages complex structures required for data storage, relieving the user of defining physical data characteristics?",
+      "answer": "Data storage management"
+    },
+    {
+      "id": 42,
+      "question": "What DBMS function transforms entered data to conform to required data structures and manages the logical vs. physical data format distinction?",
+      "answer": "Data transformation and presentation"
+    },
+    {
+      "id": 43,
+      "question": "What DBMS function creates a system that enforces user security and data privacy by determining which users can access which data?",
+      "answer": "Security management"
+    },
+    {
+      "id": 44,
+      "question": "What DBMS function uses sophisticated algorithms to ensure that multiple users can access the database concurrently without compromising integrity?",
+      "answer": "Multiuser access control"
+    },
+    {
+      "id": 45,
+      "question": "What DBMS function deals with the recovery of the database after a failure such as a bad sector in the disk or a power failure?",
+      "answer": "Backup and recovery management"
+    },
+    {
+      "id": 46,
+      "question": "What DBMS function promotes and enforces integrity rules to minimize data redundancy and maximize data consistency?",
+      "answer": "Data integrity management"
+    },
+    {
+      "id": 47,
+      "question": "What is a nonprocedural query language that lets users specify what must be done without specifying how, and is the de facto standard for relational databases?",
+      "answer": "SQL (Structured Query Language)"
+    },
+    {
+      "id": 48,
+      "question": "What organizational information system forms the bottom of the pyramid and supports the processing of production data like inventory and accounting?",
+      "answer": "Transaction Processing System (TPS)"
+    },
+    {
+      "id": 49,
+      "question": "What organizational information system sits in the middle of the pyramid and is used primarily by middle management, producing periodic reports?",
+      "answer": "Management Information System (MIS)"
+    },
+    {
+      "id": 50,
+      "question": "What organizational information system is designed for managerial decision-making in ill-structured or semi-structured situations, often using mathematical and statistical techniques?",
+      "answer": "Decision Support System (DSS)"
+    }
+  ],
+  "multipleChoice": [
+    {
+      "id": 1,
+      "question": "Which of the following best describes the ultimate purpose of all business information systems?",
+      "choices": ["A) To replace human workers with automation", "B) To help businesses use information as an organizational resource", "C) To store as much raw data as possible", "D) To enforce government data regulations"],
+      "answer": "B) To help businesses use information as an organizational resource"
+    },
+    {
+      "id": 2,
+      "question": "Which of the following is the correct relationship between data and information?",
+      "choices": ["A) Data is produced by processing information", "B) Information and data are the same thing", "C) Information is produced by processing data", "D) Data is more useful than information for decision-making"],
+      "answer": "C) Information is produced by processing data"
+    },
+    {
+      "id": 3,
+      "question": "A company converts raw ticket sales figures from a band's tour into a report showing which venues are most profitable. What does the sales report represent?",
+      "choices": ["A) Raw data", "B) Metadata", "C) Information", "D) Structured files"],
+      "answer": "C) Information"
+    },
+    {
+      "id": 4,
+      "question": "Which statement about data is TRUE?",
+      "choices": ["A) Data is always meaningful on its own", "B) Data comprises facts, observations, symbols, and numbers in raw form", "C) Data and information are interchangeable terms", "D) Data is produced by processing information"],
+      "answer": "B) Data comprises facts, observations, symbols, and numbers in raw form"
+    },
+    {
+      "id": 5,
+      "question": "In a file-based system, who initiates the creation of new application programs?",
+      "choices": ["A) The DBMS itself", "B) Database administrators", "C) Users in the organization", "D) Hardware vendors"],
+      "answer": "C) Users in the organization"
+    },
+    {
+      "id": 6,
+      "question": "Which file terminology component is defined as 'a character or group of characters that has a specific meaning'?",
+      "choices": ["A) Record", "B) File", "C) Field", "D) Schema"],
+      "answer": "C) Field"
+    },
+    {
+      "id": 7,
+      "question": "Which file terminology component is described as 'a logically connected set of one or more fields that describes a person, place, or thing'?",
+      "choices": ["A) File", "B) Field", "C) Record", "D) Table"],
+      "answer": "C) Record"
+    },
+    {
+      "id": 8,
+      "question": "In Figure 1.2 from the lesson, the CUSTOMER file contains 10 records. How many fields does each record contain?",
+      "choices": ["A) 5", "B) 7", "C) 9", "D) 10"],
+      "answer": "C) 9"
+    },
+    {
+      "id": 9,
+      "question": "A university stores the same student address in both the Registrar's file and the Scholarship file. When the student moves, the address is updated in only one file. Which file system drawback does this illustrate?",
+      "choices": ["A) Data isolation", "B) Atomicity issues", "C) Data inconsistency", "D) Structural dependence"],
+      "answer": "C) Data inconsistency"
+    },
+    {
+      "id": 10,
+      "question": "A student enrolled in two courses has their details stored twice, wasting storage space. Which file system drawback does this illustrate?",
+      "choices": ["A) Data inconsistency", "B) Data redundancy", "C) Data isolation", "D) Dependency on application programs"],
+      "answer": "B) Data redundancy"
+    },
+    {
+      "id": 11,
+      "question": "Which file system drawback makes writing new programs to retrieve data difficult because data are scattered across files in different formats?",
+      "choices": ["A) Atomicity issues", "B) Data security", "C) Data isolation", "D) Data dependence"],
+      "answer": "C) Data isolation"
+    },
+    {
+      "id": 12,
+      "question": "Steve transfers $100 to Negan's account. The system debits Steve's account but fails before crediting Negan's account. Which file system problem does this illustrate?",
+      "choices": ["A) Data redundancy", "B) Data isolation", "C) Atomicity issues", "D) Data inconsistency"],
+      "answer": "C) Atomicity issues"
+    },
+    {
+      "id": 13,
+      "question": "A student should not be able to view a teacher's payroll data. Which file system drawback makes enforcing this restriction difficult?",
+      "choices": ["A) Data redundancy", "B) Data security", "C) Data anomaly", "D) Structural dependence"],
+      "answer": "B) Data security"
+    },
+    {
+      "id": 14,
+      "question": "Agent Leah F. Hahn's phone number appears in both the CUSTOMER file and the AGENT file. She changes her number and it is updated only in the AGENT file. Which type of anomaly results?",
+      "choices": ["A) Deletion anomaly", "B) Insertion anomaly", "C) Update anomaly", "D) Integrity anomaly"],
+      "answer": "C) Update anomaly"
+    },
+    {
+      "id": 15,
+      "question": "If only the CUSTOMER file existed and you needed to add a new agent, you would have to add a dummy customer record to reflect the new agent. Which anomaly is this?",
+      "choices": ["A) Update anomaly", "B) Deletion anomaly", "C) Redundancy anomaly", "D) Insertion anomaly"],
+      "answer": "D) Insertion anomaly"
+    },
+    {
+      "id": 16,
+      "question": "If you delete customers Amy B. O'Brian, George Williams, and Olette K. Smith from the CUSTOMER file, you also lose John T. Okon's agent data. Which anomaly is this?",
+      "choices": ["A) Insertion anomaly", "B) Deletion anomaly", "C) Update anomaly", "D) Security anomaly"],
+      "answer": "B) Deletion anomaly"
+    },
+    {
+      "id": 17,
+      "question": "Adding a date-of-birth field to the CUSTOMER file requires modifying all application programs that access it. This is an example of what?",
+      "choices": ["A) Data independence", "B) Structural independence", "C) Structural dependence", "D) Data redundancy"],
+      "answer": "C) Structural dependence"
+    },
+    {
+      "id": 18,
+      "question": "Changing a field's data type from integer to decimal requires changes in all programs that access the file. This demonstrates which concept?",
+      "choices": ["A) Data independence", "B) Data dependence", "C) Structural independence", "D) Atomicity"],
+      "answer": "B) Data dependence"
+    },
+    {
+      "id": 19,
+      "question": "Which of the following is NOT a property of a database?",
+      "choices": ["A) It is a representation of some aspect of the real world", "B) It is logical, coherent, and internally consistent", "C) It is designed for a specific purpose", "D) It stores data that cannot be accessed by multiple users"],
+      "answer": "D) It stores data that cannot be accessed by multiple users"
+    },
+    {
+      "id": 20,
+      "question": "Which TWO types of data does a database store?",
+      "choices": ["A) Raw files and application programs", "B) End-user data and metadata", "C) Structured data and binary data", "D) Hardware data and software data"],
+      "answer": "B) End-user data and metadata"
+    },
+    {
+      "id": 21,
+      "question": "Why might a database be described as a 'collection of self-describing data'?",
+      "choices": ["A) Because it stores data that can explain itself to the user verbally", "B) Because the metadata component stores descriptions of data characteristics and relationships", "C) Because databases are written in natural language", "D) Because data in a database does not need labels"],
+      "answer": "B) Because the metadata component stores descriptions of data characteristics and relationships"
+    },
+    {
+      "id": 22,
+      "question": "A database supports fewer than 50 users in the Accounting department of a company. How is this database classified by number of users?",
+      "choices": ["A) Desktop database", "B) Enterprise database", "C) Workgroup database", "D) Centralized database"],
+      "answer": "C) Workgroup database"
+    },
+    {
+      "id": 23,
+      "question": "A database used by hundreds of users across all departments of a large corporation is classified as which type?",
+      "choices": ["A) Desktop database", "B) Workgroup database", "C) Distributed database", "D) Enterprise database"],
+      "answer": "D) Enterprise database"
+    },
+    {
+      "id": 24,
+      "question": "A hospital stores all its patient records on a single server in one location. How is this database classified by location?",
+      "choices": ["A) Operational database", "B) Distributed database", "C) Centralized database", "D) Data warehouse"],
+      "answer": "C) Centralized database"
+    },
+    {
+      "id": 25,
+      "question": "A retail company needs a database that supports daily inventory tracking, sales transactions, and accounts payable. Which database type is most appropriate?",
+      "choices": ["A) Data warehouse", "B) Distributed database", "C) Operational database", "D) Desktop database"],
+      "answer": "C) Operational database"
+    },
+    {
+      "id": 26,
+      "question": "A company stores years of sales data to generate reports that help executives make long-term strategic decisions. Which database type is this?",
+      "choices": ["A) Operational database", "B) Data warehouse", "C) Workgroup database", "D) Semi-structured database"],
+      "answer": "B) Data warehouse"
+    },
+    {
+      "id": 27,
+      "question": "Raw emails, video files, and audio recordings are examples of which type of data?",
+      "choices": ["A) Structured data", "B) Semi-structured data", "C) Unstructured data", "D) Relational data"],
+      "answer": "C) Unstructured data"
+    },
+    {
+      "id": 28,
+      "question": "Data stored in a typical web page, which has already been processed and presented in a prearranged format, is best classified as:",
+      "choices": ["A) Unstructured data", "B) Raw data", "C) Structured data", "D) Semi-structured data"],
+      "answer": "D) Semi-structured data"
+    },
+    {
+      "id": 29,
+      "question": "Which of the following is NOT one of the five components of a database system?",
+      "choices": ["A) Hardware", "B) People", "C) Internet", "D) Procedures"],
+      "answer": "C) Internet"
+    },
+    {
+      "id": 30,
+      "question": "Which database system component includes system administrators, database administrators, database designers, system analysts, programmers, and end users?",
+      "choices": ["A) Software", "B) Hardware", "C) Procedures", "D) People"],
+      "answer": "D) People"
+    },
+    {
+      "id": 31,
+      "question": "Which three types of software are needed to make a database system function fully?",
+      "choices": ["A) Operating system, DBMS, and application programs/utilities", "B) DBMS, antivirus, and web browser", "C) Spreadsheet, DBMS, and operating system", "D) Application programs, SQL, and hardware drivers"],
+      "answer": "A) Operating system, DBMS, and application programs/utilities"
+    },
+    {
+      "id": 32,
+      "question": "What is the correct order of the SDLC steps?",
+      "choices": ["A) Design, Analysis, Planning, Implementation, Maintenance", "B) Planning, Analysis, Design, Implementation, Maintenance", "C) Analysis, Planning, Design, Maintenance, Implementation", "D) Planning, Design, Analysis, Implementation, Maintenance"],
+      "answer": "B) Planning, Analysis, Design, Implementation, Maintenance"
+    },
+    {
+      "id": 33,
+      "question": "What is the primary goal of a DBMS?",
+      "choices": ["A) To replace all file-based systems immediately", "B) To provide a convenient and efficient environment for users to retrieve and store information", "C) To prevent unauthorized users from ever accessing the system", "D) To eliminate the need for hardware in a database environment"],
+      "answer": "B) To provide a convenient and efficient environment for users to retrieve and store information"
+    },
+    {
+      "id": 34,
+      "question": "In the DBMS function of data dictionary management, what happens when a change is made to the database structure?",
+      "choices": ["A) All users must be notified manually", "B) The change is automatically recorded in the data dictionary", "C) All application programs must be rewritten", "D) The database must be shut down temporarily"],
+      "answer": "B) The change is automatically recorded in the data dictionary"
+    },
+    {
+      "id": 35,
+      "question": "A multinational company's DBMS automatically formats dates as '11/07/2020' for users in England and '07/11/2020' for users in the United States. Which DBMS function handles this?",
+      "choices": ["A) Security management", "B) Data integrity management", "C) Data transformation and presentation", "D) Multiuser access control"],
+      "answer": "C) Data transformation and presentation"
+    },
+    {
+      "id": 36,
+      "question": "Which DBMS function ensures that two users updating the same record simultaneously do not corrupt the data?",
+      "choices": ["A) Backup and recovery management", "B) Data integrity management", "C) Multiuser access control", "D) Security management"],
+      "answer": "C) Multiuser access control"
+    },
+    {
+      "id": 37,
+      "question": "Which DBMS function would be used to restore a database after a power failure?",
+      "choices": ["A) Data integrity management", "B) Multiuser access control", "C) Security management", "D) Backup and recovery management"],
+      "answer": "D) Backup and recovery management"
+    },
+    {
+      "id": 38,
+      "question": "Which DBMS function specifically minimizes data redundancy and maximizes data consistency by enforcing integrity rules?",
+      "choices": ["A) Security management", "B) Data integrity management", "C) Data storage management", "D) Data dictionary management"],
+      "answer": "B) Data integrity management"
+    },
+    {
+      "id": 39,
+      "question": "What type of language is SQL, and what makes it distinct from procedural languages?",
+      "choices": ["A) A procedural language that specifies both what and how to retrieve data", "B) A nonprocedural language that lets users specify what must be done without specifying how", "C) A markup language used only for presenting data on web pages", "D) A hardware-specific language supported only by one DBMS vendor"],
+      "answer": "B) A nonprocedural language that lets users specify what must be done without specifying how"
+    },
+    {
+      "id": 40,
+      "question": "Which organizational information system is positioned at the bottom of the information systems pyramid and is used primarily by clerical personnel and first-line managers?",
+      "choices": ["A) DSS", "B) MIS", "C) TPS", "D) Data warehouse"],
+      "answer": "C) TPS"
+    },
+    {
+      "id": 41,
+      "question": "Which organizational information system produces standard periodic reports (weekly, monthly, annually) used by middle managers for budget decisions and personnel assignments?",
+      "choices": ["A) TPS", "B) DSS", "C) MIS", "D) DBMS"],
+      "answer": "C) MIS"
+    },
+    {
+      "id": 42,
+      "question": "Which organizational information system is designed for ill-structured or semi-structured decisions and often uses mathematical and statistical techniques?",
+      "choices": ["A) TPS", "B) MIS", "C) SDLC", "D) DSS"],
+      "answer": "D) DSS"
+    },
+    {
+      "id": 43,
+      "question": "A bank uses a system to debit and credit accounts, generate monthly statements, and handle mortgage loans. Which organizational information system is this?",
+      "choices": ["A) DSS", "B) MIS", "C) TPS", "D) Data warehouse"],
+      "answer": "C) TPS"
+    },
+    {
+      "id": 44,
+      "question": "Which of the following is NOT listed as a DBMS application industry in the lesson?",
+      "choices": ["A) Telecom", "B) Airlines", "C) Online shopping", "D) Agriculture"],
+      "answer": "D) Agriculture"
+    },
+    {
+      "id": 45,
+      "question": "What are the total number of DBMS functions discussed in Section 1.4.8 of the lesson?",
+      "choices": ["A) 6", "B) 7", "C) 8", "D) 9"],
+      "answer": "D) 9"
+    },
+    {
+      "id": 46,
+      "question": "Which key principle from the lesson's summary states that good decision-making depends on timely, accurate, and relevant information?",
+      "choices": ["A) Data is always self-explanatory without processing", "B) Accurate, relevant, and timely information is the key to good decision making", "C) Database systems eliminate the need for human management", "D) Information is only valuable when stored in a file-based system"],
+      "answer": "B) Accurate, relevant, and timely information is the key to good decision making"
+    },
+    {
+      "id": 47,
+      "question": "What does the 9th DBMS function — database communication interfaces — allow current-generation DBMSs to do?",
+      "choices": ["A) Store data in multiple file formats simultaneously", "B) Accept end-user requests via multiple, different network environments", "C) Automatically generate SQL queries without user input", "D) Prevent unauthorized access to all network traffic"],
+      "answer": "B) Accept end-user requests via multiple, different network environments"
+    },
+    {
+      "id": 48,
+      "question": "How does a data warehouse differ from an operational database in terms of purpose?",
+      "choices": ["A) Operational databases store historical data; data warehouses support day-to-day transactions", "B) Data warehouses support daily operations; operational databases are used for strategic decisions", "C) Data warehouses store data for tactical and strategic decisions; operational databases support day-to-day operations", "D) Both serve the same purpose but differ only in the number of users they support"],
+      "answer": "C) Data warehouses store data for tactical and strategic decisions; operational databases support day-to-day operations"
+    },
+    {
+      "id": 49,
+      "question": "Which of the following statements about uncontrolled data redundancy is CORRECT?",
+      "choices": ["A) Data redundancy improves data security by having backup copies", "B) Data redundancy only affects storage costs, not data quality", "C) Uncontrolled redundancy leads to poor data security, data inconsistency, and data anomalies", "D) Redundancy is always beneficial in file-based systems"],
+      "answer": "C) Uncontrolled redundancy leads to poor data security, data inconsistency, and data anomalies"
+    },
+    {
+      "id": 50,
+      "question": "Which of the following best distinguishes a DBMS from a file-based system?",
+      "choices": ["A) A DBMS stores data in physical files just like a file-based system", "B) A DBMS provides data abstraction, removes structural and data dependence, and manages concurrent access", "C) A file-based system supports more users simultaneously than a DBMS", "D) A DBMS can only store structured data while file systems handle all data types"],
+      "answer": "B) A DBMS provides data abstraction, removes structural and data dependence, and manages concurrent access"
+    }
+  ]
+}

@@ -721,3 +721,53 @@ footer {
 .change-lecture-btn svg {
     flex-shrink: 0;
 }
+
+/* ── Paste these rules at the end of styles.css ───────────────────────── */
+
+/* Group headings inside the lecture-picker modal */
+.modal-group-label {
+    font-size: 0.75em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin: 16px 0 8px;
+}
+
+/* First group label needs no top margin */
+.modal-group-label:first-of-type {
+    margin-top: 0;
+}
+
+/* Extended-reviewer buttons use an accent tint instead of the primary red */
+.lecture-btn--extended .lecture-num {
+    color: #7c5cbf;
+}
+
+html[data-theme="dark"] .lecture-btn--extended .lecture-num {
+    color: #b39ddb;
+}
+
+.lecture-btn--extended:hover {
+    border-color: #7c5cbf;
+    background: #7c5cbf;
+}
+
+html[data-theme="dark"] .lecture-btn--extended:hover {
+    border-color: #b39ddb;
+    background: #7c5cbf;
+}
+
+/* Keep the footer-text wrapping properly for multi-line explanations */
+#footer-text {
+    white-space: pre-wrap;
+    text-align: left;
+    padding: 0 4px;
+}
+
+/* Taller card when displaying two-statement questions */
+@media (min-width: 600px) {
+    .card-front, .card-back {
+        overflow-y: auto;
+    }
+}

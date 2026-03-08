@@ -126,6 +126,9 @@
         <div class="modal">
             <h2 class="modal-title">Choose a Lecture</h2>
             <p class="modal-subtitle" id="modal-subtitle">Select which lecture to load</p>
+
+            <!-- Standard lectures -->
+            <p class="modal-group-label">Standard</p>
             <div class="lecture-options">
                 <button class="lecture-btn" data-file="lecture1.json">
                     <span class="lecture-num">01</span>
@@ -143,6 +146,27 @@
                     <span class="lecture-desc">ER Model &amp; Attributes</span>
                 </button>
             </div>
+
+            <!-- Extended reviewers -->
+            <p class="modal-group-label">Extended Reviewer</p>
+            <div class="lecture-options">
+                <button class="lecture-btn lecture-btn--extended" data-file="lecture1_extended.json">
+                    <span class="lecture-num">01+</span>
+                    <span class="lecture-label">Lecture 1 Extended</span>
+                    <span class="lecture-desc">Databases &amp; File Systems — deeper dive</span>
+                </button>
+                <button class="lecture-btn lecture-btn--extended" data-file="lecture2_extended.json">
+                    <span class="lecture-num">02+</span>
+                    <span class="lecture-label">Lecture 2 Extended</span>
+                    <span class="lecture-desc">Data Modeling — deeper dive</span>
+                </button>
+                <button class="lecture-btn lecture-btn--extended" data-file="lecture3_extended.json">
+                    <span class="lecture-num">03+</span>
+                    <span class="lecture-label">Lecture 3 Extended</span>
+                    <span class="lecture-desc">ER Model — deeper dive</span>
+                </button>
+            </div>
+
             <button class="modal-cancel" id="modal-cancel">Cancel</button>
         </div>
     </div>
