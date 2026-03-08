@@ -92,6 +92,16 @@ function normaliseData(raw) {
         });
     });
 
+    // Warn if no MC cards were produced — helps catch key-name mismatches
+    if (norm.multipleChoice.length === 0) {
+        const rawKeys = Object.keys(raw).join(', ');
+        console.warn(
+            `[normaliseData] 0 multiple-choice cards produced. ` +
+            `Raw JSON top-level keys: [${rawKeys}]. ` +
+            `Expected "multipleChoice" or "modifiedTrueOrFalse".`
+        );
+    }
+
     return norm;
 }
 
@@ -260,13 +270,24 @@ function loadSection(section) {
 
 function updateCard() {
     if (shuffledCards.length === 0) {
-        document.getElementById('front-text').textContent = 'No cards available.';
+        // Always refresh the score display so stale numbers don't linger
+        updateScoreDisplay();
+        const isMC = currentSection === 'multipleChoice';
+        document.getElementById('front-text').textContent =
+            isMC
+                ? 'No multiple-choice cards found.\nMake sure you are using the updated script.js.'
+                : 'No identification cards found.';
         document.getElementById('back-text').textContent = '';
         document.getElementById('choices-container').innerHTML = '';
         document.getElementById('feedback-container').innerHTML = '';
         document.getElementById('footer-hint').style.display = 'none';
         document.getElementById('prev-btn').disabled = true;
         document.getElementById('next-btn').disabled = true;
+        console.warn(
+            `[Flashcards] 0 cards in section "${currentSection}". ` +
+            `flashcardsData keys: identification=${flashcardsData.identification?.length}, ` +
+            `multipleChoice=${flashcardsData.multipleChoice?.length}`
+        );
         return;
     }
 
