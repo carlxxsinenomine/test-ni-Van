@@ -184,7 +184,7 @@
     },
     {
       "id": 6,
-      "question": "Which relationship type is illustrated by 'PAINTER paints PAINTING'?",
+      "question": "Which relationship type is illustrated by 'PAINTER paints PAINTINGS'?",
       "choices": ["A) One-to-One (1:1)", "B) One-to-Many (1:M)", "C) Many-to-Many (M:N)", "D) Network"],
       "answer": "B) One-to-Many (1:M)"
     },
