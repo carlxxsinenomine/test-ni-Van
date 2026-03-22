@@ -1,0 +1,658 @@
+{
+  "title": "Chapter 5 – The Relational Database Model Practice Quiz",
+  "course": "IT105 – Information Management 1",
+  "sections": [
+    {
+      "type": "identification",
+      "instructions": "Identify the term being described.",
+      "questions": [
+        {
+          "id": 1,
+          "question": "What is a named, two-dimensional table of data consisting of named columns and an arbitrary number of unnamed rows called?",
+          "answer": "Relation"
+        },
+        {
+          "id": 2,
+          "question": "What is the shorthand notation used to express the structure of a relation called?",
+          "answer": "Relation schema (RelationName(Attribute1, Attribute2, ...))"
+        },
+        {
+          "id": 3,
+          "question": "What is an attribute or combination of attributes that uniquely identifies each row in a relation?",
+          "answer": "Primary key"
+        },
+        {
+          "id": 4,
+          "question": "What is an attribute (possibly composite) in a relation that serves as the primary key of another relation?",
+          "answer": "Foreign key"
+        },
+        {
+          "id": 5,
+          "question": "What is a single row in a relational table also referred to as?",
+          "answer": "Tuple"
+        },
+        {
+          "id": 6,
+          "question": "What is the set of values that may be assigned to an attribute called?",
+          "answer": "Domain"
+        },
+        {
+          "id": 7,
+          "question": "What are rules limiting acceptable values and actions in a database, whose purpose is to maintain the accuracy and integrity of data?",
+          "answer": "Integrity constraints"
+        },
+        {
+          "id": 8,
+          "question": "What integrity constraint ensures that all values in a column of a relation must be from the same domain?",
+          "answer": "Domain constraint"
+        },
+        {
+          "id": 9,
+          "question": "What integrity constraint ensures that every relation has a primary key and that the primary key attribute is non-null?",
+          "answer": "Entity integrity constraint"
+        },
+        {
+          "id": 10,
+          "question": "What integrity constraint states that if there is a foreign key in one relation, each foreign key value must either match a primary key value in another relation or be null?",
+          "answer": "Referential integrity constraint"
+        },
+        {
+          "id": 11,
+          "question": "What is the process of transforming EER diagrams into a logically equivalent set of tables called?",
+          "answer": "Mapping EER diagrams into relations"
+        },
+        {
+          "id": 12,
+          "question": "When mapping a regular entity, what does the entity's identifier become in the resulting relation?",
+          "answer": "The primary key"
+        },
+        {
+          "id": 13,
+          "question": "When mapping a composite attribute, which components are included in the new relation?",
+          "answer": "Only the simple (atomic) components"
+        },
+        {
+          "id": 14,
+          "question": "When mapping a multivalued attribute, how many new relations are created?",
+          "answer": "Two (2)"
+        },
+        {
+          "id": 15,
+          "question": "When mapping a weak entity, what forms the primary key of the new relation?",
+          "answer": "The combination of the parent entity's primary key and the weak entity's partial identifier"
+        },
+        {
+          "id": 16,
+          "question": "In mapping a 1:M relationship, where does the primary key of the 'one' side migrate?",
+          "answer": "To the 'many' side as a foreign key"
+        },
+        {
+          "id": 17,
+          "question": "In mapping a M:N relationship, what becomes the primary key of the new associative relation?",
+          "answer": "The combination of the primary keys from both participating entity types"
+        },
+        {
+          "id": 18,
+          "question": "In mapping a binary 1:1 relationship, where is the foreign key placed when one side is mandatory and the other is optional?",
+          "answer": "In the relation on the optional side"
+        },
+        {
+          "id": 19,
+          "question": "When mapping a ternary relationship, the default primary key of the new associative relation consists of how many PK attributes?",
+          "answer": "Three (one from each participating entity type)"
+        },
+        {
+          "id": 20,
+          "question": "In mapping supertype/subtype relationships, what attribute is assigned to the supertype relation to distinguish which subtype an instance belongs to?",
+          "answer": "Subtype discriminator"
+        },
+        {
+          "id": 21,
+          "question": "What is the theoretical framework that defines ways of manipulating table contents using relational operators called?",
+          "answer": "Relational algebra"
+        },
+        {
+          "id": 22,
+          "question": "Which relational operator yields all rows in a table that satisfy a given condition, producing a horizontal subset?",
+          "answer": "SELECT"
+        },
+        {
+          "id": 23,
+          "question": "Which relational operator yields all values for selected attributes, producing a vertical subset of a table?",
+          "answer": "PROJECT"
+        },
+        {
+          "id": 24,
+          "question": "Which relational operator combines all rows from two union-compatible tables, excluding duplicate rows?",
+          "answer": "UNION"
+        },
+        {
+          "id": 25,
+          "question": "Which relational operator yields only rows that appear in both tables?",
+          "answer": "INTERSECT"
+        },
+        {
+          "id": 26,
+          "question": "Which relational operator yields all rows in one table that are not found in another, effectively subtracting one table from the other?",
+          "answer": "DIFFERENCE"
+        },
+        {
+          "id": 27,
+          "question": "Which relational operator yields all possible combinations of rows from two tables and is also known as the Cartesian product?",
+          "answer": "PRODUCT"
+        },
+        {
+          "id": 28,
+          "question": "Which relational operator links tables by selecting rows with common values in common attributes, first creating a product then selecting matching rows?",
+          "answer": "Natural join"
+        },
+        {
+          "id": 29,
+          "question": "What type of join links tables on the basis of an equality condition but does NOT eliminate duplicate columns?",
+          "answer": "Equijoin"
+        },
+        {
+          "id": 30,
+          "question": "What type of join uses a comparison operator other than equal?",
+          "answer": "Theta join"
+        },
+        {
+          "id": 31,
+          "question": "What type of join returns only matched records from the tables being joined?",
+          "answer": "Inner join"
+        },
+        {
+          "id": 32,
+          "question": "What type of join returns all matched records plus unmatched records from one of the tables, leaving unmatched values null?",
+          "answer": "Outer join"
+        },
+        {
+          "id": 33,
+          "question": "What type of outer join yields all rows from the left table including those without a matching value in the right table?",
+          "answer": "Left outer join"
+        },
+        {
+          "id": 34,
+          "question": "What type of outer join yields all rows from the right table including those without matching values in the left table?",
+          "answer": "Right outer join"
+        },
+        {
+          "id": 35,
+          "question": "What provides a detailed accounting of all tables found within the database and contains metadata (data about data)?",
+          "answer": "Data dictionary"
+        },
+        {
+          "id": 36,
+          "question": "What is a more detailed system-level version of the data dictionary that describes all objects within the database, including table names, creators, and access privileges?",
+          "answer": "System catalog"
+        },
+        {
+          "id": 37,
+          "question": "What term describes the use of the same attribute name to label different attributes in different tables?",
+          "answer": "Homonym"
+        },
+        {
+          "id": 38,
+          "question": "What term describes the use of different names to describe the same attribute (e.g., CAR and AUTO)?",
+          "answer": "Synonym"
+        },
+        {
+          "id": 39,
+          "question": "What is an orderly arrangement that allows logical access to rows in a table without scanning all records?",
+          "answer": "Index"
+        },
+        {
+          "id": 40,
+          "question": "What type of index allows only one pointer value (row) to be associated with each index key?",
+          "answer": "Unique index"
+        }
+      ]
+    },
+    {
+      "type": "multipleChoice",
+      "instructions": "Choose the best answer.",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Which of the following best describes a relation in the relational data model?",
+          "choices": [
+            "A) A single row of data in a table",
+            "B) A named, two-dimensional table of data with named columns and unnamed rows",
+            "C) A collection of related databases",
+            "D) A set of integrity constraints applied to a table"
+          ],
+          "answer": "B) A named, two-dimensional table of data with named columns and unnamed rows"
+        },
+        {
+          "id": 2,
+          "question": "Given EMPLOYEE1(EmpID, Name, DeptName, Salary), which attribute is the primary key?",
+          "choices": [
+            "A) Name",
+            "B) Salary",
+            "C) EmpID",
+            "D) DeptName"
+          ],
+          "answer": "C) EmpID"
+        },
+        {
+          "id": 3,
+          "question": "In the shorthand notation EMPLOYEE1(EmpID, Name, DeptName, Salary), how is a foreign key distinguished from other attributes?",
+          "choices": [
+            "A) It is written in uppercase",
+            "B) It is designated by a dashed underline",
+            "C) It is placed at the end of the attribute list",
+            "D) It is designated by a solid underline"
+          ],
+          "answer": "B) It is designated by a dashed underline"
+        },
+        {
+          "id": 4,
+          "question": "Which characteristic of a relational table states that each intersection of a row and column represents a single data value?",
+          "choices": [
+            "A) Characteristic 3 – each column has a distinct name",
+            "B) Characteristic 5 – all values in a column conform to the same format",
+            "C) Characteristic 4 – each intersection represents a single data value",
+            "D) Characteristic 8 – each table must have a unique identifier"
+          ],
+          "answer": "C) Characteristic 4 – each intersection represents a single data value"
+        },
+        {
+          "id": 5,
+          "question": "Which integrity constraint is violated if a primary key attribute contains a null value?",
+          "choices": [
+            "A) Domain constraint",
+            "B) Referential integrity constraint",
+            "C) Entity integrity constraint",
+            "D) Domain integrity constraint"
+          ],
+          "answer": "C) Entity integrity constraint"
+        },
+        {
+          "id": 6,
+          "question": "Which integrity constraint is violated if a foreign key value in one table does not match any primary key value in the referenced table and is not null?",
+          "choices": [
+            "A) Entity integrity constraint",
+            "B) Referential integrity constraint",
+            "C) Domain constraint",
+            "D) Column integrity constraint"
+          ],
+          "answer": "B) Referential integrity constraint"
+        },
+        {
+          "id": 7,
+          "question": "When mapping a regular entity to a relation, which of the following is correct?",
+          "choices": [
+            "A) Only multivalued attributes become attributes of the relation",
+            "B) Each simple attribute becomes an attribute and the identifier becomes the primary key",
+            "C) The entity's relationships become foreign keys automatically",
+            "D) Composite attributes are kept as single attributes in the relation"
+          ],
+          "answer": "B) Each simple attribute becomes an attribute and the identifier becomes the primary key"
+        },
+        {
+          "id": 8,
+          "question": "A CUSTOMER entity has a composite attribute ADDRESS (Street, City, State). How is this mapped to a relation?",
+          "choices": [
+            "A) ADDRESS is stored as a single column in the CUSTOMER relation",
+            "B) A new ADDRESS relation is created separately",
+            "C) Only the simple components (Street, City, State) are included as individual attributes",
+            "D) The composite attribute is ignored during mapping"
+          ],
+          "answer": "C) Only the simple components (Street, City, State) are included as individual attributes"
+        },
+        {
+          "id": 9,
+          "question": "When mapping a multivalued attribute, what is the primary key of the second (new) relation?",
+          "choices": [
+            "A) Only the multivalued attribute itself",
+            "B) The combination of the original entity's PK (as FK) and the multivalued attribute",
+            "C) A surrogate key assigned to the second relation",
+            "D) The original entity's PK alone"
+          ],
+          "answer": "B) The combination of the original entity's PK (as FK) and the multivalued attribute"
+        },
+        {
+          "id": 10,
+          "question": "When mapping a weak entity DEPENDENT that depends on EMPLOYEE, what forms the primary key of the DEPENDENT relation?",
+          "choices": [
+            "A) Only the Dependent Name (partial identifier)",
+            "B) Only the Employee ID from EMPLOYEE",
+            "C) The combination of Employee ID (FK) and the partial identifier of DEPENDENT",
+            "D) A surrogate key assigned to DEPENDENT"
+          ],
+          "answer": "C) The combination of Employee ID (FK) and the partial identifier of DEPENDENT"
+        },
+        {
+          "id": 11,
+          "question": "In a 1:M relationship between CUSTOMER and ORDER, where is the primary key of CUSTOMER placed?",
+          "choices": [
+            "A) In a separate linking table",
+            "B) In the CUSTOMER table only",
+            "C) In the ORDER table as a foreign key",
+            "D) In both tables as primary keys"
+          ],
+          "answer": "C) In the ORDER table as a foreign key"
+        },
+        {
+          "id": 12,
+          "question": "Which rule summarizes how to implement a 1:M relationship?",
+          "choices": [
+            "A) The foreign key migrates to the one side",
+            "B) The primary key migrates to the many side",
+            "C) A new linking table is always created",
+            "D) Both tables share the same primary key"
+          ],
+          "answer": "B) The primary key migrates to the many side"
+        },
+        {
+          "id": 13,
+          "question": "When mapping a M:N relationship between EMPLOYEE and COURSE (COMPLETES), what is created?",
+          "choices": [
+            "A) A foreign key is added to both EMPLOYEE and COURSE",
+            "B) A new relation (e.g., CERTIFICATE) with the PKs of both entities as its composite PK",
+            "C) A new relation with only EMPLOYEE's PK",
+            "D) The relationship is ignored since it cannot be directly implemented"
+          ],
+          "answer": "B) A new relation (e.g., CERTIFICATE) with the PKs of both entities as its composite PK"
+        },
+        {
+          "id": 14,
+          "question": "When mapping a binary 1:1 relationship where NURSE (mandatory) is 'In Charge' of CARE CENTER (optional), where is the foreign key placed?",
+          "choices": [
+            "A) In the NURSE table",
+            "B) In both tables",
+            "C) In the CARE CENTER table (optional side)",
+            "D) In a separate linking table"
+          ],
+          "answer": "C) In the CARE CENTER table (optional side)"
+        },
+        {
+          "id": 15,
+          "question": "When mapping an associative entity without an assigned identifier, what serves as the default primary key?",
+          "choices": [
+            "A) A surrogate key generated by the DBMS",
+            "B) Only the PK of one participating entity",
+            "C) A composite key made up of the PKs of the two participating entities",
+            "D) The relationship name itself"
+          ],
+          "answer": "C) A composite key made up of the PKs of the two participating entities"
+        },
+        {
+          "id": 16,
+          "question": "When mapping an associative entity WITH an assigned identifier (e.g., SHIPMENT with ShipmentID), what becomes the primary key of the resulting relation?",
+          "choices": [
+            "A) The composite of both participating entities' PKs",
+            "B) The assigned identifier (ShipmentID)",
+            "C) A randomly generated surrogate key",
+            "D) The FK of the first participating entity"
+          ],
+          "answer": "B) The assigned identifier (ShipmentID)"
+        },
+        {
+          "id": 17,
+          "question": "When mapping a ternary relationship (e.g., PATIENT TREATMENT involving PATIENT, PHYSICIAN, and TREATMENT), the default PK of the new associative relation consists of:",
+          "choices": [
+            "A) Only the PK of the entity with the most attributes",
+            "B) A surrogate key",
+            "C) The three PK attributes from all three participating entity types",
+            "D) Only two of the three participating entities' PKs"
+          ],
+          "answer": "C) The three PK attributes from all three participating entity types"
+        },
+        {
+          "id": 18,
+          "question": "When mapping supertype/subtype relationships, what is assigned to the subtype relation?",
+          "choices": [
+            "A) All attributes of the supertype and all attributes of the subtype",
+            "B) Only the unique attributes of that subtype, plus the supertype's primary key",
+            "C) A new surrogate primary key",
+            "D) Only the subtype discriminator attribute"
+          ],
+          "answer": "B) Only the unique attributes of that subtype, plus the supertype's primary key"
+        },
+        {
+          "id": 19,
+          "question": "To display all attributes of a SALARIED EMPLOYEE (both inherited and unique), which SQL approach is used?",
+          "choices": [
+            "A) SELECT * FROM SalariedEmployee_T only",
+            "B) SELECT * FROM Employee_T, SalariedEmployee_T WHERE EmployeeNumber = SEmployeeNumber",
+            "C) SELECT * FROM Employee_T WHERE EmployeeType = 'S'",
+            "D) JOIN is not needed since attributes are duplicated in each subtype table"
+          ],
+          "answer": "B) SELECT * FROM Employee_T, SalariedEmployee_T WHERE EmployeeNumber = SEmployeeNumber"
+        },
+        {
+          "id": 20,
+          "question": "The SELECT relational operator produces what kind of subset?",
+          "choices": [
+            "A) A vertical subset (selected columns)",
+            "B) A diagonal subset",
+            "C) A horizontal subset (selected rows)",
+            "D) A combined subset of rows and columns"
+          ],
+          "answer": "C) A horizontal subset (selected rows)"
+        },
+        {
+          "id": 21,
+          "question": "The PROJECT relational operator produces what kind of subset?",
+          "choices": [
+            "A) A horizontal subset (selected rows)",
+            "B) A vertical subset (selected columns/attributes)",
+            "C) A full copy of the table",
+            "D) A combined product of two tables"
+          ],
+          "answer": "B) A vertical subset (selected columns/attributes)"
+        },
+        {
+          "id": 22,
+          "question": "For UNION to be applicable, the two tables must be:",
+          "choices": [
+            "A) Joined by a common foreign key",
+            "B) Union-compatible (same number of columns with compatible domains)",
+            "C) Identical in all rows",
+            "D) Derived from the same parent table"
+          ],
+          "answer": "B) Union-compatible (same number of columns with compatible domains)"
+        },
+        {
+          "id": 23,
+          "question": "Which relational operator would you use to find rows that exist in Table A but NOT in Table B?",
+          "choices": [
+            "A) UNION",
+            "B) INTERSECT",
+            "C) DIFFERENCE",
+            "D) PRODUCT"
+          ],
+          "answer": "C) DIFFERENCE"
+        },
+        {
+          "id": 24,
+          "question": "Which relational operator would you use to find rows that exist in BOTH Table A and Table B?",
+          "choices": [
+            "A) UNION",
+            "B) INTERSECT",
+            "C) DIFFERENCE",
+            "D) DIVIDE"
+          ],
+          "answer": "B) INTERSECT"
+        },
+        {
+          "id": 25,
+          "question": "The PRODUCT operator is also known as:",
+          "choices": [
+            "A) Natural join",
+            "B) Cartesian product",
+            "C) Equijoin",
+            "D) Outer join"
+          ],
+          "answer": "B) Cartesian product"
+        },
+        {
+          "id": 26,
+          "question": "A natural join involves which three steps in order?",
+          "choices": [
+            "A) SELECT → PROJECT → PRODUCT",
+            "B) PROJECT → SELECT → PRODUCT",
+            "C) PRODUCT → SELECT → PROJECT",
+            "D) SELECT → PRODUCT → PROJECT"
+          ],
+          "answer": "C) PRODUCT → SELECT → PROJECT"
+        },
+        {
+          "id": 27,
+          "question": "In the natural join example of CUSTOMER and AGENT, why was the customer with AGENT_CODE 421 (Smithson) excluded from the result?",
+          "choices": [
+            "A) Smithson did not meet the SELECT condition",
+            "B) AGENT_CODE 421 had no matching entry in the AGENT table",
+            "C) The CUSTOMER table did not have an AGENT_CODE column",
+            "D) The natural join eliminates all records with null values"
+          ],
+          "answer": "B) AGENT_CODE 421 had no matching entry in the AGENT table"
+        },
+        {
+          "id": 28,
+          "question": "Which type of join links tables based on an equality condition but does NOT eliminate duplicate columns (join criteria must be explicitly stated)?",
+          "choices": [
+            "A) Natural join",
+            "B) Theta join",
+            "C) Outer join",
+            "D) Equijoin"
+          ],
+          "answer": "D) Equijoin"
+        },
+        {
+          "id": 29,
+          "question": "Which of the following correctly describes an outer join?",
+          "choices": [
+            "A) Only returns rows where both tables have matching values",
+            "B) Returns matched records and retains unmatched records from one table, leaving unmatched values null",
+            "C) Produces the Cartesian product of two tables",
+            "D) Eliminates all null values from the result"
+          ],
+          "answer": "B) Returns matched records and retains unmatched records from one table, leaving unmatched values null"
+        },
+        {
+          "id": 30,
+          "question": "A left outer join of CUSTOMER and AGENT will:",
+          "choices": [
+            "A) Return only rows where CUSTOMER and AGENT match",
+            "B) Return all rows from AGENT including those without a match in CUSTOMER",
+            "C) Return all rows from CUSTOMER including those without a match in AGENT",
+            "D) Return the Cartesian product of CUSTOMER and AGENT"
+          ],
+          "answer": "C) Return all rows from CUSTOMER including those without a match in AGENT"
+        },
+        {
+          "id": 31,
+          "question": "The DIVIDE operator uses what as its input?",
+          "choices": [
+            "A) Two single-column tables",
+            "B) One 2-column table as the dividend and one single-column table as the divisor",
+            "C) Two multi-column tables of equal size",
+            "D) One table and one scalar value"
+          ],
+          "answer": "B) One 2-column table as the dividend and one single-column table as the divisor"
+        },
+        {
+          "id": 32,
+          "question": "Which of the following describes the data dictionary?",
+          "choices": [
+            "A) A physical storage structure for all table data",
+            "B) A structure that provides detailed accounting of all tables and contains metadata (data about data)",
+            "C) A type of index used to speed up queries",
+            "D) A backup copy of the database schema"
+          ],
+          "answer": "B) A structure that provides detailed accounting of all tables and contains metadata (data about data)"
+        },
+        {
+          "id": 33,
+          "question": "What is the difference between a data dictionary and a system catalog?",
+          "choices": [
+            "A) They are the same thing with different names",
+            "B) The data dictionary stores user data while the system catalog stores metadata",
+            "C) The system catalog is a more detailed version that describes all objects in the database including access privileges and index information",
+            "D) The data dictionary is maintained by users while the system catalog is auto-generated"
+          ],
+          "answer": "C) The system catalog is a more detailed version that describes all objects in the database including access privileges and index information"
+        },
+        {
+          "id": 34,
+          "question": "Using 'C_NAME' in both a CUSTOMER table and a CONSULTANT table to label different attributes is an example of:",
+          "choices": [
+            "A) Synonym",
+            "B) Homonym",
+            "C) Alias",
+            "D) Domain violation"
+          ],
+          "answer": "B) Homonym"
+        },
+        {
+          "id": 35,
+          "question": "Using the names 'CAR' and 'AUTO' to refer to the same attribute is an example of:",
+          "choices": [
+            "A) Homonym",
+            "B) Composite attribute",
+            "C) Synonym",
+            "D) Redundant attribute"
+          ],
+          "answer": "C) Synonym"
+        },
+        {
+          "id": 36,
+          "question": "Which of the following correctly describes how foreign keys control data redundancy?",
+          "choices": [
+            "A) Foreign keys completely eliminate all data redundancy",
+            "B) Foreign keys use common attributes shared by tables to minimize (not eliminate) redundancies",
+            "C) Foreign keys store duplicate values to ensure data availability",
+            "D) Foreign keys have no effect on data redundancy"
+          ],
+          "answer": "B) Foreign keys use common attributes shared by tables to minimize (not eliminate) redundancies"
+        },
+        {
+          "id": 37,
+          "question": "Which of the following is a valid reason why some data redundancy is sometimes necessary?",
+          "choices": [
+            "A) It simplifies the referential integrity constraint",
+            "B) It is required by the entity integrity constraint",
+            "C) It ensures transaction speed and/or information requirements",
+            "D) It allows the use of homonyms across tables"
+          ],
+          "answer": "C) It ensures transaction speed and/or information requirements"
+        },
+        {
+          "id": 38,
+          "question": "What SQL clause is used in a CREATE TABLE statement to prevent an attribute from being assigned a null value?",
+          "choices": [
+            "A) PRIMARY KEY",
+            "B) NOT NULL",
+            "C) FOREIGN KEY",
+            "D) REFERENCES"
+          ],
+          "answer": "B) NOT NULL"
+        },
+        {
+          "id": 39,
+          "question": "In the CREATE TABLE statement, which clause defines referential integrity constraints?",
+          "choices": [
+            "A) NOT NULL",
+            "B) PRIMARY KEY",
+            "C) FOREIGN KEY ... REFERENCES",
+            "D) CONSTRAINT ... UNIQUE"
+          ],
+          "answer": "C) FOREIGN KEY ... REFERENCES"
+        },
+        {
+          "id": 40,
+          "question": "Which of the following correctly describes the purpose of an index in a relational database?",
+          "choices": [
+            "A) It stores a backup copy of the table data",
+            "B) It enforces referential integrity between tables",
+            "C) It provides an orderly arrangement for logically accessing rows without scanning all records",
+            "D) It automatically normalizes the table structure"
+          ],
+          "answer": "C) It provides an orderly arrangement for logically accessing rows without scanning all records"
+        }
+      ]
+    }
+  ]
+}

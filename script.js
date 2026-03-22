@@ -3,6 +3,8 @@ const LECTURE_FILES = {
     'lecture1.json':          'Lecture 1 – Databases & File Systems',
     'lecture2.json':          'Lecture 2 – Data Modeling & Data Models',
     'lecture3.json':          'Lecture 3 – ER Model & Attributes',
+    'lecture4.json':          'Lecture 4 – Advanced Data Modeling',
+    'lecture5.json':          'Lecture 5 – The Relational Database Model',
     'lecture1_extended.json': 'Lecture 1 – Extended Reviewer',
     'lecture2_extended.json': 'Lecture 2 – Extended Reviewer',
     'lecture3_extended.json': 'Lecture 3 – Extended Reviewer'
@@ -26,19 +28,33 @@ let isFlipped = false;
 let shuffledCards = [];
 let cardStats = {};
 
+// Spaced repetition toggle — true = weighted random, false = sequential
+let spacedRepetitionEnabled = true;
+
 let scores = {
-    identification: { correct: 0, total: 0 },
-    multipleChoice: { correct: 0, total: 0 }
+    identification: { correct: 0, wrong: 0, total: 0 },
+    multipleChoice:  { correct: 0, wrong: 0, total: 0 }
 };
 
 // ── Normalise JSON from various formats to internal format ─────────────────
 //
 //  Supported source formats:
-//   A) Standard:
-//      { identification: [{id, question, answer}], multipleChoice: [{id, question, choices[], answer}] }
 //
-//   B) Extended (chapters 2 & 3 reviewers):
-//      { identification: [{id, question, answer}], modifiedTrueOrFalse: [{id, statement_I, statement_II, options{A,B,C,D}, answer, explanation}] }
+//   A) Flat / legacy  (lecture1.json … lecture3_extended.json)
+//      {
+//        identification:      [{id, question, answer}],
+//        multipleChoice:      [{id, question, choices[], answer, explanation?}],
+//        modifiedTrueOrFalse: [{id, statement_I, statement_II, options{A,B,C,D}, answer, explanation}]
+//      }
+//
+//   B) Sections array  (lecture4.json, lecture5.json, and uploaded files)
+//      {
+//        title: "…", course: "…",
+//        sections: [
+//          { type: "identification",  instructions: "…", questions: [{id, question, answer}] },
+//          { type: "multipleChoice",  instructions: "…", questions: [{id, question, choices[], answer, explanation?}] }
+//        ]
+//      }
 //
 //  Both are normalised to:
 //      identification:  [{id, front, back}]
@@ -47,7 +63,41 @@ let scores = {
 function normaliseData(raw) {
     const norm = { identification: [], multipleChoice: [] };
 
-    // ── Identification (same shape in all formats) ────────────────────────
+    // ── Format B: sections array ──────────────────────────────────────────
+    if (Array.isArray(raw.sections)) {
+        raw.sections.forEach(section => {
+            const questions = section.questions || [];
+
+            if (section.type === 'identification') {
+                questions.forEach(item => {
+                    norm.identification.push({
+                        id:    item.id,
+                        front: item.question || item.front || '',
+                        back:  item.answer   || item.back  || ''
+                    });
+                });
+            }
+
+            if (section.type === 'multipleChoice') {
+                questions.forEach(item => {
+                    norm.multipleChoice.push({
+                        id:          item.id,
+                        front:       item.question || item.front || '',
+                        choices:     item.choices  || [],
+                        answer:      item.answer   || '',
+                        explanation: item.explanation || ''
+                    });
+                });
+            }
+        });
+
+        // Early return — sections format fully consumed
+        return norm;
+    }
+
+    // ── Format A: flat / legacy ───────────────────────────────────────────
+
+    // Identification
     (raw.identification || []).forEach(item => {
         norm.identification.push({
             id:    item.id,
@@ -56,7 +106,7 @@ function normaliseData(raw) {
         });
     });
 
-    // ── Standard multipleChoice ───────────────────────────────────────────
+    // Standard multipleChoice
     (raw.multipleChoice || []).forEach(item => {
         norm.multipleChoice.push({
             id:          item.id,
@@ -67,17 +117,14 @@ function normaliseData(raw) {
         });
     });
 
-    // ── Extended modifiedTrueOrFalse ──────────────────────────────────────
-    //  front  →  "Statement I: …\n\nStatement II: …"
-    //  choices→  ["A) Only Statement I is correct.", "B) …", "C) …", "D) …"]
-    //  answer →  kept as-is  (e.g. "A) Only Statement I is correct.")
-    // ─────────────────────────────────────────────────────────────────────
+    // Extended modifiedTrueOrFalse
+    //  front   → "Statement I: …\n\nStatement II: …"
+    //  choices → ["A) …", "B) …", "C) …", "D) …"]
     (raw.modifiedTrueOrFalse || []).forEach(item => {
         const front =
             `Statement I: ${item.statement_I || ''}\n\n` +
             `Statement II: ${item.statement_II || ''}`;
 
-        // Build ordered choices from the options object {A, B, C, D}
         const opts = item.options || {};
         const choices = ['A', 'B', 'C', 'D']
             .filter(k => opts[k] !== undefined)
@@ -92,13 +139,12 @@ function normaliseData(raw) {
         });
     });
 
-    // Warn if no MC cards were produced — helps catch key-name mismatches
-    if (norm.multipleChoice.length === 0) {
+    if (norm.identification.length === 0 && norm.multipleChoice.length === 0) {
         const rawKeys = Object.keys(raw).join(', ');
         console.warn(
-            `[normaliseData] 0 multiple-choice cards produced. ` +
+            `[normaliseData] 0 cards produced from any known format. ` +
             `Raw JSON top-level keys: [${rawKeys}]. ` +
-            `Expected "multipleChoice" or "modifiedTrueOrFalse".`
+            `Expected "sections", "identification", "multipleChoice", or "modifiedTrueOrFalse".`
         );
     }
 
@@ -146,13 +192,14 @@ async function loadLecture(filename, section) {
     showLoading();
 
     try {
+        // Uploaded files are already in the cache; fetchLecture handles both cases
         const data = await fetchLecture(filename);
         flashcardsData = data;
         currentLectureFile = filename;
 
         // Reset scores for both sections whenever a new lecture is loaded
-        scores.identification = { correct: 0, total: 0 };
-        scores.multipleChoice = { correct: 0, total: 0 };
+        scores.identification = { correct: 0, wrong: 0, total: 0 };
+        scores.multipleChoice  = { correct: 0, wrong: 0, total: 0 };
 
         // Update header badge
         const badge = document.getElementById('lecture-badge');
@@ -171,6 +218,7 @@ document.addEventListener('DOMContentLoaded', initializeApp);
 
 function initializeApp() {
     loadStats();
+    loadSRPreference();      // Must run before setupEventListeners so checkbox is set
     setupEventListeners();
 
     // Add loading overlay to card-container dynamically
@@ -211,9 +259,15 @@ function setupEventListeners() {
     document.getElementById('shuffle-btn').addEventListener('click', shuffleCards);
     document.getElementById('reset-btn').addEventListener('click', resetCards);
 
+    // Spaced repetition toggle
+    document.getElementById('sr-toggle').addEventListener('change', (e) => {
+        spacedRepetitionEnabled = e.target.checked;
+        applySpacedRepetitionChange();
+    });
+
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowLeft') previousCard();
+        if (e.key === 'ArrowLeft')  previousCard();
         if (e.key === 'ArrowRight') nextCard();
         if (e.key === ' ') { e.preventDefault(); flipCard(); }
         if (e.key === 'Escape') hideModal();
@@ -231,10 +285,43 @@ function setupEventListeners() {
         });
     });
 
+    // Modal — JSON file upload
+    document.getElementById('json-upload').addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            try {
+                const raw  = JSON.parse(ev.target.result);
+                const data = normaliseData(raw);
+                const key  = `upload:${file.name}`;
+
+                // Store in cache and name registry
+                lectureCache[key]  = data;
+                LECTURE_FILES[key] = `📄 ${file.name.replace('.json', '')}`;
+
+                // Show the filename in the modal before it closes
+                const filenameEl = document.getElementById('upload-filename');
+                if (filenameEl) {
+                    filenameEl.textContent = `✓ Loaded: ${file.name}`;
+                    filenameEl.style.display = 'block';
+                }
+
+                loadLecture(key, pendingSection);
+            } catch (err) {
+                alert('Invalid JSON file: ' + err.message);
+            }
+        };
+        reader.onerror = () => alert('Failed to read file.');
+        reader.readAsText(file);
+        // Reset so the same file can be re-uploaded if needed
+        e.target.value = '';
+    });
+
     // Modal — cancel
     document.getElementById('modal-cancel').addEventListener('click', () => {
         hideModal();
-        // If no lecture loaded yet re-mark first nav button as active
         if (!currentLectureFile) {
             document.querySelectorAll('.nav-btn')[0].classList.add('active');
         }
@@ -249,28 +336,79 @@ function setupEventListeners() {
     loadThemePreference();
 }
 
+// ── Spaced repetition ──────────────────────────────────────────────────────
+
+function loadSRPreference() {
+    const pref = localStorage.getItem('sr-preference');
+    if (pref === '0') spacedRepetitionEnabled = false;
+
+    // Sync checkbox & status text to the loaded preference
+    const checkbox = document.getElementById('sr-toggle');
+    if (checkbox) checkbox.checked = spacedRepetitionEnabled;
+    syncSRStatusUI();
+}
+
+/** Call this whenever spacedRepetitionEnabled has just changed. */
+function applySpacedRepetitionChange() {
+    syncSRStatusUI();
+
+    // Reset session scores for current section so counters are fresh
+    scores[currentSection] = { correct: 0, wrong: 0, total: shuffledCards.length };
+
+    // When switching to sequential mode, jump to the first card; when
+    // switching to SR mode let the weighted picker choose the first card.
+    if (shuffledCards.length > 0) {
+        if (!spacedRepetitionEnabled) {
+            currentIndex = 0;
+        } else {
+            currentIndex = getWeightedRandomCardIndex();
+        }
+        // Reset card flip state before updating
+        isFlipped = false;
+        document.getElementById('feedback-container').innerHTML = '';
+        document.getElementById('footer-hint').style.display = 'none';
+        document.getElementById('footer-text').textContent =
+            'Click the card to reveal the answer';
+        updateCard();
+    } else {
+        updateScoreDisplay();
+    }
+
+    localStorage.setItem('sr-preference', spacedRepetitionEnabled ? '1' : '0');
+}
+
+/** Update the SR status pill and prev-button state from spacedRepetitionEnabled. */
+function syncSRStatusUI() {
+    const statusEl = document.getElementById('sr-status');
+    if (statusEl) {
+        statusEl.textContent  = spacedRepetitionEnabled ? 'ON' : 'OFF';
+        statusEl.className    = `sr-status ${spacedRepetitionEnabled ? 'sr-on' : 'sr-off'}`;
+    }
+}
+
+// ── Section loader ─────────────────────────────────────────────────────────
 function loadSection(section) {
     currentSection = section;
     isFlipped = false;
     shuffledCards = [...(flashcardsData[section] || [])];
-    scores[section] = scores[section] || { correct: 0, total: 0 };
-    scores[section].correct = 0;
-    scores[section].total = shuffledCards.length;
+    scores[section] = { correct: 0, wrong: 0, total: shuffledCards.length };
 
     document.getElementById('footer-text').textContent = 'Click the card to reveal the answer';
     document.getElementById('footer-hint').style.display = 'none';
 
     if (shuffledCards.length > 0) {
-        currentIndex = getWeightedRandomCardIndex();
+        currentIndex = spacedRepetitionEnabled
+            ? getWeightedRandomCardIndex()
+            : 0;
         updateCard();
     } else {
         updateCard();
     }
 }
 
+// ── Card renderer ──────────────────────────────────────────────────────────
 function updateCard() {
     if (shuffledCards.length === 0) {
-        // Always refresh the score display so stale numbers don't linger
         updateScoreDisplay();
         const isMC = currentSection === 'multipleChoice';
         document.getElementById('front-text').textContent =
@@ -291,9 +429,9 @@ function updateCard() {
         return;
     }
 
-    const card = shuffledCards[currentIndex];
-    const isMC = currentSection === 'multipleChoice';
-    const isID = currentSection === 'identification';
+    const card  = shuffledCards[currentIndex];
+    const isMC  = currentSection === 'multipleChoice';
+    const isID  = currentSection === 'identification';
 
     const flashcardEl = document.getElementById('flashcard');
     const cardInnerEl = flashcardEl.querySelector('.card-inner');
@@ -303,13 +441,15 @@ function updateCard() {
     isFlipped = false;
 
     document.getElementById('front-text').textContent = card.front;
-    document.getElementById('back-text').textContent = isMC ? `Answer: ${card.answer}` : card.back;
+    document.getElementById('back-text').textContent  = isMC ? `Answer: ${card.answer}` : card.back;
 
     if (cardInnerEl) {
         requestAnimationFrame(() => { cardInnerEl.style.transition = ''; });
     }
 
-    document.getElementById('prev-btn').disabled = true;
+    // Prev is disabled in SR (weighted-random) mode; enabled in sequential mode
+    document.getElementById('prev-btn').disabled =
+        spacedRepetitionEnabled || shuffledCards.length === 0;
     document.getElementById('next-btn').disabled = shuffledCards.length === 0;
 
     updateScoreDisplay();
@@ -322,6 +462,7 @@ function updateCard() {
     if (isID && isFlipped) showIdentificationFeedback(card);
 }
 
+// ── Multiple-choice renderer ───────────────────────────────────────────────
 function displayChoices(card) {
     const container = document.getElementById('choices-container');
     container.innerHTML = '';
@@ -339,13 +480,18 @@ function displayChoices(card) {
 
             const isCorrect = choice === card.answer;
             updateCardStats(currentSection, cardId, isCorrect);
-            if (isCorrect) scores[currentSection].correct++;
+
+            if (isCorrect) {
+                scores[currentSection].correct++;
+            } else {
+                scores[currentSection].wrong = (scores[currentSection].wrong || 0) + 1;
+            }
 
             document.querySelectorAll('.choice-btn').forEach(b => {
                 b.disabled = true;
                 b.classList.remove('selected');
-                if (isCorrect && b === btn) b.classList.add('correct');
-                else if (!isCorrect && b === btn) b.classList.add('incorrect');
+                if (isCorrect && b === btn)        b.classList.add('correct');
+                else if (!isCorrect && b === btn)  b.classList.add('incorrect');
                 else if (b.textContent === card.answer) b.classList.add('correct');
             });
 
@@ -356,9 +502,7 @@ function displayChoices(card) {
                 ? '✓ Correct!'
                 : `✗ Incorrect. The correct answer is: ${card.answer}`;
 
-            if (card.explanation) {
-                msg += `\n\n💡 ${card.explanation}`;
-            }
+            if (card.explanation) msg += `\n\n💡 ${card.explanation}`;
 
             document.getElementById('footer-text').textContent = msg;
         });
@@ -367,20 +511,42 @@ function displayChoices(card) {
     });
 }
 
+// ── Score display ──────────────────────────────────────────────────────────
 function updateScoreDisplay() {
-    const score = scores[currentSection] || { correct: 0, total: 0 };
+    const score = scores[currentSection] || { correct: 0, wrong: 0, total: 0 };
+
     document.getElementById('correct-count').textContent = score.correct;
-    document.getElementById('total-count').textContent = score.total;
+    document.getElementById('wrong-count').textContent   = score.wrong || 0;
+    document.getElementById('total-count').textContent   = score.total;
+
     const pct = score.total > 0 ? Math.round((score.correct / score.total) * 100) : 0;
     document.getElementById('score-percentage').textContent = pct + '%';
+
+    // Toggle visibility based on SR mode
+    const wrongItem  = document.getElementById('score-wrong-item');
+    const totalItem  = document.getElementById('score-total-item');
+    const pctItem    = document.getElementById('score-percentage-item');
+
+    if (spacedRepetitionEnabled) {
+        // SR ON → show Wrong, hide Total & Score%
+        if (wrongItem) wrongItem.style.display = '';
+        if (totalItem) totalItem.style.display = 'none';
+        if (pctItem)   pctItem.style.display   = 'none';
+    } else {
+        // SR OFF → hide Wrong, show Total & Score%
+        if (wrongItem) wrongItem.style.display = 'none';
+        if (totalItem) totalItem.style.display = '';
+        if (pctItem)   pctItem.style.display   = '';
+    }
 }
 
+// ── Identification feedback ────────────────────────────────────────────────
 function showIdentificationFeedback(card) {
     const container = document.getElementById('feedback-container');
-    const hint = document.getElementById('footer-hint');
+    const hint      = document.getElementById('footer-hint');
 
     container.innerHTML = '';
-    hint.style.display = currentSection === 'identification' && isFlipped ? 'block' : 'none';
+    hint.style.display  = currentSection === 'identification' && isFlipped ? 'block' : 'none';
 
     const yesBtn = document.createElement('button');
     yesBtn.className = 'feedback-btn correct-btn';
@@ -398,6 +564,7 @@ function showIdentificationFeedback(card) {
     noBtn.textContent = '✗ No, I got it wrong';
     noBtn.addEventListener('click', () => {
         updateCardStats(currentSection, card.id, false);
+        scores[currentSection].wrong = (scores[currentSection].wrong || 0) + 1;
         updateScoreDisplay();
         disableFeedbackButtons();
         hint.textContent = '✗ Keep practicing!';
@@ -411,10 +578,11 @@ function disableFeedbackButtons() {
     document.querySelectorAll('.feedback-btn').forEach(btn => {
         btn.disabled = true;
         btn.style.opacity = '0.6';
-        btn.style.cursor = 'not-allowed';
+        btn.style.cursor  = 'not-allowed';
     });
 }
 
+// ── Card flip ──────────────────────────────────────────────────────────────
 function flipCard() {
     const card = document.getElementById('flashcard');
     card.classList.toggle('flipped');
@@ -430,45 +598,74 @@ function flipCard() {
     }
 }
 
-function previousCard() { /* disabled — weighted random selection drives navigation */ }
+// ── Navigation ─────────────────────────────────────────────────────────────
+function previousCard() {
+    // Only active in sequential (non-SR) mode
+    if (spacedRepetitionEnabled || shuffledCards.length === 0) return;
+    currentIndex = (currentIndex - 1 + shuffledCards.length) % shuffledCards.length;
+    updateCard();
+}
 
-function nextCard() { selectNextCard(); }
+function nextCard() {
+    if (shuffledCards.length === 0) return;
+    if (spacedRepetitionEnabled) {
+        selectNextCard();              // weighted random pick
+    } else {
+        currentIndex = (currentIndex + 1) % shuffledCards.length;
+        updateCard();
+    }
+}
 
+// ── Shuffle & reset ────────────────────────────────────────────────────────
 function shuffleCards() {
     shuffledCards = [...(flashcardsData[currentSection] || [])];
     for (let i = shuffledCards.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]];
     }
-    selectNextCard();
+
+    if (spacedRepetitionEnabled) {
+        selectNextCard();
+    } else {
+        currentIndex = 0;
+        updateCard();
+    }
 }
 
 function resetCards() {
     isFlipped = false;
-    scores[currentSection] = { correct: 0, total: shuffledCards.length };
+    scores[currentSection] = { correct: 0, wrong: 0, total: shuffledCards.length };
     document.getElementById('footer-text').textContent = 'Click the card to reveal the answer';
     document.getElementById('footer-hint').style.display = 'none';
     document.getElementById('feedback-container').innerHTML = '';
     shuffledCards = [...(flashcardsData[currentSection] || [])];
-    selectNextCard();
+
+    if (spacedRepetitionEnabled) {
+        selectNextCard();
+    } else {
+        currentIndex = 0;
+        updateCard();
+    }
 }
 
+// ── Theme ──────────────────────────────────────────────────────────────────
 function toggleTheme() {
-    const html = document.documentElement;
-    const isDark = html.getAttribute('data-theme') === 'dark';
+    const html     = document.documentElement;
+    const isDark   = html.getAttribute('data-theme') === 'dark';
     const newTheme = isDark ? 'light' : 'dark';
     html.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme-preference', newTheme);
 }
 
 function loadThemePreference() {
-    const html = document.documentElement;
+    const html       = document.documentElement;
     const preference = localStorage.getItem('theme-preference');
     const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = preference || (systemDark ? 'dark' : 'light');
+    const theme      = preference || (systemDark ? 'dark' : 'light');
     html.setAttribute('data-theme', theme);
 }
 
+// ── Persistent card stats (for weighted SR) ────────────────────────────────
 function loadStats() {
     const stored = localStorage.getItem('flashcardStats');
     if (stored) {
@@ -484,8 +681,8 @@ function getCardStats(section, cardId) {
     cardStats[section] = cardStats[section] || {};
     cardStats[section][cardId] = cardStats[section][cardId] || {
         correct: 0,
-        wrong: 0,
-        streak: 0
+        wrong:   0,
+        streak:  0
     };
     return cardStats[section][cardId];
 }
@@ -494,7 +691,7 @@ function updateCardStats(section, cardId, isCorrect) {
     const stats = getCardStats(section, cardId);
     if (isCorrect) {
         stats.correct += 1;
-        stats.streak  = (stats.streak || 0) + 1;
+        stats.streak   = (stats.streak || 0) + 1;
     } else {
         stats.wrong  += 1;
         stats.streak  = 0;
@@ -502,25 +699,24 @@ function updateCardStats(section, cardId, isCorrect) {
     saveStats();
 }
 
+// ── Weighted-random card selection (SR algorithm) ──────────────────────────
 /*
- * Spaced-repetition weight algorithm
- * ─────────────────────────────────────────────
  *  1. Unseen cards  →  neutral weight (1.0).
  *  2. Each wrong answer adds +2.0 to weight.
  *  3. Accuracy progressively lowers weight.
  *  4. Streak multiplier dominates once user is on a roll.
- *  5. Current card excluded (weight = 0) to prevent repeats.
+ *  5. Current card excluded (weight = 0) to prevent immediate repeats.
  *  6. Floor of 0.05 keeps every card reachable.
  */
 function getWeightedRandomCardIndex() {
     const weights = shuffledCards.map((card, idx) => {
         if (idx === currentIndex) return 0;
 
-        const stats    = getCardStats(currentSection, card.id);
-        const correct  = stats.correct || 0;
-        const wrong    = stats.wrong   || 0;
-        const streak   = stats.streak  || 0;
-        const total    = correct + wrong;
+        const stats   = getCardStats(currentSection, card.id);
+        const correct = stats.correct || 0;
+        const wrong   = stats.wrong   || 0;
+        const streak  = stats.streak  || 0;
+        const total   = correct + wrong;
 
         if (total === 0) return 1.0;
 

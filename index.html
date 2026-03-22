@@ -10,7 +10,10 @@
     <div class="container">
         <header>
             <div class="header-top">
-                <div><h1>Database Flashcards</h1><span id="lecture-badge" class="lecture-badge">No lecture loaded</span></div>
+                <div>
+                    <h1>Database Flashcards</h1>
+                    <span id="lecture-badge" class="lecture-badge">No lecture loaded</span>
+                </div>
                 <button id="theme-toggle" class="theme-toggle" title="Toggle dark mode">
                     <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -45,16 +48,23 @@
             </button>
         </div>
 
+        <!-- Score display -->
         <div class="score-display">
             <div class="score-item">
                 <span class="score-label">Correct:</span>
-                <span id="correct-count" class="score-value">0</span>
+                <span id="correct-count" class="score-value correct-value">0</span>
             </div>
-            <div class="score-item">
+            <!-- Wrong — shown only when SR is ON -->
+            <div class="score-item" id="score-wrong-item">
+                <span class="score-label">Wrong:</span>
+                <span id="wrong-count" class="score-value wrong-value">0</span>
+            </div>
+            <!-- Total & Score% — shown only when SR is OFF -->
+            <div class="score-item" id="score-total-item">
                 <span class="score-label">Total:</span>
                 <span id="total-count" class="score-value">0</span>
             </div>
-            <div class="score-item">
+            <div class="score-item" id="score-percentage-item">
                 <span class="score-label">Score:</span>
                 <span id="score-percentage" class="score-value">0%</span>
             </div>
@@ -96,6 +106,22 @@
                 </button>
             </div>
 
+            <!-- Spaced Repetition toggle row -->
+            <div class="sr-row">
+                <div class="sr-control">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sr-icon">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span class="sr-label">Spaced Repetition</span>
+                    <label class="toggle-switch" title="Toggle spaced repetition on/off">
+                        <input type="checkbox" id="sr-toggle" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span class="sr-status sr-on" id="sr-status">ON</span>
+                </div>
+            </div>
+
             <div class="bottom-controls">
                 <button id="shuffle-btn" class="control-btn secondary">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -121,7 +147,7 @@
         </footer>
     </div>
 
-    <!-- Lecture Selector Modal -->
+    <!-- ── Lecture Selector Modal ── -->
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal">
             <h2 class="modal-title">Choose a Lecture</h2>
@@ -145,6 +171,16 @@
                     <span class="lecture-label">Lecture 3</span>
                     <span class="lecture-desc">ER Model &amp; Attributes</span>
                 </button>
+                <button class="lecture-btn" data-file="lecture4.json">
+                    <span class="lecture-num">04</span>
+                    <span class="lecture-label">Lecture 4</span>
+                    <span class="lecture-desc">Advanced Data Modeling</span>
+                </button>
+                <button class="lecture-btn" data-file="lecture5.json">
+                    <span class="lecture-num">05</span>
+                    <span class="lecture-label">Lecture 5</span>
+                    <span class="lecture-desc">The Relational Database Model</span>
+                </button>
             </div>
 
             <!-- Extended reviewers -->
@@ -166,6 +202,25 @@
                     <span class="lecture-desc">ER Model — deeper dive</span>
                 </button>
             </div>
+
+            <!-- Custom JSON upload -->
+            <p class="modal-group-label">Custom Upload</p>
+            <div class="upload-zone">
+                <label for="json-upload" class="upload-label">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <div class="upload-text-block">
+                        <span class="upload-text">Upload your own .json file</span>
+                        <span class="upload-hint">Must use the same format as the lecture files</span>
+                    </div>
+                </label>
+                <input type="file" id="json-upload" accept=".json">
+            </div>
+            <!-- Uploaded file name display -->
+            <p class="upload-filename" id="upload-filename" style="display:none;"></p>
 
             <button class="modal-cancel" id="modal-cancel">Cancel</button>
         </div>
