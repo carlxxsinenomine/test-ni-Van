@@ -105,23 +105,16 @@ header h1 {
     transition: opacity 0.3s ease;
 }
 
-.icon-sun { opacity: 0; }
-
-html[data-theme="light"] .icon-sun  { opacity: 1; }
-html[data-theme="dark"]  .icon-moon { opacity: 0; }
-
-/* ── Top bar ── */
-.top-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
+.icon-sun {
+    opacity: 0;
 }
 
-.top-bar .nav-buttons {
-    margin-bottom: 0;
+html[data-theme="light"] .icon-sun {
+    opacity: 1;
+}
+
+html[data-theme="dark"] .icon-moon {
+    opacity: 0;
 }
 
 .nav-buttons {
@@ -156,7 +149,6 @@ html[data-theme="dark"]  .icon-moon { opacity: 0; }
     border-color: var(--primary-color);
 }
 
-/* ── Score display ── */
 .score-display {
     display: flex;
     gap: 40px;
@@ -188,11 +180,6 @@ html[data-theme="dark"]  .icon-moon { opacity: 0; }
     font-weight: 700;
 }
 
-/* Correct value → green; Wrong value → red */
-.correct-value { color: var(--success-color); }
-.wrong-value   { color: var(--error-color);   }
-
-/* ── Main content ── */
 .main-content {
     display: flex;
     flex-direction: column;
@@ -201,7 +188,6 @@ html[data-theme="dark"]  .icon-moon { opacity: 0; }
 
 .card-container {
     perspective: 1000px;
-    position: relative;
 }
 
 #flashcard {
@@ -256,7 +242,6 @@ html[data-theme="dark"]  .icon-moon { opacity: 0; }
     word-wrap: break-word;
 }
 
-/* ── Multiple-choice grid ── */
 .choices-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -282,13 +267,28 @@ html[data-theme="dark"]  .icon-moon { opacity: 0; }
     color: white;
 }
 
-.choice-btn:disabled { cursor: not-allowed; }
+.choice-btn:disabled {
+    cursor: not-allowed;
+}
 
-.choice-btn.selected   { background: var(--primary-color); color: white; border-color: var(--primary-color); }
-.choice-btn.correct    { background: var(--success-color); color: white; border-color: var(--success-color); }
-.choice-btn.incorrect  { background: var(--error-color);   color: white; border-color: var(--error-color);   }
+.choice-btn.selected {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
 
-/* ── Identification feedback buttons ── */
+.choice-btn.correct {
+    background: var(--success-color);
+    color: white;
+    border-color: var(--success-color);
+}
+
+.choice-btn.incorrect {
+    background: var(--error-color);
+    color: white;
+    border-color: var(--error-color);
+}
+
 .feedback-container {
     display: flex;
     gap: 12px;
@@ -311,15 +311,30 @@ html[data-theme="dark"]  .icon-moon { opacity: 0; }
     gap: 8px;
 }
 
-.feedback-btn:hover:not(:disabled) { transform: translateY(-1px); }
+.feedback-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
 
-.correct-btn   { border-color: var(--success-color); color: var(--success-color); }
-.incorrect-btn { border-color: var(--error-color);   color: var(--error-color);   }
+.correct-btn {
+    border-color: var(--success-color);
+    color: var(--success-color);
+}
 
-.correct-btn:hover:not(:disabled)   { background: var(--success-color); color: white; }
-.incorrect-btn:hover:not(:disabled) { background: var(--error-color);   color: white; }
+.correct-btn:hover:not(:disabled) {
+    background: var(--success-color);
+    color: white;
+}
 
-/* ── Navigation controls ── */
+.incorrect-btn {
+    border-color: var(--error-color);
+    color: var(--error-color);
+}
+
+.incorrect-btn:hover:not(:disabled) {
+    background: var(--error-color);
+    color: white;
+}
+
 .controls {
     display: flex;
     justify-content: space-between;
@@ -378,101 +393,6 @@ html[data-theme="dark"]  .icon-moon { opacity: 0; }
     white-space: nowrap;
 }
 
-/* ── Spaced Repetition row ── */
-.sr-row {
-    display: flex;
-    justify-content: center;
-}
-
-.sr-control {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 20px;
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-}
-
-.sr-icon {
-    color: var(--text-secondary);
-    flex-shrink: 0;
-}
-
-.sr-label {
-    font-size: 0.9em;
-    font-weight: 500;
-    color: var(--text-secondary);
-    white-space: nowrap;
-}
-
-/* Toggle switch */
-.toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 44px;
-    height: 24px;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.toggle-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.toggle-slider {
-    position: absolute;
-    inset: 0;
-    background: var(--border-color);
-    border-radius: 24px;
-    transition: background 0.3s;
-}
-
-.toggle-slider::before {
-    content: '';
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    left: 3px;
-    top: 3px;
-    background: white;
-    border-radius: 50%;
-    transition: transform 0.3s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-}
-
-.toggle-switch input:checked + .toggle-slider {
-    background: var(--primary-color);
-}
-
-.toggle-switch input:checked + .toggle-slider::before {
-    transform: translateX(20px);
-}
-
-/* SR status pill */
-.sr-status {
-    font-size: 0.78em;
-    font-weight: 700;
-    padding: 3px 9px;
-    border-radius: 20px;
-    letter-spacing: 0.04em;
-}
-
-.sr-status.sr-on {
-    background: rgba(255, 91, 91, 0.12);
-    color: var(--primary-color);
-    border: 1px solid rgba(255, 91, 91, 0.3);
-}
-
-.sr-status.sr-off {
-    background: rgba(136, 136, 136, 0.12);
-    color: var(--text-secondary);
-    border: 1px solid rgba(136, 136, 136, 0.3);
-}
-
-/* ── Bottom controls ── */
 .bottom-controls {
     display: flex;
     gap: 12px;
@@ -480,7 +400,6 @@ html[data-theme="dark"]  .icon-moon { opacity: 0; }
     flex-wrap: wrap;
 }
 
-/* ── Footer ── */
 footer {
     text-align: center;
     margin-top: 25px;
@@ -492,9 +411,6 @@ footer {
 
 #footer-text {
     margin: 0;
-    white-space: pre-wrap;
-    text-align: left;
-    padding: 0 4px;
 }
 
 .footer-hint {
@@ -503,59 +419,114 @@ footer {
     font-weight: 500;
 }
 
-/* ── Loading overlay ── */
-.loading-overlay {
-    display: none;
-    position: absolute;
-    inset: 0;
-    background: var(--bg-secondary);
-    border-radius: 20px;
-    align-items: center;
-    justify-content: center;
-    font-size: 1em;
-    color: var(--text-secondary);
-    z-index: 10;
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 25px;
+        border-radius: 16px;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    #flashcard {
+        height: 300px;
+    }
+
+    .card-front,
+    .card-back {
+        padding: 25px;
+        font-size: 1em;
+        border-radius: 16px;
+    }
+
+    .choices-container {
+        grid-template-columns: 1fr;
+    }
+
+    .controls {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .control-btn {
+        width: 100%;
+    }
+
+    .nav-buttons {
+        gap: 8px;
+    }
+
+    .nav-btn {
+        padding: 8px 16px;
+        font-size: 0.9em;
+    }
+
+    .score-display {
+        gap: 25px;
+        padding: 15px;
+    }
+
+    .feedback-container {
+        flex-direction: column;
+    }
+
+    .feedback-btn {
+        width: 100%;
+    }
 }
 
-.loading-overlay.active { display: flex; }
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        border-radius: 16px;
+    }
 
-/* ── Lecture badge ── */
-.lecture-badge {
-    display: inline-block;
-    font-size: 0.75em;
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    border-radius: 6px;
-    padding: 2px 8px;
-    margin-top: 4px;
-    font-weight: 500;
-    letter-spacing: 0.01em;
+    header h1 {
+        font-size: 1.3em;
+    }
+
+    .header-top {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .theme-toggle {
+        align-self: flex-end;
+    }
+
+    #flashcard {
+        height: 250px;
+    }
+
+    .card-front,
+    .card-back {
+        padding: 20px;
+        font-size: 0.9em;
+        border-radius: 16px;
+    }
+
+    .nav-buttons {
+        gap: 6px;
+    }
+
+    .nav-btn {
+        padding: 8px 12px;
+        font-size: 0.85em;
+    }
+
+    .score-display {
+        gap: 15px;
+        padding: 12px;
+    }
+
+    .score-value {
+        font-size: 1.5em;
+    }
 }
 
-/* ── Change Lecture button ── */
-.change-lecture-btn {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    padding: 9px 16px;
-    background: var(--bg-secondary);
-    color: var(--text-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 0.88em;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-}
-
-.change-lecture-btn:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-    background: var(--bg-primary);
-}
-
-.change-lecture-btn svg { flex-shrink: 0; }
 
 /* ── Lecture Selector Modal ── */
 .modal-overlay {
@@ -567,20 +538,19 @@ footer {
     z-index: 1000;
     align-items: center;
     justify-content: center;
-    padding: 20px;
 }
 
-.modal-overlay.active { display: flex; }
+.modal-overlay.active {
+    display: flex;
+}
 
 .modal {
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-radius: 20px;
     padding: 36px;
-    max-width: 500px;
-    width: 100%;
-    max-height: 85vh;
-    overflow-y: auto;
+    max-width: 480px;
+    width: 90%;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
     animation: modalIn 0.25s ease;
 }
@@ -603,24 +573,11 @@ footer {
     margin-bottom: 24px;
 }
 
-/* Group labels */
-.modal-group-label {
-    font-size: 0.75em;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    margin: 16px 0 8px;
-}
-
-.modal-group-label:first-of-type { margin-top: 0; }
-
-/* Lecture option list */
 .lecture-options {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-bottom: 8px;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
 .lecture-btn {
@@ -629,7 +586,7 @@ footer {
     grid-template-rows: auto auto;
     column-gap: 14px;
     align-items: center;
-    padding: 14px 16px;
+    padding: 16px 18px;
     border: 1px solid var(--border-color);
     border-radius: 12px;
     background: var(--bg-primary);
@@ -647,13 +604,15 @@ footer {
 
 .lecture-num {
     grid-row: 1 / 3;
-    font-size: 1.4em;
+    font-size: 1.6em;
     font-weight: 800;
     color: var(--primary-color);
     transition: color 0.2s ease;
 }
 
-.lecture-btn:hover .lecture-num { color: white; }
+.lecture-btn:hover .lecture-num {
+    color: white;
+}
 
 .lecture-label {
     font-weight: 600;
@@ -667,77 +626,12 @@ footer {
     transition: color 0.2s ease;
 }
 
-.lecture-btn:hover .lecture-desc { color: rgba(255, 255, 255, 0.85); }
-
-/* Extended-reviewer accent */
-.lecture-btn--extended .lecture-num { color: #7c5cbf; }
-
-html[data-theme="dark"] .lecture-btn--extended .lecture-num { color: #b39ddb; }
-
-.lecture-btn--extended:hover                          { border-color: #7c5cbf; background: #7c5cbf; }
-html[data-theme="dark"] .lecture-btn--extended:hover  { border-color: #b39ddb; background: #7c5cbf; }
-
-/* ── Custom upload zone ── */
-.upload-zone {
-    margin-bottom: 8px;
+.lecture-btn:hover .lecture-desc {
+    color: rgba(255, 255, 255, 0.85);
 }
 
-.upload-label {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 16px 18px;
-    border: 2px dashed var(--border-color);
-    border-radius: 12px;
-    background: var(--bg-primary);
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.upload-label:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-    background: rgba(255, 91, 91, 0.04);
-}
-
-.upload-label svg { flex-shrink: 0; }
-
-.upload-text-block {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.upload-text {
-    font-weight: 600;
-    font-size: 0.95em;
-    color: var(--text-primary);
-    transition: color 0.2s ease;
-}
-
-.upload-label:hover .upload-text { color: var(--primary-color); }
-
-.upload-hint {
-    font-size: 0.78em;
-    color: var(--text-secondary);
-}
-
-/* Hide the real file input */
-#json-upload { display: none; }
-
-/* Uploaded filename confirmation */
-.upload-filename {
-    font-size: 0.82em;
-    color: var(--success-color);
-    font-weight: 500;
-    padding: 6px 4px 2px;
-}
-
-/* ── Cancel button ── */
 .modal-cancel {
     width: 100%;
-    margin-top: 14px;
     padding: 11px;
     border: 1px solid var(--border-color);
     border-radius: 10px;
@@ -753,93 +647,310 @@ html[data-theme="dark"] .lecture-btn--extended:hover  { border-color: #b39ddb; b
     color: var(--text-primary);
 }
 
-/* ── Taller card for two-statement questions ── */
+/* Loading indicator */
+.loading-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: var(--bg-secondary);
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    color: var(--text-secondary);
+    z-index: 10;
+}
+
+.loading-overlay.active {
+    display: flex;
+}
+
+.card-container {
+    position: relative;
+}
+
+/* Lecture badge */
+.lecture-badge {
+    display: inline-block;
+    font-size: 0.75em;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 6px;
+    padding: 2px 8px;
+    margin-top: 4px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
+/* ── Top bar (nav + change lecture) ── */
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.top-bar .nav-buttons {
+    margin-bottom: 0;
+}
+
+.change-lecture-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 16px;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.88em;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.change-lecture-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: var(--bg-primary);
+}
+
+.change-lecture-btn svg {
+    flex-shrink: 0;
+}
+
+/* ── Paste these rules at the end of styles.css ───────────────────────── */
+
+/* Group headings inside the lecture-picker modal */
+.modal-group-label {
+    font-size: 0.75em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin: 16px 0 8px;
+}
+
+/* First group label needs no top margin */
+.modal-group-label:first-of-type {
+    margin-top: 0;
+}
+
+/* Extended-reviewer buttons use an accent tint instead of the primary red */
+.lecture-btn--extended .lecture-num {
+    color: #7c5cbf;
+}
+
+html[data-theme="dark"] .lecture-btn--extended .lecture-num {
+    color: #b39ddb;
+}
+
+.lecture-btn--extended:hover {
+    border-color: #7c5cbf;
+    background: #7c5cbf;
+}
+
+html[data-theme="dark"] .lecture-btn--extended:hover {
+    border-color: #b39ddb;
+    background: #7c5cbf;
+}
+
+/* Keep the footer-text wrapping properly for multi-line explanations */
+#footer-text {
+    white-space: pre-wrap;
+    text-align: left;
+    padding: 0 4px;
+}
+
+/* Taller card when displaying two-statement questions */
 @media (min-width: 600px) {
-    .card-front, .card-back { overflow-y: auto; }
+    .card-front, .card-back {
+        overflow-y: auto;
+    }
+}
+/* ── Sequential-mode: answered card overlay on nav buttons ── */
+/* Nav buttons already handled dynamically — no extra CSS needed */
+
+/* ── Progress badge (sequential / SR OFF mode) ── */
+.progress-badge {
+    display: inline-block;
+    font-size: 1em;
+    font-weight: 700;
+    color: var(--text-secondary);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 4px 14px;
+    letter-spacing: 0.02em;
+    transition: all 0.3s ease;
 }
 
-/* ── Responsive ── */
-@media (max-width: 768px) {
-    .container {
-        padding: 25px;
-        border-radius: 16px;
-    }
+.progress-badge--done {
+    color: var(--success-color);
+    border-color: var(--success-color);
+    background: rgba(76, 175, 80, 0.08);
+}
 
-    header h1 { font-size: 1.5em; }
+html[data-theme="dark"] .progress-badge--done {
+    background: rgba(102, 187, 106, 0.12);
+}
 
-    #flashcard { height: 300px; }
+/* ── Completion card — centre text in the front panel ── */
+/* The card-front already uses flex + align-items:center in the base styles.
+   We just need white-space:pre-wrap so \n renders, which is already set.    */
 
-    .card-front,
-    .card-back {
-        padding: 25px;
-        font-size: 1em;
-        border-radius: 16px;
-    }
+/* ── Score colour accents ── */
+.correct-value { color: var(--success-color); }
+.wrong-value   { color: var(--error-color);   }
 
-    .choices-container { grid-template-columns: 1fr; }
+/* ── Spaced Repetition row ── */
+.sr-row { display: flex; justify-content: center; margin-top: 0; }
 
-    .controls {
-        flex-direction: column;
-        gap: 12px;
-    }
+.sr-control {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+}
 
-    .control-btn { width: 100%; }
+.sr-icon  { color: var(--text-secondary); flex-shrink: 0; }
+.sr-label { font-size: 0.9em; font-weight: 500; color: var(--text-secondary); white-space: nowrap; }
 
-    .nav-buttons { gap: 8px; }
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: var(--border-color);
+    border-radius: 24px;
+    transition: background 0.3s;
+}
+.toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 18px; height: 18px;
+    left: 3px; top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.toggle-switch input:checked + .toggle-slider               { background: var(--primary-color); }
+.toggle-switch input:checked + .toggle-slider::before       { transform: translateX(20px); }
 
-    .nav-btn {
-        padding: 8px 16px;
-        font-size: 0.9em;
-    }
+.sr-status {
+    font-size: 0.78em;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+}
+.sr-status.sr-on  { background: rgba(255,91,91,0.12); color: var(--primary-color); border: 1px solid rgba(255,91,91,0.3); }
+.sr-status.sr-off { background: rgba(136,136,136,0.12); color: var(--text-secondary); border: 1px solid rgba(136,136,136,0.3); }
 
-    .score-display {
-        gap: 25px;
-        padding: 15px;
-    }
+/* ── Modal scrollable ── */
+.modal {
+    max-height: 88vh;
+    overflow-y: auto;
+}
 
-    .feedback-container { flex-direction: column; }
+/* ── Group labels in modal ── */
+.modal-group-label {
+    font-size: 0.75em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin: 16px 0 8px;
+}
+.modal-group-label:first-of-type { margin-top: 0; }
 
-    .feedback-btn { width: 100%; }
+/* ── Extended reviewer button accent ── */
+.lecture-btn--extended .lecture-num                          { color: #7c5cbf; }
+html[data-theme="dark"] .lecture-btn--extended .lecture-num  { color: #b39ddb; }
+.lecture-btn--extended:hover                                  { border-color: #7c5cbf; background: #7c5cbf; }
+html[data-theme="dark"] .lecture-btn--extended:hover          { border-color: #b39ddb; background: #7c5cbf; }
 
+/* ── Upload zone ── */
+.upload-zone { margin-bottom: 8px; }
+.upload-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.upload-label:hover { border-color: var(--primary-color); color: var(--primary-color); background: rgba(255,91,91,0.04); }
+.upload-label svg { flex-shrink: 0; }
+.upload-text-block { display: flex; flex-direction: column; gap: 3px; }
+.upload-text { font-weight: 600; font-size: 0.95em; color: var(--text-primary); transition: color 0.2s; }
+.upload-label:hover .upload-text { color: var(--primary-color); }
+.upload-hint { font-size: 0.78em; color: var(--text-secondary); }
+#json-upload { display: none; }
+.upload-filename { font-size: 0.82em; color: var(--success-color); font-weight: 500; padding: 6px 4px 2px; }
+
+/* ── Nav buttons dynamic wrap ── */
+.nav-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 0;
+}
+
+/* ── Top-bar layout ── */
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.change-lecture-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 16px;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.88em;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.change-lecture-btn:hover { border-color: var(--primary-color); color: var(--primary-color); background: var(--bg-primary); }
+.change-lecture-btn svg { flex-shrink: 0; }
+
+/* footer-text preserve newlines */
+#footer-text { white-space: pre-wrap; text-align: left; padding: 0 4px; }
+
+/* Responsive SR control wrap */
+@media (max-width: 600px) {
     .sr-control { flex-wrap: wrap; justify-content: center; }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 20px;
-        border-radius: 16px;
-    }
-
-    header h1 { font-size: 1.3em; }
-
-    .header-top {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-    }
-
-    .theme-toggle { align-self: flex-end; }
-
-    #flashcard { height: 250px; }
-
-    .card-front,
-    .card-back {
-        padding: 20px;
-        font-size: 0.9em;
-        border-radius: 16px;
-    }
-
-    .nav-buttons { gap: 6px; }
-
-    .nav-btn {
-        padding: 8px 12px;
-        font-size: 0.85em;
-    }
-
-    .score-display {
-        gap: 15px;
-        padding: 12px;
-    }
-
-    .score-value { font-size: 1.5em; }
 }

@@ -34,11 +34,10 @@
             <p class="subtitle">Master your database concepts</p>
         </header>
 
+        <!-- Top bar: nav buttons (dynamic) + change lecture -->
         <div class="top-bar">
-            <div class="nav-buttons">
-                <button class="nav-btn active" data-section="identification">Identification</button>
-                <button class="nav-btn" data-section="multipleChoice">Multiple Choice</button>
-            </div>
+            <!-- nav buttons are injected here by renderNavButtons() -->
+            <div class="nav-buttons" id="nav-buttons"></div>
             <button id="change-lecture-btn" class="change-lecture-btn">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
@@ -67,6 +66,11 @@
             <div class="score-item" id="score-percentage-item">
                 <span class="score-label">Score:</span>
                 <span id="score-percentage" class="score-value">0%</span>
+            </div>
+            <!-- Progress badge — visible only in sequential (SR OFF) mode -->
+            <div class="score-item" id="score-progress-item" style="display:none;">
+                <span class="score-label">Progress:</span>
+                <span id="progress-badge" class="progress-badge"></span>
             </div>
         </div>
 
@@ -106,7 +110,7 @@
                 </button>
             </div>
 
-            <!-- Spaced Repetition toggle row -->
+            <!-- Spaced Repetition toggle -->
             <div class="sr-row">
                 <div class="sr-control">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sr-icon">
@@ -151,7 +155,7 @@
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal">
             <h2 class="modal-title">Choose a Lecture</h2>
-            <p class="modal-subtitle" id="modal-subtitle">Select which lecture to load</p>
+            <p class="modal-subtitle" id="modal-subtitle">Select a lecture or upload your own .json file</p>
 
             <!-- Standard lectures -->
             <p class="modal-group-label">Standard</p>
@@ -214,12 +218,11 @@
                     </svg>
                     <div class="upload-text-block">
                         <span class="upload-text">Upload your own .json file</span>
-                        <span class="upload-hint">Must use the same format as the lecture files</span>
+                        <span class="upload-hint">Supports flat, sections-array, or sections-object formats</span>
                     </div>
                 </label>
                 <input type="file" id="json-upload" accept=".json">
             </div>
-            <!-- Uploaded file name display -->
             <p class="upload-filename" id="upload-filename" style="display:none;"></p>
 
             <button class="modal-cancel" id="modal-cancel">Cancel</button>
