@@ -201,6 +201,7 @@ html[data-theme="dark"] .icon-moon {
     position: relative;
     width: 100%;
     height: 100%;
+    min-height: inherit;
     transition: transform 0.6s;
     transform-style: preserve-3d;
 }
@@ -419,112 +420,292 @@ footer {
     font-weight: 500;
 }
 
-/* Responsive Design */
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE — mobile-first overhaul
+   Breakpoints: 768px (tablet), 480px (phone), 380px (small phone)
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Base touch-target safety ── */
+button { min-height: 44px; }
+
+/* ── Tablet (≤ 768px) ── */
 @media (max-width: 768px) {
+    body {
+        padding: 12px;
+        align-items: flex-start;
+    }
+
     .container {
-        padding: 25px;
+        padding: 24px 20px;
         border-radius: 16px;
     }
 
-    header h1 {
-        font-size: 1.5em;
+    header {
+        margin-bottom: 20px;
     }
 
+    header h1 {
+        font-size: 1.55em;
+    }
+
+    /* Top-bar: nav buttons wrap above Change Lecture */
+    .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .nav-buttons {
+        justify-content: flex-start;
+    }
+
+    .change-lecture-btn {
+        align-self: flex-end;
+        width: auto;
+    }
+
+    /* Score bar */
+    .score-display {
+        gap: 18px;
+        padding: 14px 16px;
+    }
+
+    .score-value {
+        font-size: 1.6em;
+    }
+
+    /* Card */
     #flashcard {
-        height: 300px;
+        height: 280px;
     }
 
     .card-front,
     .card-back {
-        padding: 25px;
+        padding: 24px;
         font-size: 1em;
-        border-radius: 16px;
+        border-radius: 14px;
     }
 
+    /* Choices: single column */
     .choices-container {
         grid-template-columns: 1fr;
     }
 
+    /* Prev / Next: keep side-by-side but full width */
     .controls {
-        flex-direction: column;
-        gap: 12px;
+        gap: 10px;
+        padding: 14px 16px;
     }
 
-    .control-btn {
-        width: 100%;
+    .controls .control-btn {
+        flex: 1;
+        justify-content: center;
     }
 
-    .nav-buttons {
-        gap: 8px;
-    }
-
-    .nav-btn {
-        padding: 8px 16px;
-        font-size: 0.9em;
-    }
-
-    .score-display {
-        gap: 25px;
-        padding: 15px;
-    }
-
+    /* Feedback buttons: stack */
     .feedback-container {
         flex-direction: column;
+        align-items: stretch;
     }
 
     .feedback-btn {
         width: 100%;
+        justify-content: center;
+    }
+
+    /* Bottom controls */
+    .bottom-controls {
+        gap: 10px;
+    }
+
+    .bottom-controls .control-btn {
+        flex: 1;
+        justify-content: center;
     }
 }
 
+/* ── Phone (≤ 480px) ── */
 @media (max-width: 480px) {
+    body {
+        padding: 8px;
+    }
+
     .container {
-        padding: 20px;
-        border-radius: 16px;
+        padding: 18px 14px 24px;
+        border-radius: 14px;
+        /* respect notch / home indicator on iOS */
+        padding-bottom: max(24px, env(safe-area-inset-bottom));
+    }
+
+    /* Header: h1 + badge left, theme toggle right — keep in one row */
+    .header-top {
+        align-items: flex-start;
+        gap: 8px;
     }
 
     header h1 {
         font-size: 1.3em;
+        line-height: 1.2;
     }
 
-    .header-top {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
+    .subtitle {
+        font-size: 0.85em;
+    }
+
+    .lecture-badge {
+        font-size: 0.7em;
     }
 
     .theme-toggle {
-        align-self: flex-end;
+        min-width: 40px;
+        padding: 8px 10px;
+        flex-shrink: 0;
     }
 
+    /* Nav buttons: scrollable single row so they never wrap awkwardly */
+    .top-bar {
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .nav-buttons {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 4px;
+    }
+
+    .nav-buttons::-webkit-scrollbar { display: none; }
+
+    .nav-btn {
+        padding: 8px 14px;
+        font-size: 0.82em;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .change-lecture-btn {
+        font-size: 0.82em;
+        padding: 8px 12px;
+        gap: 5px;
+    }
+
+    /* Score bar: tighter */
+    .score-display {
+        gap: 12px;
+        padding: 12px 10px;
+        border-radius: 10px;
+        margin-bottom: 18px;
+    }
+
+    .score-label { font-size: 0.75em; }
+    .score-value { font-size: 1.4em; }
+
+    /* Card */
     #flashcard {
-        height: 250px;
+        height: auto;
+        min-height: 220px;
     }
 
     .card-front,
     .card-back {
-        padding: 20px;
+        position: absolute; /* keep for 3-D flip */
+        padding: 20px 18px;
+        font-size: 0.92em;
+        border-radius: 12px;
+        min-height: 220px;
+    }
+
+    /* Card inner text */
+    #front-text,
+    #back-text {
+        font-size: 0.95em;
+        line-height: 1.55;
+    }
+
+    /* Card */
+    #flashcard {
+        min-height: 220px;
+    }
+
+    /* Controls */
+    .controls {
+        padding: 12px 10px;
+        gap: 8px;
+        border-radius: 10px;
+    }
+
+    .control-btn {
+        padding: 10px 14px;
+        font-size: 0.88em;
+        border-radius: 9px;
+    }
+
+    /* SR row: compact */
+    .sr-control {
+        padding: 10px 14px;
+        gap: 8px;
+        border-radius: 10px;
+    }
+
+    .sr-label { font-size: 0.82em; }
+
+    /* Bottom controls */
+    .bottom-controls {
+        gap: 8px;
+    }
+
+    .bottom-controls .control-btn {
+        font-size: 0.88em;
+        padding: 10px 12px;
+    }
+
+    /* Choices */
+    .choice-btn {
+        padding: 12px 14px;
         font-size: 0.9em;
-        border-radius: 16px;
+        border-radius: 8px;
     }
 
-    .nav-buttons {
-        gap: 6px;
+    /* Feedback */
+    .feedback-btn {
+        padding: 11px 16px;
+        font-size: 0.9em;
+        border-radius: 9px;
     }
 
-    .nav-btn {
-        padding: 8px 12px;
+    .already-answered-msg {
         font-size: 0.85em;
+        padding: 9px 14px;
     }
 
-    .score-display {
-        gap: 15px;
-        padding: 12px;
+    /* Footer */
+    footer {
+        margin-top: 18px;
+        padding-top: 14px;
+        font-size: 0.82em;
+    }
+}
+
+/* ── Small phone (≤ 380px) ── */
+@media (max-width: 380px) {
+    .container {
+        padding: 14px 12px 20px;
     }
 
-    .score-value {
-        font-size: 1.5em;
-    }
+    header h1 { font-size: 1.15em; }
+
+    .score-display { gap: 8px; }
+    .score-value   { font-size: 1.2em; }
+    .score-label   { font-size: 0.7em; }
+
+    #flashcard     { min-height: 200px; }
+    .card-front,
+    .card-back     { min-height: 200px; font-size: 0.88em; padding: 16px 14px; }
+
+    .control-btn   { font-size: 0.84em; padding: 9px 10px; }
 }
 
 
@@ -950,7 +1131,58 @@ html[data-theme="dark"] .lecture-btn--extended:hover          { border-color: #b
 /* footer-text preserve newlines */
 #footer-text { white-space: pre-wrap; text-align: left; padding: 0 4px; }
 
-/* Responsive SR control wrap */
+/* ── Responsive SR control wrap ── */
 @media (max-width: 600px) {
     .sr-control { flex-wrap: wrap; justify-content: center; }
+}
+
+/* ── Modal: bottom-sheet on mobile ── */
+@media (max-width: 600px) {
+    .modal-overlay {
+        align-items: flex-end;
+    }
+
+    .modal {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 20px 20px 0 0;
+        padding: 28px 20px max(28px, env(safe-area-inset-bottom));
+        max-height: 88vh;
+        animation: sheetUp 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    @keyframes sheetUp {
+        from { transform: translateY(100%); opacity: 0.6; }
+        to   { transform: translateY(0);    opacity: 1; }
+    }
+
+    /* Drag handle pill */
+    .modal::before {
+        content: '';
+        display: block;
+        width: 40px;
+        height: 4px;
+        border-radius: 2px;
+        background: var(--border-color);
+        margin: 0 auto 20px;
+    }
+}
+
+/* ── SR mode: already-answered indicator (shown when user navigates back) ── */
+.already-answered-msg {
+    font-size: 0.9em;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    text-align: center;
+    opacity: 0.85;
+}
+
+/* ── SR mode: correct counter shows "X / Y" — shrink font slightly so it fits ── */
+#correct-count {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.5px;
 }

@@ -40,6 +40,14 @@ let spacedRepetitionEnabled = true;
 // Only used when spacedRepetitionEnabled === false.
 let answeredCardIds = new Set();
 
+// ── Spaced-repetition answered tracking ────────────────────────────────────
+// srAnsweredCardIds – all card IDs answered at least once this SR session
+//   (used to block the re-answer bug when navigating back & reflipping).
+// srCorrectCardIds  – card IDs that were answered CORRECTLY at least once;
+//   each card counts only once toward the "Correct" score.
+let srAnsweredCardIds = new Set();
+let srCorrectCardIds  = new Set();
+
 // scores: dynamic — { [sectionKey]: { correct, wrong, total } }
 let scores = {};
 
@@ -274,6 +282,8 @@ function loadSRPreference() {
 function applySpacedRepetitionChange() {
     syncSRStatusUI();
     answeredCardIds.clear();
+    srAnsweredCardIds.clear();
+    srCorrectCardIds.clear();
     if (currentSection) scores[currentSection] = { correct: 0, wrong: 0, total: shuffledCards.length };
 
     if (shuffledCards.length > 0) {
@@ -305,6 +315,8 @@ function loadSection(sectionKey) {
     isFlipped       = false;
     shuffledCards   = [...(sectionData.cards || [])];
     answeredCardIds = new Set();
+    srAnsweredCardIds = new Set();
+    srCorrectCardIds  = new Set();
 
     scores[sectionKey] = { correct: 0, wrong: 0, total: shuffledCards.length };
 
@@ -451,12 +463,21 @@ function updateProgressBadge() {
 function displayChoices(card) {
     const container = document.getElementById('choices-container');
     container.innerHTML = '';
-    let answered = false;
+
+    // In SR mode, if this card was already answered, render disabled buttons
+    // so the user cannot re-trigger a score increment by going back.
+    const alreadyAnsweredSR = spacedRepetitionEnabled && srAnsweredCardIds.has(card.id);
+    let answered = alreadyAnsweredSR;
 
     card.choices.forEach(choice => {
         const btn = document.createElement('button');
         btn.className   = 'choice-btn';
         btn.textContent = choice;
+
+        if (alreadyAnsweredSR) {
+            btn.disabled = true;
+            if (choice === card.answer) btn.classList.add('correct');
+        }
 
         btn.addEventListener('click', () => {
             if (answered) return;
@@ -465,8 +486,22 @@ function displayChoices(card) {
             const isCorrect = choice === card.answer;
             updateCardStats(currentSection, card.id, isCorrect);
 
-            if (isCorrect) scores[currentSection].correct++;
-            else           scores[currentSection].wrong = (scores[currentSection].wrong || 0) + 1;
+            if (spacedRepetitionEnabled) {
+                if (isCorrect) {
+                    if (!srCorrectCardIds.has(card.id)) {
+                        scores[currentSection].correct++;
+                        srCorrectCardIds.add(card.id);
+                    }
+                } else {
+                    if (!srAnsweredCardIds.has(card.id)) {
+                        scores[currentSection].wrong = (scores[currentSection].wrong || 0) + 1;
+                    }
+                }
+                srAnsweredCardIds.add(card.id);
+            } else {
+                if (isCorrect) scores[currentSection].correct++;
+                else           scores[currentSection].wrong = (scores[currentSection].wrong || 0) + 1;
+            }
 
             // Mark card as answered in sequential mode
             if (!spacedRepetitionEnabled) {
@@ -507,7 +542,15 @@ function updateScoreDisplay() {
         ? scores[currentSection]
         : { correct: 0, wrong: 0, total: 0 };
 
-    document.getElementById('correct-count').textContent = score.correct;
+    if (spacedRepetitionEnabled) {
+        // Show unique-correct / total so the user can see their mastery progress
+        const uniqueCorrect = srCorrectCardIds.size;
+        const totalCards    = shuffledCards.length;
+        document.getElementById('correct-count').textContent = `${uniqueCorrect} / ${totalCards}`;
+    } else {
+        document.getElementById('correct-count').textContent = score.correct;
+    }
+
     document.getElementById('wrong-count').textContent   = score.wrong || 0;
     document.getElementById('total-count').textContent   = score.total;
 
@@ -538,12 +581,37 @@ function showIdentificationFeedback(card) {
     container.innerHTML = '';
     hint.style.display  = isFlipped ? 'block' : 'none';
 
+    // ── Bug fix: if this card was already answered in the current SR session,
+    //    show a read-only indicator instead of live buttons so the user cannot
+    //    re-trigger a score increment by navigating back and reflipping.
+    if (spacedRepetitionEnabled && srAnsweredCardIds.has(card.id)) {
+        const msg = document.createElement('p');
+        msg.className   = 'already-answered-msg';
+        msg.textContent = srCorrectCardIds.has(card.id)
+            ? '✓ Already answered correctly'
+            : '✗ Already answered — keep practising!';
+        container.appendChild(msg);
+        hint.style.display = 'none';
+        return;
+    }
+
     const yesBtn = document.createElement('button');
     yesBtn.className   = 'feedback-btn correct-btn';
     yesBtn.textContent = '✓ Yes, I got it right';
     yesBtn.addEventListener('click', () => {
         updateCardStats(currentSection, card.id, true);
-        scores[currentSection].correct++;
+
+        if (spacedRepetitionEnabled) {
+            // Only count this card once toward the unique-correct tally
+            if (!srCorrectCardIds.has(card.id)) {
+                scores[currentSection].correct++;
+                srCorrectCardIds.add(card.id);
+            }
+            srAnsweredCardIds.add(card.id);
+        } else {
+            scores[currentSection].correct++;
+        }
+
         markCardAnswered(card);
         updateScoreDisplay();
         disableFeedbackButtons();
@@ -559,7 +627,17 @@ function showIdentificationFeedback(card) {
     noBtn.textContent = '✗ No, I got it wrong';
     noBtn.addEventListener('click', () => {
         updateCardStats(currentSection, card.id, false);
-        scores[currentSection].wrong = (scores[currentSection].wrong || 0) + 1;
+
+        if (spacedRepetitionEnabled) {
+            // Only add to wrong tally if the card hasn't been answered yet
+            if (!srAnsweredCardIds.has(card.id)) {
+                scores[currentSection].wrong = (scores[currentSection].wrong || 0) + 1;
+            }
+            srAnsweredCardIds.add(card.id);
+        } else {
+            scores[currentSection].wrong = (scores[currentSection].wrong || 0) + 1;
+        }
+
         markCardAnswered(card);
         updateScoreDisplay();
         disableFeedbackButtons();
@@ -637,15 +715,19 @@ function shuffleCards() {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]];
     }
-    answeredCardIds = new Set();
+    answeredCardIds   = new Set();
+    srAnsweredCardIds = new Set();
+    srCorrectCardIds  = new Set();
     document.getElementById('next-btn').classList.remove('next-btn--ready');
     if (spacedRepetitionEnabled) selectNextCard();
     else { currentIndex = 0; updateCard(); }
 }
 
 function resetCards() {
-    isFlipped       = false;
-    answeredCardIds = new Set();
+    isFlipped         = false;
+    answeredCardIds   = new Set();
+    srAnsweredCardIds = new Set();
+    srCorrectCardIds  = new Set();
     if (currentSection) scores[currentSection] = { correct: 0, wrong: 0, total: shuffledCards.length };
     document.getElementById('footer-text').textContent      = 'Click the card to reveal the answer';
     document.getElementById('footer-hint').style.display    = 'none';
