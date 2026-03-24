@@ -463,21 +463,12 @@ function updateProgressBadge() {
 function displayChoices(card) {
     const container = document.getElementById('choices-container');
     container.innerHTML = '';
-
-    // In SR mode, if this card was already answered, render disabled buttons
-    // so the user cannot re-trigger a score increment by going back.
-    const alreadyAnsweredSR = spacedRepetitionEnabled && srAnsweredCardIds.has(card.id);
-    let answered = alreadyAnsweredSR;
+    let answered = false;
 
     card.choices.forEach(choice => {
         const btn = document.createElement('button');
         btn.className   = 'choice-btn';
         btn.textContent = choice;
-
-        if (alreadyAnsweredSR) {
-            btn.disabled = true;
-            if (choice === card.answer) btn.classList.add('correct');
-        }
 
         btn.addEventListener('click', () => {
             if (answered) return;
@@ -488,14 +479,15 @@ function displayChoices(card) {
 
             if (spacedRepetitionEnabled) {
                 if (isCorrect) {
+                    // Always increment raw correct counter.
+                    scores[currentSection].correct++;
+                    // Mastery progress only on first correct answer.
                     if (!srCorrectCardIds.has(card.id)) {
-                        scores[currentSection].correct++;
                         srCorrectCardIds.add(card.id);
                     }
                 } else {
-                    if (!srAnsweredCardIds.has(card.id)) {
-                        scores[currentSection].wrong = (scores[currentSection].wrong || 0) + 1;
-                    }
+                    // Always increment raw wrong counter.
+                    scores[currentSection].wrong = (scores[currentSection].wrong || 0) + 1;
                 }
                 srAnsweredCardIds.add(card.id);
             } else {
@@ -519,14 +511,12 @@ function displayChoices(card) {
 
             updateScoreDisplay();
 
-            // Show feedback message in footer; enable Next so user can proceed manually
             let msg = isCorrect
                 ? '✓ Correct!'
                 : `✗ Incorrect. The correct answer is: ${card.answer}`;
             if (card.explanation) msg += `\n\n💡 ${card.explanation}`;
             document.getElementById('footer-text').textContent = msg;
 
-            // In sequential mode the Next button now glows to prompt the user to proceed
             if (!spacedRepetitionEnabled) {
                 document.getElementById('next-btn').classList.add('next-btn--ready');
             }
@@ -581,20 +571,6 @@ function showIdentificationFeedback(card) {
     container.innerHTML = '';
     hint.style.display  = isFlipped ? 'block' : 'none';
 
-    // ── Bug fix: if this card was already answered in the current SR session,
-    //    show a read-only indicator instead of live buttons so the user cannot
-    //    re-trigger a score increment by navigating back and reflipping.
-    if (spacedRepetitionEnabled && srAnsweredCardIds.has(card.id)) {
-        const msg = document.createElement('p');
-        msg.className   = 'already-answered-msg';
-        msg.textContent = srCorrectCardIds.has(card.id)
-            ? '✓ Already answered correctly'
-            : '✗ Already answered — keep practising!';
-        container.appendChild(msg);
-        hint.style.display = 'none';
-        return;
-    }
-
     const yesBtn = document.createElement('button');
     yesBtn.className   = 'feedback-btn correct-btn';
     yesBtn.textContent = '✓ Yes, I got it right';
@@ -602,9 +578,10 @@ function showIdentificationFeedback(card) {
         updateCardStats(currentSection, card.id, true);
 
         if (spacedRepetitionEnabled) {
-            // Only count this card once toward the unique-correct tally
+            // Always bump the raw correct counter so the user sees feedback.
+            scores[currentSection].correct++;
+            // Mastery progress (X / Y) only advances on the FIRST correct answer.
             if (!srCorrectCardIds.has(card.id)) {
-                scores[currentSection].correct++;
                 srCorrectCardIds.add(card.id);
             }
             srAnsweredCardIds.add(card.id);
@@ -616,7 +593,6 @@ function showIdentificationFeedback(card) {
         updateScoreDisplay();
         disableFeedbackButtons();
         hint.textContent = '✓ Got it! Press Next to continue.';
-        // In sequential mode, glow the Next button to prompt the user
         if (!spacedRepetitionEnabled) {
             document.getElementById('next-btn').classList.add('next-btn--ready');
         }
@@ -629,10 +605,8 @@ function showIdentificationFeedback(card) {
         updateCardStats(currentSection, card.id, false);
 
         if (spacedRepetitionEnabled) {
-            // Only add to wrong tally if the card hasn't been answered yet
-            if (!srAnsweredCardIds.has(card.id)) {
-                scores[currentSection].wrong = (scores[currentSection].wrong || 0) + 1;
-            }
+            // Always bump the raw wrong counter.
+            scores[currentSection].wrong = (scores[currentSection].wrong || 0) + 1;
             srAnsweredCardIds.add(card.id);
         } else {
             scores[currentSection].wrong = (scores[currentSection].wrong || 0) + 1;
