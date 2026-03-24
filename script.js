@@ -319,9 +319,16 @@ function loadSection(sectionKey) {
     currentSection  = sectionKey;
     isFlipped       = false;
     shuffledCards   = [...(sectionData.cards || [])];
-    answeredCardIds = new Set();
+    answeredCardIds   = new Set();
     srAnsweredCardIds = new Set();
     srCorrectCardIds  = new Set();
+
+    // Wipe persisted streaks so stale mastery data from a previous session
+    // never triggers the completion screen immediately on load.
+    if (cardStats[sectionKey]) {
+        cardStats[sectionKey] = {};
+        saveStats();
+    }
 
     scores[sectionKey] = { correct: 0, wrong: 0, total: shuffledCards.length };
 
@@ -330,11 +337,15 @@ function loadSection(sectionKey) {
     document.getElementById('footer-text').textContent      = 'Click the card to reveal the answer';
     document.getElementById('footer-hint').style.display    = 'none';
     document.getElementById('feedback-container').innerHTML = '';
+    document.getElementById('next-btn').classList.remove('next-btn--ready');
 
     if (shuffledCards.length > 0) {
-        currentIndex = spacedRepetitionEnabled ? getWeightedRandomCardIndex() : 0;
+        // Use selectNextCard() so the mastery-complete path is respected
+        if (spacedRepetitionEnabled) selectNextCard();
+        else { currentIndex = 0; updateCard(); }
+    } else {
+        updateCard();
     }
-    updateCard();
 }
 
 // ── Remaining cards (sequential mode) ─────────────────────────────────────
