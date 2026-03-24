@@ -547,7 +547,7 @@ function updateScoreDisplay() {
         // Show mastered / total so the user sees their retirement progress
         const mastered    = getMasteredCount();
         const totalCards  = shuffledCards.length;
-        document.getElementById('correct-count').textContent = `${mastered} / ${totalCards}`;
+        document.getElementById('correct-count').textContent = `${mastered} / ${totalCards} mastered`;
     } else {
         document.getElementById('correct-count').textContent = score.correct;
     }
@@ -714,6 +714,14 @@ function resetCards() {
     srAnsweredCardIds = new Set();
     srCorrectCardIds  = new Set();
     if (currentSection) scores[currentSection] = { correct: 0, wrong: 0, total: shuffledCards.length };
+
+    // Clear all streaks/stats for the current section so mastered cards
+    // re-enter the SR pool and the completion screen doesn't fire instantly.
+    if (currentSection && cardStats[currentSection]) {
+        cardStats[currentSection] = {};
+        saveStats();
+    }
+
     document.getElementById('footer-text').textContent      = 'Click the card to reveal the answer';
     document.getElementById('footer-hint').style.display    = 'none';
     document.getElementById('feedback-container').innerHTML = '';
