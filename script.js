@@ -213,6 +213,17 @@ function initializeApp() {
         lo.id = 'loading-overlay'; lo.className = 'loading-overlay'; lo.textContent = 'Loading…';
         cc.appendChild(lo);
     }
+
+    // Inject the mastered-progress badge next to the correct score item
+    const correctItem = document.querySelector('#correct-count')?.closest('.score-item');
+    if (correctItem && !document.getElementById('mastered-badge')) {
+        const badge = document.createElement('span');
+        badge.id        = 'mastered-badge';
+        badge.className = 'mastered-badge';
+        badge.style.cssText = 'font-size:0.75rem;color:var(--text-muted,#888);margin-left:6px;white-space:nowrap;';
+        correctItem.appendChild(badge);
+    }
+
     showModal();
 }
 
@@ -551,10 +562,14 @@ function updateScoreDisplay() {
         : { correct: 0, wrong: 0, total: 0 };
 
     if (spacedRepetitionEnabled) {
-        // Show mastered / total so the user sees their retirement progress
-        const mastered    = getMasteredCount();
-        const totalCards  = shuffledCards.length;
-        document.getElementById('correct-count').textContent = `${mastered} / ${totalCards} mastered`;
+        // Show raw correct answers so every click gives instant feedback.
+        // Mastery progress (retired cards) is shown separately via the mastered badge.
+        const mastered   = getMasteredCount();
+        const totalCards = shuffledCards.length;
+        document.getElementById('correct-count').textContent = score.correct;
+        // Update mastered badge if it exists
+        const masteredBadge = document.getElementById('mastered-badge');
+        if (masteredBadge) masteredBadge.textContent = `${mastered} / ${totalCards} mastered`;
     } else {
         document.getElementById('correct-count').textContent = score.correct;
     }
