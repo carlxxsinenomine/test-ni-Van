@@ -35,6 +35,11 @@ let cardStats      = {};
 // Spaced repetition toggle
 let spacedRepetitionEnabled = true;
 
+// ── Spaced-repetition mastery threshold ───────────────────────────────────
+// A card is permanently retired from the SR pool once its consecutive-correct
+// streak reaches this value. Set to 3: three correct answers in a row = mastered.
+const MASTERY_STREAK = 3;
+
 // ── Sequential-mode answered tracking ─────────────────────────────────────
 // Stores card IDs that have already been answered this session.
 // Only used when spacedRepetitionEnabled === false.
@@ -366,6 +371,12 @@ function updateCard() {
         return;
     }
 
+    // SR mode: all cards mastered → show completion screen
+    if (spacedRepetitionEnabled && shuffledCards.length > 0 && getMasteredCount() >= shuffledCards.length) {
+        showSRCompletionScreen();
+        return;
+    }
+
     // Sequential mode: all cards answered → show completion screen
     if (!spacedRepetitionEnabled && answeredCardIds.size >= shuffledCards.length) {
         showCompletionScreen();
@@ -533,10 +544,10 @@ function updateScoreDisplay() {
         : { correct: 0, wrong: 0, total: 0 };
 
     if (spacedRepetitionEnabled) {
-        // Show unique-correct / total so the user can see their mastery progress
-        const uniqueCorrect = srCorrectCardIds.size;
-        const totalCards    = shuffledCards.length;
-        document.getElementById('correct-count').textContent = `${uniqueCorrect} / ${totalCards}`;
+        // Show mastered / total so the user sees their retirement progress
+        const mastered    = getMasteredCount();
+        const totalCards  = shuffledCards.length;
+        document.getElementById('correct-count').textContent = `${mastered} / ${totalCards}`;
     } else {
         document.getElementById('correct-count').textContent = score.correct;
     }
@@ -749,28 +760,65 @@ function updateCardStats(section, cardId, isCorrect) {
     saveStats();
 }
 
+// ── Mastery helper ─────────────────────────────────────────────────────────
+// Returns true if this card has been mastered (streak >= MASTERY_STREAK).
+function isCardMastered(card) {
+    const s = getCardStats(currentSection, card.id);
+    return (s.streak || 0) >= MASTERY_STREAK;
+}
+
+// Count how many cards in the current deck are mastered.
+function getMasteredCount() {
+    return shuffledCards.filter(c => isCardMastered(c)).length;
+}
+
 // ── Weighted-random SR algorithm ──────────────────────────────────────────
+// Weight rules:
+//   • Mastered cards (streak ≥ MASTERY_STREAK) → weight 0 (never shown again)
+//   • Current card                              → weight 0 (avoid immediate repeat)
+//   • Unseen cards (no history)                 → weight 1.0  (baseline)
+//   • Seen cards                                → scaled by accuracy & streak:
+//       streak 1 → ×0.55   streak 2 → ×0.25   streak (MASTERY_STREAK-1) → ×0.08
+//       wrong answers boost weight (more likely to reappear)
 function getWeightedRandomCardIndex() {
     const weights = shuffledCards.map((card, idx) => {
+        // Never repeat the immediately shown card
         if (idx === currentIndex) return 0;
+        // Retired: mastered cards are fully excluded
+        if (isCardMastered(card)) return 0;
+
         const s       = getCardStats(currentSection, card.id);
         const correct = s.correct || 0;
         const wrong   = s.wrong   || 0;
         const streak  = s.streak  || 0;
         const total   = correct + wrong;
+
+        // Unseen card — give it the default priority
         if (total === 0) return 1.0;
+
         const accuracy = correct / total;
+        // Base weight: wrong answers increase likelihood of reappearance
         let weight = 1.0 + (wrong * 2.0);
+        // Reduce weight as accuracy improves
         weight *= (1 - accuracy * 0.65);
-        const sm = streak >= 4 ? 0.03 : streak === 3 ? 0.08 : streak === 2 ? 0.25 : streak === 1 ? 0.55 : 1.0;
-        return Math.max(0.05, weight * sm);
+        // Streak multiplier: progressively lowers weight toward retirement
+        // streak 0 → 1.0, 1 → 0.55, 2 → 0.25, MASTERY_STREAK-1 → 0.08
+        // (streak >= MASTERY_STREAK is already caught above and returns 0)
+        const streakMul =
+            streak === 0 ? 1.0 :
+            streak === 1 ? 0.55 :
+            streak === 2 ? 0.25 :
+                           0.08;   // streak 3+ but below MASTERY_STREAK (if threshold raised)
+        // No floor — weight can reach 0 once a card is mastered
+        return Math.max(0, weight * streakMul);
     });
 
-    const total = weights.reduce((sum, w) => sum + w, 0);
-    if (total === 0) return Math.floor(Math.random() * shuffledCards.length);
+    const totalWeight = weights.reduce((sum, w) => sum + w, 0);
+    // If every active card has weight 0 (all mastered), signal completion
+    if (totalWeight === 0) return -1;
 
     let cumulative = 0;
-    const rand = Math.random() * total;
+    const rand = Math.random() * totalWeight;
     for (let i = 0; i < weights.length; i++) {
         cumulative += weights[i];
         if (rand < cumulative) return i;
@@ -779,7 +827,39 @@ function getWeightedRandomCardIndex() {
 }
 
 function selectNextCard() {
-    currentIndex = getWeightedRandomCardIndex();
+    const idx = getWeightedRandomCardIndex();
+    if (idx === -1) {
+        // All cards have been mastered — celebrate!
+        showSRCompletionScreen();
+        return;
+    }
+    currentIndex = idx;
     updateCard();
+}
+
+// ── SR completion screen (all cards mastered) ──────────────────────────────
+function showSRCompletionScreen() {
+    const flashcardEl = document.getElementById('flashcard');
+    flashcardEl.classList.remove('flipped', 'mc-mode');
+    flashcardEl.style.cursor = 'default';
+
+    const total   = shuffledCards.length;
+    const correct = scores[currentSection]?.correct || 0;
+    const wrong   = scores[currentSection]?.wrong   || 0;
+
+    document.getElementById('front-text').textContent =
+        `🏆 All ${total} cards mastered!\n\n` +
+        `You answered every card correctly ${MASTERY_STREAK} times in a row.\n\n` +
+        `Total correct: ${correct}   Total wrong: ${wrong}\n\n` +
+        `Press Reset to start a fresh session.`;
+    document.getElementById('back-text').textContent        = '';
+    document.getElementById('choices-container').innerHTML  = '';
+    document.getElementById('feedback-container').innerHTML = '';
+    document.getElementById('footer-hint').style.display    = 'none';
+    document.getElementById('footer-text').textContent      = 'Press Reset to start over.';
+    document.getElementById('prev-btn').disabled            = true;
+    document.getElementById('next-btn').disabled            = true;
+
+    updateScoreDisplay();
 }
 // Test
