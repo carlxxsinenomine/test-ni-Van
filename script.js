@@ -808,3 +808,4 @@ function selectNextCard() {
     currentIndex = getWeightedRandomCardIndex();
     updateCard();
 }
+// Test
