@@ -323,12 +323,8 @@ function loadSection(sectionKey) {
     srAnsweredCardIds = new Set();
     srCorrectCardIds  = new Set();
 
-    // Wipe persisted streaks so stale mastery data from a previous session
-    // never triggers the completion screen immediately on load.
-    if (cardStats[sectionKey]) {
-        cardStats[sectionKey] = {};
-        saveStats();
-    }
+    // Reset in-session streaks for this section
+    cardStats[sectionKey] = {};
 
     scores[sectionKey] = { correct: 0, wrong: 0, total: shuffledCards.length };
 
@@ -726,12 +722,8 @@ function resetCards() {
     srCorrectCardIds  = new Set();
     if (currentSection) scores[currentSection] = { correct: 0, wrong: 0, total: shuffledCards.length };
 
-    // Clear all streaks/stats for the current section so mastered cards
-    // re-enter the SR pool and the completion screen doesn't fire instantly.
-    if (currentSection && cardStats[currentSection]) {
-        cardStats[currentSection] = {};
-        saveStats();
-    }
+    // Clear in-session streaks for this section so all cards re-enter the pool
+    if (currentSection) cardStats[currentSection] = {};
 
     document.getElementById('footer-text').textContent      = 'Click the card to reveal the answer';
     document.getElementById('footer-hint').style.display    = 'none';
@@ -759,12 +751,16 @@ function loadThemePreference() {
 }
 
 // ── Persistent card stats ──────────────────────────────────────────────────
+// Streaks/mastery are SESSION-ONLY — we never load them from localStorage.
+// This prevents stale mastery data from previous sessions triggering the
+// completion screen the moment a lecture is opened.
 function loadStats() {
-    const stored = localStorage.getItem('flashcardStats');
-    if (stored) try { cardStats = JSON.parse(stored); } catch { cardStats = {}; }
+    // Always start with a clean slate — do NOT restore old streaks.
+    cardStats = {};
+    localStorage.removeItem('flashcardStats');
 }
 
-function saveStats() { localStorage.setItem('flashcardStats', JSON.stringify(cardStats)); }
+function saveStats() { /* streaks are session-only — intentionally not persisted */ }
 
 function getCardStats(section, cardId) {
     cardStats[section]         = cardStats[section]         || {};
